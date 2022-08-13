@@ -30,16 +30,13 @@ import Table from "examples/Tables/Table";
 import authorsTableData from "layouts/users/data/authorsTableData";
 import projectsTableData from "layouts/users/data/projectsTableData";
 
-//routes
-import routes from "routes";
-
 function Users() {
   const { columns, rows } = authorsTableData;
   const { columns: prCols, rows: prRows } = projectsTableData;
 
   return (
     <DashboardLayout>
-      <DashboardNavbar action = {routes.filter(e => e.key == 'users')[0].collapse}/>
+      <DashboardNavbar action = 'users'/>
       <SoftBox py={3}>
         <SoftBox mb={3}>
           <Card>

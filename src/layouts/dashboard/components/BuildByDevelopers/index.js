@@ -82,7 +82,7 @@ function BuildByDevelopers() {
               display="grid"
               justifyContent="center"
               alignItems="center"
-              bgColor="info"
+              bgColor="primary"
               borderRadius="lg"
               variant="gradient"
             >
@@ -96,7 +96,7 @@ function BuildByDevelopers() {
                 width="100%"
                 height="100%"
               />
-              <SoftBox component="img" src={rocketWhite} alt="rocket" width="100%" pt={3} />
+              <SoftBox component="img" src={rocketWhite} alt="rocket" width="100%" pt={3}/>
             </SoftBox>
           </Grid>
         </Grid>

@@ -30,6 +30,8 @@ import Icon from "@mui/material/Icon";
 
 // Soft UI Dashboard React components
 import SoftBox from "components/SoftBox";
+import SoftAvatar from "components/SoftAvatar";
+import burceMars from "assets/images/bruce-mars.jpg";
 import SoftTypography from "components/SoftTypography";
 import SoftInput from "components/SoftInput";
 import DefaultNavbarLink from "examples/Navbars/DefaultNavbar/DefaultNavbarLink";
@@ -56,6 +58,8 @@ import {
   setOpenConfigurator,
 } from "context";
 
+import routes from "routes";
+
 // Images
 import team2 from "assets/images/team-2.jpg";
 import logoSpotify from "assets/images/small-logos/logo-spotify.svg";
@@ -66,6 +70,8 @@ function DashboardNavbar({ absolute, light, isMini, action }) {
   const { miniSidenav, transparentNavbar, fixedNavbar, openConfigurator } = controller;
   const [openMenu, setOpenMenu] = useState(false);
   const route = useLocation().pathname.split("/").slice(1);
+
+  const collapse = routes.filter(e => e.key === action)[0].collapse
 
   useEffect(() => {
     // Setting the navbar type
@@ -150,10 +156,18 @@ function DashboardNavbar({ absolute, light, isMini, action }) {
 
         {isMini ? null : (
           <SoftBox sx={(theme) => navbarRow(theme, { isMini })}>
-            {action &&
-              action.map((a, index) => (
+            {collapse &&
+              collapse.map((a, index) => (
                 <SoftBox key={index}>
-                  <DefaultNavbarLink icon={a.icon} name={a.name} route={a.route} light={light} active = {`${route[0].toLowerCase()}-${route[route.length - 1].toLowerCase()}`===a.key}/>
+                  <DefaultNavbarLink
+                    icon={a.icon}
+                    name={a.name}
+                    route={a.route}
+                    light={light}
+                    active={
+                      `${route[0].toLowerCase()}-${route[route.length - 1].toLowerCase()}` === a.key
+                    }
+                  />
                 </SoftBox>
               ))}
             <SoftBox pr={1} pl={3}>
@@ -173,14 +187,7 @@ function DashboardNavbar({ absolute, light, isMini, action }) {
                   {miniSidenav ? "menu_open" : "menu"}
                 </Icon>
               </IconButton>
-              <IconButton
-                size="small"
-                color="inherit"
-                sx={navbarIconButton}
-                onClick={handleConfiguratorOpen}
-              >
-                <Icon>settings</Icon>
-              </IconButton>
+
               <IconButton
                 size="small"
                 color="inherit"
@@ -193,6 +200,20 @@ function DashboardNavbar({ absolute, light, isMini, action }) {
                 <Icon className={light ? "text-white" : "text-dark"}>notifications</Icon>
               </IconButton>
               {renderMenu()}
+              <IconButton
+                size="small"
+                color="inherit"
+                sx={navbarIconButton}
+                onClick={handleConfiguratorOpen}
+              >
+                <SoftAvatar
+                  src={burceMars}
+                  alt="profile-image"
+                  variant="rounded"
+                  size="xs"
+                  shadow="sm"
+                />
+              </IconButton>
             </SoftBox>
           </SoftBox>
         )}
@@ -214,14 +235,7 @@ DashboardNavbar.propTypes = {
   absolute: PropTypes.bool,
   light: PropTypes.bool,
   isMini: PropTypes.bool,
-  action: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.shape({
-      route: PropTypes.string.isRequired,
-      icon: PropTypes.any,
-      name: PropTypes.string.isRequired,
-    }),
-  ]),
+  action: PropTypes.string
 };
 
 export default DashboardNavbar;

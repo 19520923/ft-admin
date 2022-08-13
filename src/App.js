@@ -46,7 +46,8 @@ import routes from "routes";
 import { useSoftUIController, setMiniSidenav, setOpenConfigurator } from "context";
 
 // Images
-import brand from "assets/images/logo-ct.png";
+import logo from "assets/images/logos/logoApp.png";
+import SignIn from "layouts/authentication/sign-in";
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -108,7 +109,7 @@ export default function App() {
       return null;
     });
 
-  const configsButton = (
+  const chatButton = (
     <SoftBox
       display="flex"
       justifyContent="center"
@@ -127,7 +128,7 @@ export default function App() {
       onClick={handleConfiguratorOpen}
     >
       <Icon fontSize="default" color="inherit">
-        settings
+        chat
       </Icon>
     </SoftBox>
   );
@@ -140,14 +141,14 @@ export default function App() {
           <>
             <Sidenav
               color={sidenavColor}
-              brand={brand}
+              brand={logo}
               brandName="FOODTALK ADMIN"
               routes={routes}
               onMouseEnter={handleOnMouseEnter}
               onMouseLeave={handleOnMouseLeave}
             />
-            {/* <Configurator />
-            {configsButton} */}
+            {/* <Configurator />*/}
+            {chatButton} 
           </>
         )}
         {layout === "vr" && <Configurator />}
@@ -164,7 +165,7 @@ export default function App() {
         <>
           <Sidenav
             color={sidenavColor}
-            brand={brand}
+            brand={logo}
             brandName="FOODTALK ADMIN"
             routes={routes}
             onMouseEnter={handleOnMouseEnter}
@@ -172,12 +173,14 @@ export default function App() {
           />
           {/* <Configurator />
           {configsButton} */}
+          {chatButton} 
         </>
       )}
       {layout === "vr" && <Configurator />}
       <Routes>
         {getRoutes(routes)}
         <Route path="*" element={<Navigate to="/dashboard" />} />
+        <Route path="/authentication/sign-in" elements={<SignIn/>}/>
       </Routes>
     </ThemeProvider>
   );

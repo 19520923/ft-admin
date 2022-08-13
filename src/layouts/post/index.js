@@ -29,15 +29,15 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 
 // Billing page components
-import PaymentMethod from "layouts/billing/components/PaymentMethod";
-import Invoices from "layouts/billing/components/Invoices";
-import BillingInformation from "layouts/billing/components/BillingInformation";
-import Transactions from "layouts/billing/components/Transactions";
+import PaymentMethod from "layouts/post/components/PaymentMethod";
+import Invoices from "layouts/post/components/Invoices";
+import BillingInformation from "layouts/post/components/BillingInformation";
+import Transactions from "layouts/post/components/Transactions";
 
-function Billing() {
+function Post() {
   return (
     <DashboardLayout>
-      <DashboardNavbar action = 'billing'/>
+      <DashboardNavbar action = 'posts'/>
       <SoftBox mt={4}>
         <SoftBox mb={1.5}>
           <Grid container spacing={3}>
@@ -88,4 +88,4 @@ function Billing() {
   );
 }
 
-export default Billing;
+export default Post;

@@ -60,7 +60,7 @@ function RTL() {
 
   return (
     <DashboardLayout>
-      <DashboardNavbar />
+      <DashboardNavbar action = 'rtl'/>
       <SoftBox py={3}>
         <SoftBox mb={3}>
           <Grid container spacing={3}>

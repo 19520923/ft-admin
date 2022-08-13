@@ -38,24 +38,26 @@ Coded by www.creative-tim.com
 // Soft UI Dashboard React layouts
 import Dashboard from "layouts/dashboard";
 import Users from "layouts/users";
-import Billing from "layouts/billing";
 import VirtualReality from "layouts/virtual-reality";
 import RTL from "layouts/rtl";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
 
+//avatar
+import SoftAvatar from "components/SoftAvatar";
+import burceMars from "assets/images/bruce-mars.jpg";
+
 // Soft UI Dashboard React icons
 import ShowChartIcon from "@mui/icons-material/ShowChart";
 import PeopleIcon from "@mui/icons-material/People";
-import Shop from "examples/Icons/Shop";
-import Office from "examples/Icons/Office";
+import NewspaperIcon from "@mui/icons-material/Newspaper";
+import FastfoodIcon from '@mui/icons-material/Fastfood';
 import Settings from "examples/Icons/Settings";
 import Document from "examples/Icons/Document";
 import SpaceShip from "examples/Icons/SpaceShip";
-import CustomerSupport from "examples/Icons/CustomerSupport";
-import CreditCard from "examples/Icons/CreditCard";
 import Cube from "examples/Icons/Cube";
+import Post from "layouts/post";
 
 const routes = [
   {
@@ -88,16 +90,71 @@ const routes = [
         route: "/users/reported",
         component: <Users />,
       },
+      {
+        name: "Blocked",
+        key: "users-blocked",
+        route: "/users/blocked",
+        component: <Users />,
+      },
     ],
   },
   {
     type: "collapse",
-    name: "Billing",
-    key: "billing",
-    route: "/billing",
-    icon: <CreditCard size="12px" />,
-    component: <Billing />,
+    name: "Posts",
+    key: "posts",
+    route: "/posts/overview",
+    icon: <NewspaperIcon />,
+    component: <Post />,
     noCollapse: true,
+    collapse: [
+      {
+        name: "Overview",
+        key: "posts-overview",
+        route: "/posts/overview",
+        component: <Post />,
+      },
+      {
+        name: "Reported",
+        key: "posts-reported",
+        route: "/posts/reported",
+        component: <Post />,
+      },
+      {
+        name: "Blocked",
+        key: "posts-blocked",
+        route: "/posts/blocked",
+        component: <Post />,
+      },
+    ],
+  },
+  {
+    type: "collapse",
+    name: "Foods",
+    key: "foods",
+    route: "/foods/overview",
+    icon: <FastfoodIcon />,
+    component: <Post />,
+    noCollapse: true,
+    collapse: [
+      {
+        name: "Overview",
+        key: "foods-overview",
+        route: "/foods/overview",
+        component: <Post />,
+      },
+      {
+        name: "Reported",
+        key: "foods-reported",
+        route: "/foods/reported",
+        component: <Post />,
+      },
+      {
+        name: "Blocked",
+        key: "foods-blocked",
+        route: "/foods/blocked",
+        component: <Post />,
+      },
+    ],
   },
   {
     type: "collapse",
@@ -123,7 +180,9 @@ const routes = [
     name: "Profile",
     key: "profile",
     route: "/profile",
-    icon: <CustomerSupport size="12px" />,
+    icon: (
+      <SoftAvatar src={burceMars} alt="profile-image" variant="rounded" size="sm" shadow="sm" />
+    ),
     component: <Profile />,
     noCollapse: true,
   },

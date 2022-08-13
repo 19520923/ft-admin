@@ -48,7 +48,7 @@ function Dashboard() {
 
   return (
     <DashboardLayout>
-      <DashboardNavbar />
+      <DashboardNavbar action = 'dashboard'/>
       <SoftBox py={3}>
         <SoftBox mb={3}>
           <Grid container spacing={3}>
@@ -57,7 +57,7 @@ function Dashboard() {
                 title={{ text: "today's money" }}
                 count="$53,000"
                 percentage={{ color: "success", text: "+55%" }}
-                icon={{ color: "info", component: "paid" }}
+                icon={{ color: "primary", component: "paid" }}
               />
             </Grid>
             <Grid item xs={12} sm={6} xl={3}>
@@ -65,7 +65,7 @@ function Dashboard() {
                 title={{ text: "today's users" }}
                 count="2,300"
                 percentage={{ color: "success", text: "+3%" }}
-                icon={{ color: "info", component: "public" }}
+                icon={{ color: "primary", component: "public" }}
               />
             </Grid>
             <Grid item xs={12} sm={6} xl={3}>
@@ -73,7 +73,7 @@ function Dashboard() {
                 title={{ text: "new clients" }}
                 count="+3,462"
                 percentage={{ color: "error", text: "-2%" }}
-                icon={{ color: "info", component: "emoji_events" }}
+                icon={{ color: "primary", component: "emoji_events" }}
               />
             </Grid>
             <Grid item xs={12} sm={6} xl={3}>
@@ -82,7 +82,7 @@ function Dashboard() {
                 count="$103,430"
                 percentage={{ color: "success", text: "+5%" }}
                 icon={{
-                  color: "info",
+                  color: "primary",
                   component: "shopping_cart",
                 }}
               />
@@ -118,7 +118,7 @@ function Dashboard() {
                 title="Sales Overview"
                 description={
                   <SoftBox display="flex" alignItems="center">
-                    <SoftBox fontSize={size.lg} color="success" mb={0.3} mr={0.5} lineHeight={0}>
+                    <SoftBox fontSize={size.lg} color="primary" mb={0.3} mr={0.5} lineHeight={0}>
                       <Icon className="font-bold">arrow_upward</Icon>
                     </SoftBox>
                     <SoftTypography variant="button" color="text" fontWeight="medium">
