@@ -14,10 +14,12 @@ Coded by www.creative-tim.com
 */
 
 // @mui material components
+import { Icon } from "@mui/material";
 import Card from "@mui/material/Card";
 
 // Soft UI Dashboard React components
 import SoftBox from "components/SoftBox";
+import SoftPagination from "components/SoftPagination";
 import SoftTypography from "components/SoftTypography";
 
 // Billing page components
@@ -28,10 +30,10 @@ function BillingInformation() {
     <Card id="delete-account">
       <SoftBox pt={3} px={2}>
         <SoftTypography variant="h6" fontWeight="medium">
-          Billing Information
+          Food Post
         </SoftTypography>
       </SoftBox>
-      <SoftBox pt={1} pb={2} px={2}>
+      <SoftBox pt={1} pb={2} px={2} >
         <SoftBox component="ul" display="flex" flexDirection="column" p={0} m={0}>
           <Bill
             name="oliver liam"
@@ -53,6 +55,19 @@ function BillingInformation() {
             noGutter
           />
         </SoftBox>
+      </SoftBox>
+      <SoftBox px={30} pb={5}>
+        <SoftPagination>
+          <SoftPagination item>
+            <Icon>keyboard_arrow_left</Icon>
+          </SoftPagination>
+          <SoftPagination item active>1</SoftPagination>
+          <SoftPagination item>2</SoftPagination>
+          <SoftPagination item>3</SoftPagination>
+          <SoftPagination item>
+            <Icon>keyboard_arrow_right</Icon>
+          </SoftPagination>
+        </SoftPagination>
       </SoftBox>
     </Card>
   );

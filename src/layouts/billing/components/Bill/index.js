@@ -33,7 +33,10 @@ function Bill({ name, company, email, vat, noGutter }) {
       alignItems="flex-start"
       bgColor="grey-100"
       borderRadius="lg"
-      p={3}
+      pl={2}
+      pr={2}
+      pt={2}
+      pb={2}
       mb={noGutter ? 0 : 1}
       mt={2}
     >
@@ -56,12 +59,12 @@ function Bill({ name, company, email, vat, noGutter }) {
             ml={{ xs: -1.5, sm: 0 }}
           >
             <SoftBox mr={1}>
-              <SoftButton variant="text" color="error">
-                <Icon>delete</Icon>&nbsp;delete
+              <SoftButton variant="text" color="secondary">
+                <Icon>subtitles_off</Icon>&nbsp;hide
               </SoftButton>
             </SoftBox>
             <SoftButton variant="text" color="dark">
-              <Icon>edit</Icon>&nbsp;edit
+              <Icon>more_vert</Icon>&nbsp;
             </SoftButton>
           </SoftBox>
         </SoftBox>
