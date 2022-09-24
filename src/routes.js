@@ -58,8 +58,19 @@ import Document from "examples/Icons/Document";
 import SpaceShip from "examples/Icons/SpaceShip";
 import Cube from "examples/Icons/Cube";
 import Post from "layouts/post";
+import food from "layouts/food";
+import Food from "layouts/food";
+import Feedback from "layouts/feedback";
+import Setting from "layouts/setting";
+import Chat from "layouts/chat";
+import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
+import LogoutIcon from '@mui/icons-material/Logout';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 const routes = [
+  /* 
+    Dashboard Drawer 
+  */
   {
     type: "collapse",
     name: "Dashboard",
@@ -69,6 +80,9 @@ const routes = [
     component: <Dashboard />,
     noCollapse: true,
   },
+  /* 
+   User Drawer 
+ */
   {
     type: "collapse",
     name: "Users",
@@ -98,6 +112,9 @@ const routes = [
       },
     ],
   },
+  /* 
+   Post Drawer 
+ */
   {
     type: "collapse",
     name: "Posts",
@@ -127,83 +144,127 @@ const routes = [
       },
     ],
   },
+  /* 
+   Food Drawer 
+ */
   {
     type: "collapse",
     name: "Foods",
     key: "foods",
     route: "/foods/overview",
     icon: <FastfoodIcon />,
-    component: <Post />,
+    component: <Food />,
     noCollapse: true,
     collapse: [
       {
         name: "Overview",
         key: "foods-overview",
         route: "/foods/overview",
-        component: <Post />,
+        component: <Food />,
       },
       {
         name: "Reported",
         key: "foods-reported",
         route: "/foods/reported",
-        component: <Post />,
+        component: <Food />,
       },
       {
         name: "Blocked",
         key: "foods-blocked",
         route: "/foods/blocked",
-        component: <Post />,
+        component: <Food />,
       },
     ],
   },
+  /* 
+    Chat Drawer 
+  */
   {
     type: "collapse",
-    name: "Virtual Reality",
-    key: "virtual-reality",
-    route: "/virtual-reality",
-    icon: <Cube size="12px" />,
-    component: <VirtualReality />,
+    name: "Chats",
+    key: "chats",
+    route: "/chats",
+    icon: <QuestionAnswerIcon />,
+    component: <Chat />,
     noCollapse: true,
   },
+  /* 
+    Feedback Drawer 
+  */
   {
     type: "collapse",
-    name: "RTL",
-    key: "rtl",
-    route: "/rtl",
-    icon: <Settings size="12px" />,
-    component: <RTL />,
+    name: "Feedbacks",
+    key: "feedbacks",
+    route: "/feedbacks",
+    icon: <Document size="16px" />,
+    component: <Feedback />,
     noCollapse: true,
   },
+
+
+
+
+
+
+
+
+
+  // {
+  //   type: "collapse",
+  //   name: "Virtual Reality",
+  //   key: "virtual-reality",
+  //   route: "/virtual-reality",
+  //   icon: <Cube size="12px" />,
+  //   component: <VirtualReality />,
+  //   noCollapse: true,
+  // },
+  // {
+  //   type: "collapse",
+  //   name: "Profile",
+  //   key: "profile",
+  //   route: "/profile",
+  //   icon: (
+  //     <SoftAvatar src={burceMars} alt="profile-image" variant="rounded" size="sm" shadow="sm" />
+  //   ),
+  //   component: <Profile />,
+  //   noCollapse: true,
+  // },
+
   { type: "title", title: "Account Pages", key: "account-pages" },
+
+  /* 
+   Setting Drawer 
+ */
   {
     type: "collapse",
-    name: "Profile",
-    key: "profile",
-    route: "/profile",
-    icon: (
-      <SoftAvatar src={burceMars} alt="profile-image" variant="rounded" size="sm" shadow="sm" />
-    ),
-    component: <Profile />,
+    name: "Settings",
+    key: "settings",
+    route: "/settings",
+    icon: <SettingsIcon />,
+    component: <Setting />,
     noCollapse: true,
   },
+  /* 
+  LogOut Drawer 
+*/
   {
     type: "collapse",
-    name: "Sign In",
-    key: "sign-in",
+    name: "Log Out",
+    key: "log-out",
     route: "/authentication/sign-in",
-    icon: <Document size="12px" />,
+    icon: <LogoutIcon />,
     component: <SignIn />,
     noCollapse: true,
   },
-  {
-    type: "collapse",
-    name: "Sign Up",
-    key: "sign-up",
-    route: "/authentication/sign-up",
-    icon: <SpaceShip size="12px" />,
-    component: <SignUp />,
-    noCollapse: true,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Sign Up",
+  //   key: "sign-up",
+  //   route: "/authentication/sign-up",
+  //   icon: <SpaceShip size="12px" />,
+  //   component: <SignUp />,
+  //   noCollapse: true,
+  // },
 ];
 
 export default routes;

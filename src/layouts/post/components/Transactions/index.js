@@ -30,9 +30,9 @@ function Transactions() {
     <Card sx={{ height: "100%" }}>
       <SoftBox display="flex" justifyContent="space-between" alignItems="center" pt={3} px={2}>
         <SoftTypography variant="h6" fontWeight="medium" textTransform="capitalize">
-          Your Transaction&apos;s
+          Username&apos; Detail Post
         </SoftTypography>
-        <SoftBox display="flex" alignItems="flex-start">
+        {/* <SoftBox display="flex" alignItems="flex-start">
           <SoftBox color="text" mr={0.5} lineHeight={0}>
             <Icon color="inherit" fontSize="small">
               date_range
@@ -123,7 +123,7 @@ function Transactions() {
             description="26 March 2020, at 05:00 AM"
             value="Pending"
           />
-        </SoftBox>
+        </SoftBox> */}
       </SoftBox>
     </Card>
   );
