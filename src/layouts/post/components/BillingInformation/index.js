@@ -39,18 +39,23 @@ function BillingInformation() {
             fullname="Nguyen Minh Thai"
             username="thaivohinh123"
             date="11/9/2022"
+            checkin="Linh Trung ward, Thu Duc district, Ho Chi Minh City"
             caption="It's so cool. I do it myself !"
+            noGutter
           />
           <Bill
             fullname="Nguyen Nhut Tan"
             username="tannn01"
             date="10/9/2022"
+            checkin="224A, Dien Bien Phu street, Vo Thi Sau Ward, district 3"
             caption="Welcome everyone"
+            noGutter
           />
           <Bill
             fullname="Duong Trung Nguyen"
             username="nguyentrungg"
             date="20/11/2021"
+            checkin=""
             caption="Oh so pretty !"
             noGutter
           />

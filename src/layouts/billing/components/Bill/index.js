@@ -24,10 +24,12 @@ import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 import SoftButton from "components/SoftButton";
 import ActionItem from "examples/Items/ActionItem";
-import { Menu } from "@mui/material";
+import { Grid, Menu } from "@mui/material";
 import { useState } from "react";
+import wavesWhite from "assets/images/shapes/waves-white.svg";
+import rocketWhite from "assets/images/illustrations/rocket-white.png";
 
-function Bill({ fullname, username, date, caption, noGutter }) {
+function Bill({ fullname, username, date, checkin, caption, noGutter }) {
 
   const [openMenu, setOpenMenu] = useState(false);
   const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
@@ -52,7 +54,7 @@ function Bill({ fullname, username, date, caption, noGutter }) {
         date="View detail post."
         onClick={handleCloseMenu}
       />
-       <ActionItem
+      <ActionItem
         icon="hide_image"
         color="disabled"
         title={["Hide"]}
@@ -113,28 +115,67 @@ function Bill({ fullname, username, date, caption, noGutter }) {
             </SoftButton>
           </SoftBox>
         </SoftBox>
-        <SoftBox mb={1} lineHeight={0}>
-          <SoftTypography variant="caption" color="text">
-            Username:&nbsp;&nbsp;&nbsp;
-            <SoftTypography variant="caption" fontWeight="medium" textTransform="capitalize">
-              {username}
-            </SoftTypography>
-          </SoftTypography>
+        <SoftBox p={2}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} lg={6}>
+              <SoftBox mb={1} lineHeight={0}>
+                <SoftTypography variant="caption" color="text">
+                  Username:&nbsp;&nbsp;&nbsp;
+                  <SoftTypography variant="caption" fontWeight="medium" textTransform="capitalize">
+                    {username}
+                  </SoftTypography>
+                </SoftTypography>
+              </SoftBox>
+              <SoftBox mb={1} lineHeight={0}>
+                <SoftTypography variant="caption" color="text">
+                  Date:&nbsp;&nbsp;&nbsp;
+                  <SoftTypography variant="caption" fontWeight="medium">
+                    {date}
+                  </SoftTypography>
+                </SoftTypography>
+              </SoftBox>
+              <SoftBox mb={1} lineHeight={0}>
+                <SoftTypography variant="caption" color="text">
+                  Check-in:&nbsp;&nbsp;&nbsp;
+                  <SoftTypography variant="caption" fontWeight="medium">
+                    {checkin}
+                  </SoftTypography>
+                </SoftTypography>
+              </SoftBox>
+              <SoftBox mb={1} lineHeight={0}>
+                <SoftTypography variant="caption" color="text">
+                  Caption:&nbsp;&nbsp;&nbsp;
+                  <SoftTypography variant="caption" fontWeight="medium">
+                    {caption}
+                  </SoftTypography>
+                </SoftTypography>
+              </SoftBox>
+            </Grid>
+            <Grid item xs={12} lg={4} sx={{ position: "relative", ml: "auto" }}>
+              <SoftBox
+                height="100%"
+                display="grid"
+                justifyContent="center"
+                alignItems="center"
+                bgColor="primary"
+                borderRadius="lg"
+                variant="gradient"
+              >
+                <SoftBox
+                  component="img"
+                  src={wavesWhite}
+                  alt="waves"
+                  display="block"
+                  position="absolute"
+                  left={0}
+                  width="100%"
+                  height="100%"
+                />
+                <SoftBox component="img" src={rocketWhite} alt="rocket" width="100%" pt={3} />
+              </SoftBox>
+            </Grid>
+          </Grid>
         </SoftBox>
-        <SoftBox mb={1} lineHeight={0}>
-          <SoftTypography variant="caption" color="text">
-            Date:&nbsp;&nbsp;&nbsp;
-            <SoftTypography variant="caption" fontWeight="medium">
-              {date}
-            </SoftTypography>
-          </SoftTypography>
-        </SoftBox>
-        <SoftTypography variant="caption" color="text">
-          Caption:&nbsp;&nbsp;&nbsp;
-          <SoftTypography variant="caption" fontWeight="medium">
-            {caption}
-          </SoftTypography>
-        </SoftTypography>
       </SoftBox>
     </SoftBox>
   );
@@ -150,6 +191,7 @@ Bill.propTypes = {
   fullname: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
+  checkin: PropTypes.string.isRequired,
   caption: PropTypes.string.isRequired,
   noGutter: PropTypes.bool,
 };
