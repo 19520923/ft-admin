@@ -36,22 +36,22 @@ function BillingInformation() {
       <SoftBox pt={1} pb={2} px={2} >
         <SoftBox component="ul" display="flex" flexDirection="column" p={0} m={0}>
           <Bill
-            name="oliver liam"
-            company="viking burrito"
-            email="oliver@burrito.com"
-            vat="FRB1235476"
+            fullname="Nguyen Minh Thai"
+            username="thaivohinh123"
+            date="11/9/2022"
+            caption="It's so cool. I do it myself !"
           />
           <Bill
-            name="lucas harper"
-            company="stone tech zone"
-            email="lucas@stone-tech.com"
-            vat="FRB1235476"
+            fullname="Nguyen Nhut Tan"
+            username="tannn01"
+            date="10/9/2022"
+            caption="Welcome everyone"
           />
           <Bill
-            name="ethan james"
-            company="fiber notion"
-            email="ethan@fiber.com"
-            vat="FRB1235476"
+            fullname="Duong Trung Nguyen"
+            username="nguyentrungg"
+            date="20/11/2021"
+            caption="Oh so pretty !"
             noGutter
           />
         </SoftBox>

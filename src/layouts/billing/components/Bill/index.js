@@ -23,8 +23,52 @@ import Icon from "@mui/material/Icon";
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 import SoftButton from "components/SoftButton";
+import ActionItem from "examples/Items/ActionItem";
+import { Menu } from "@mui/material";
+import { useState } from "react";
 
-function Bill({ name, company, email, vat, noGutter }) {
+function Bill({ fullname, username, date, caption, noGutter }) {
+
+  const [openMenu, setOpenMenu] = useState(false);
+  const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
+  const handleCloseMenu = () => setOpenMenu(false);
+
+  const renderMenu = () => (
+    <Menu Menu
+      anchorEl={openMenu}
+      anchorReference={null}
+      anchorOrigin={{
+        vertical: "bottom",
+        horizontal: "left",
+      }}
+      open={Boolean(openMenu)}
+      onClose={handleCloseMenu}
+      sx={{ mt: 2 }}
+    >
+      <ActionItem
+        icon="description"
+        color="View"
+        title={["View"]}
+        date="View detail post."
+        onClick={handleCloseMenu}
+      />
+       <ActionItem
+        icon="hide_image"
+        color="disabled"
+        title={["Hide"]}
+        date="Hide this post temporarily."
+        onClick={handleCloseMenu}
+      />
+      <ActionItem
+        icon="delete"
+        color="error"
+        title={["Delete"]}
+        date="Delete this post permanently."
+        onClick={handleCloseMenu}
+      />
+    </Menu>
+  );
+
   return (
     <SoftBox
       component="li"
@@ -49,7 +93,7 @@ function Bill({ name, company, email, vat, noGutter }) {
           mb={2}
         >
           <SoftTypography variant="button" fontWeight="medium" textTransform="capitalize">
-            {name}
+            {fullname}
           </SoftTypography>
 
           <SoftBox
@@ -60,34 +104,35 @@ function Bill({ name, company, email, vat, noGutter }) {
           >
             <SoftBox mr={1}>
               <SoftButton variant="text" color="secondary">
-                <Icon>subtitles_off</Icon>&nbsp;hide
+                {/* <Icon>subtitles_off</Icon>&nbsp;hide */}
               </SoftButton>
             </SoftBox>
             <SoftButton variant="text" color="dark">
-              <Icon>more_vert</Icon>&nbsp;
+              <Icon onClick={handleOpenMenu}>more_vert</Icon>&nbsp;
+              {renderMenu()}
             </SoftButton>
           </SoftBox>
         </SoftBox>
         <SoftBox mb={1} lineHeight={0}>
           <SoftTypography variant="caption" color="text">
-            Company Name:&nbsp;&nbsp;&nbsp;
+            Username:&nbsp;&nbsp;&nbsp;
             <SoftTypography variant="caption" fontWeight="medium" textTransform="capitalize">
-              {company}
+              {username}
             </SoftTypography>
           </SoftTypography>
         </SoftBox>
         <SoftBox mb={1} lineHeight={0}>
           <SoftTypography variant="caption" color="text">
-            Email Address:&nbsp;&nbsp;&nbsp;
+            Date:&nbsp;&nbsp;&nbsp;
             <SoftTypography variant="caption" fontWeight="medium">
-              {email}
+              {date}
             </SoftTypography>
           </SoftTypography>
         </SoftBox>
         <SoftTypography variant="caption" color="text">
-          VAT Number:&nbsp;&nbsp;&nbsp;
+          Caption:&nbsp;&nbsp;&nbsp;
           <SoftTypography variant="caption" fontWeight="medium">
-            {vat}
+            {caption}
           </SoftTypography>
         </SoftTypography>
       </SoftBox>
@@ -102,10 +147,10 @@ Bill.defaultProps = {
 
 // Typechecking props for the Bill
 Bill.propTypes = {
-  name: PropTypes.string.isRequired,
-  company: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
-  vat: PropTypes.string.isRequired,
+  fullname: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
+  caption: PropTypes.string.isRequired,
   noGutter: PropTypes.bool,
 };
 
