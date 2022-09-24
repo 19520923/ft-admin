@@ -31,7 +31,7 @@ import authorsTableData from "layouts/users/data/authorsTableData";
 import projectsTableData from "layouts/users/data/projectsTableData";
 
 function Users() {
-  const { columns, rows } = authorsTableData;
+  const { columns, rows, rowsBlock } = authorsTableData;
   const { columns: prCols, rows: prRows } = projectsTableData;
 
   return (
@@ -41,7 +41,7 @@ function Users() {
         <SoftBox mb={3}>
           <Card>
             <SoftBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
-              <SoftTypography variant="h6">Authors table</SoftTypography>
+              <SoftTypography variant="h6">Users</SoftTypography>
             </SoftBox>
             <SoftBox
               sx={{
@@ -59,7 +59,7 @@ function Users() {
         </SoftBox>
         <Card>
           <SoftBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
-            <SoftTypography variant="h6">Projects table</SoftTypography>
+            <SoftTypography variant="h6">Blocked Users</SoftTypography>
           </SoftBox>
           <SoftBox
             sx={{
@@ -71,7 +71,8 @@ function Users() {
               },
             }}
           >
-            <Table columns={prCols} rows={prRows} />
+            <Table columns={columns} rows={rowsBlock} />
+            {/* <Table columns={prCols} rows={prRows} /> */}
           </SoftBox>
         </Card>
       </SoftBox>

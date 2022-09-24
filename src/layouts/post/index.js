@@ -39,7 +39,7 @@ function Post() {
     <DashboardLayout>
       <DashboardNavbar action = 'posts'/>
       <SoftBox mt={4}>
-        <SoftBox mb={1.5}>
+        {/* <SoftBox mb={1.5}>
           <Grid container spacing={3}>
             <Grid item xs={12} lg={8}>
               <Grid container spacing={3}>
@@ -71,7 +71,7 @@ function Post() {
               <Invoices />
             </Grid>
           </Grid>
-        </SoftBox>
+        </SoftBox> */}
         <SoftBox my={3}>
           <Grid container spacing={3}>
             <Grid item xs={12} md={7}>
