@@ -2,14 +2,14 @@
   "name": "soft-ui-dashboard-react",
   "version": "4.0.0",
   "author": "Creative Tim",
-  "license": "",
+  "license": "UNLICENSED",
   "description": "ReactJS version of Soft UI Dashboard by Creative Tim",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/creativetimofficial/soft-ui-dashboard-react.git"
   },
   "engines": {
-    "node": "18.9.0",
+    "node": "14.17.1",
     "npm": ">=6"
   },
   "dependencies": {
@@ -22,8 +22,14 @@
     "@testing-library/jest-dom": "5.16.4",
     "@testing-library/react": "13.3.0",
     "@testing-library/user-event": "14.2.1",
+    "axios": "^1.1.2",
+    "axios-retry": "^3.3.1",
     "chart.js": "3.4.1",
     "chroma-js": "2.4.2",
+    "crypto-js": "^4.1.1",
+    "lodash": "^4.17.21",
+    "mobx": "^6.6.2",
+    "mobx-state-tree": "^5.1.6",
     "prop-types": "15.8.1",
     "react": "18.2.0",
     "react-chartjs-2": "3.0.4",
