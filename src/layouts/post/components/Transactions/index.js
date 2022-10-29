@@ -24,36 +24,79 @@ import SoftTypography from "components/SoftTypography";
 
 // Billing page components
 import Transaction from "layouts/billing/components/Transaction";
+import rocketWhite from "assets/images/illustrations/rocket-white.png";
+import wavesWhite from "assets/images/shapes/waves-white.svg";
+import SoftButton from "components/SoftButton";
 
 function Transactions() {
+
   return (
     <Card sx={{ height: "100%" }}>
       <SoftBox display="flex" justifyContent="space-between" alignItems="center" pt={3} px={2}>
-        <SoftTypography variant="h6" fontWeight="medium" textTransform="capitalize">
+        <SoftBox >
+          <SoftButton variant="outlined" color="error" size="medium" iconOnly circular>
+            {/* Return image avatar */}
+          </SoftButton>
+        </SoftBox>
+        <SoftTypography ml={-10} variant="h6" fontWeight="medium" textTransform="capitalize">
           nguyentrungg&apos;s Detail Post
         </SoftTypography>
-        {/* <SoftBox display="flex" alignItems="flex-start">
+
+        <SoftBox display="flex" alignItems="flex-start">
           <SoftBox color="text" mr={0.5} lineHeight={0}>
             <Icon color="inherit" fontSize="small">
               date_range
             </Icon>
           </SoftBox>
           <SoftTypography variant="button" color="text" fontWeight="regular">
-            23 - 30 March 2020
+            22/10/2022
           </SoftTypography>
         </SoftBox>
       </SoftBox>
+
       <SoftBox pt={3} pb={2} px={2}>
-        <SoftBox mb={2}>
-          <SoftTypography
-            variant="caption"
-            color="text"
-            fontWeight="bold"
-            textTransform="uppercase"
-          >
-            newest
+        <SoftBox mb={2} lineHeight={0}>
+          <SoftTypography variant="caption" fontWeight="medium" textTransform="uppercase">
+            caption:&nbsp;&nbsp;&nbsp;
+            <SoftTypography variant="caption" color="text">
+              Oh so pretty !
+            </SoftTypography>
           </SoftTypography>
         </SoftBox>
+        <SoftBox mb={2} lineHeight={0}>
+          <SoftTypography variant="caption" fontWeight="medium" textTransform="uppercase">
+            check-in:&nbsp;&nbsp;&nbsp;
+            <SoftTypography variant="caption" color="text">
+              310 Huynh Tan Phat, Tan Thuan Tay, District 7, HCM City
+            </SoftTypography>
+          </SoftTypography>
+        </SoftBox>
+
+        <SoftBox
+          height="100"
+          display="grid"
+          justifyContent="center"
+          alignItems="center"
+          bgColor="primary"
+          borderRadius="lg"
+          variant="gradient"
+        >
+          <SoftBox
+            component="img"
+            src={wavesWhite}
+            alt="waves"
+            display="block"
+            position="absolute"
+            left={0}
+            width="100%"
+            height="100%"
+          />
+          <SoftBox component="img" src={rocketWhite} alt="rocket" width="100%" pt={3} />
+        </SoftBox>
+
+        <SoftTypography mt={2} variant="h6" fontWeight="medium" textTransform="capitalize">
+          comment list (2)
+        </SoftTypography>
         <SoftBox
           component="ul"
           display="flex"
@@ -63,21 +106,38 @@ function Transactions() {
           sx={{ listStyle: "none" }}
         >
           <Transaction
-            color="error"
-            icon="arrow_downward"
-            name="Netflix"
-            description="27 March 2020, at 12:30 PM"
-            value="- $ 2,500"
+            color="success"
+            icon="arrow_upward"
+            name="Dang Duy Bang"
+            description="Wow! Congratulation"
+            value="00:59 - 22/10/2022"
           />
+        </SoftBox>
+        <SoftBox
+          component="ul"
+          display="flex"
+          flexDirection="column"
+          p={0}
+          m={0}
+          ml={6}
+          sx={{ listStyle: "none" }}
+        >
           <Transaction
+            color="error"
+            icon="arrow_disward"
+            name="Nguyen Minh Thai"
+            description="Yeh, I think so. Can you give me phone number?"
+            value="00:59 - 22/10/2022"
+          />
+        </SoftBox>
+        {/* <Transaction
             color="success"
             icon="arrow_upward"
             name="Apple"
             description="27 March 2020, at 04:30 AM"
             value="+ $ 2,000"
-          />
-        </SoftBox>
-        <SoftBox mt={1} mb={2}>
+          /> */}
+        {/* <SoftBox mt={1} mb={2}>
           <SoftTypography
             variant="caption"
             color="text"
@@ -123,7 +183,7 @@ function Transactions() {
             description="26 March 2020, at 05:00 AM"
             value="Pending"
           />
-        </SoftBox> */}
+        </SoftBox>  */}
       </SoftBox>
     </Card>
   );

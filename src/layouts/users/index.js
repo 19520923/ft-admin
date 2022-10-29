@@ -57,24 +57,6 @@ function Users() {
             </SoftBox>
           </Card>
         </SoftBox>
-        <Card>
-          <SoftBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
-            <SoftTypography variant="h6">Blocked Users</SoftTypography>
-          </SoftBox>
-          <SoftBox
-            sx={{
-              "& .MuiTableRow-root:not(:last-child)": {
-                "& td": {
-                  borderBottom: ({ borders: { borderWidth, borderColor } }) =>
-                    `${borderWidth[1]} solid ${borderColor}`,
-                },
-              },
-            }}
-          >
-            <Table columns={columns} rows={rowsBlock} />
-            {/* <Table columns={prCols} rows={prRows} /> */}
-          </SoftBox>
-        </Card>
       </SoftBox>
       <Footer />
     </DashboardLayout>

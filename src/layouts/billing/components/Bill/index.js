@@ -94,9 +94,15 @@ function Bill({ fullname, username, date, checkin, caption, noGutter }) {
           flexDirection={{ xs: "column", sm: "row" }}
           mb={2}
         >
-          <SoftTypography variant="button" fontWeight="medium" textTransform="capitalize">
-            {fullname}
-          </SoftTypography>
+          <SoftBox >
+            <SoftButton variant="outlined" color="success" size="medium" iconOnly circular>
+              {/* Return image avatar */}
+            </SoftButton>
+            <SoftTypography ml={1} variant="button" fontWeight="medium" textTransform="capitalize">
+              {fullname}
+            </SoftTypography>
+          </SoftBox>
+
 
           <SoftBox
             display="flex"
