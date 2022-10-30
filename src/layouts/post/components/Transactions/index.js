@@ -38,7 +38,7 @@ function Transactions() {
             {/* Return image avatar */}
           </SoftButton>
         </SoftBox>
-        <SoftTypography ml={-10} variant="h6" fontWeight="medium" textTransform="capitalize">
+        <SoftTypography ml={-17} variant="h6" fontWeight="medium" textTransform="capitalize">
           nguyentrungg&apos;s Detail Post
         </SoftTypography>
 
@@ -94,9 +94,15 @@ function Transactions() {
           <SoftBox component="img" src={rocketWhite} alt="rocket" width="100%" pt={3} />
         </SoftBox>
 
-        <SoftTypography mt={2} variant="h6" fontWeight="medium" textTransform="capitalize">
-          comment list (2)
-        </SoftTypography>
+        <SoftBox display="flex">
+          <SoftTypography mr={2} mt={2} variant="h6" fontWeight="medium" textTransform="capitalize">
+            Likes (25)
+          </SoftTypography>
+          <SoftTypography mt={2} variant="h6" fontWeight="medium" textTransform="capitalize">
+            comments (2)
+          </SoftTypography>
+        </SoftBox>
+
         <SoftBox
           component="ul"
           display="flex"

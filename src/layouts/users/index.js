@@ -29,10 +29,23 @@ import Table from "examples/Tables/Table";
 // Data
 import authorsTableData from "layouts/users/data/authorsTableData";
 import projectsTableData from "layouts/users/data/projectsTableData";
+import { useEffect } from "react";
+// import RootStore from "store/RootStore";
+// import AxiosClient from "../../services/axiosClient";
+//import {toJS} from "mobx"
 
 function Users() {
   const { columns, rows, rowsBlock } = authorsTableData;
   const { columns: prCols, rows: prRows } = projectsTableData;
+
+  //const {users: {blocked, setBlocked}} = RootStore
+
+  // useEffect(() => {
+  //   AxiosClient.getAllUsers(false).then(
+  //     () => console.log("data: ")
+  //   )
+    
+  // }, [])
 
   return (
     <DashboardLayout>
