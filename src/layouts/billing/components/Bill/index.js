@@ -28,12 +28,20 @@ import { Grid, Menu } from "@mui/material";
 import { useState } from "react";
 import wavesWhite from "assets/images/shapes/waves-white.svg";
 import rocketWhite from "assets/images/illustrations/rocket-white.png";
+import SimpleImageSlider from "react-simple-image-slider";
 
 function Bill({ fullname, username, date, checkin, caption, noGutter }) {
 
   const [openMenu, setOpenMenu] = useState(false);
   const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
   const handleCloseMenu = () => setOpenMenu(false);
+
+  const images = [
+    "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "https://images.pexels.com/photos/1565982/pexels-photo-1565982.jpeg?auto=compress&cs=tinysrgb&w=600",
+  ];
 
   const renderMenu = () => (
     <Menu Menu
@@ -158,7 +166,17 @@ function Bill({ fullname, username, date, checkin, caption, noGutter }) {
               </SoftBox>
             </Grid>
             <Grid item xs={12} lg={4} sx={{ position: "relative", ml: "auto" }}>
-              <SoftBox
+              <SoftBox>
+                <SimpleImageSlider
+                  width={"100%"}
+                  height={"100%"}
+                  images={images}
+                  showBullets={true}
+                  showNavs={false}
+                  autoPlay={true}
+                />
+              </SoftBox>
+              {/* <SoftBox
                 height="100%"
                 display="grid"
                 justifyContent="center"
@@ -178,7 +196,7 @@ function Bill({ fullname, username, date, checkin, caption, noGutter }) {
                   height="100%"
                 />
                 <SoftBox component="img" src={rocketWhite} alt="rocket" width="100%" pt={3} />
-              </SoftBox>
+              </SoftBox> */}
             </Grid>
           </Grid>
         </SoftBox>
