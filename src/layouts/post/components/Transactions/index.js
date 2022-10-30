@@ -27,6 +27,14 @@ import Transaction from "layouts/billing/components/Transaction";
 import rocketWhite from "assets/images/illustrations/rocket-white.png";
 import wavesWhite from "assets/images/shapes/waves-white.svg";
 import SoftButton from "components/SoftButton";
+import SimpleImageSlider from "react-simple-image-slider";
+
+export const images = [
+  "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=600",
+  "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=600",
+  "https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?auto=compress&cs=tinysrgb&w=600",
+  "https://images.pexels.com/photos/1565982/pexels-photo-1565982.jpeg?auto=compress&cs=tinysrgb&w=600",
+];
 
 function Transactions() {
 
@@ -38,7 +46,7 @@ function Transactions() {
             {/* Return image avatar */}
           </SoftButton>
         </SoftBox>
-        <SoftTypography ml={-17} variant="h6" fontWeight="medium" textTransform="capitalize">
+        <SoftTypography ml={-20} variant="h6" fontWeight="medium" textTransform="capitalize">
           nguyentrungg&apos;s Detail Post
         </SoftTypography>
 
@@ -72,7 +80,18 @@ function Transactions() {
           </SoftTypography>
         </SoftBox>
 
-        <SoftBox
+        <SoftBox >
+          <SimpleImageSlider
+            width={"95%"}
+            height={350}
+            images={images}
+            showBullets={true}
+            showNavs={true}
+            navMargin={10}
+          />
+        </SoftBox>
+
+        {/* <SoftBox
           height="100"
           display="grid"
           justifyContent="center"
@@ -92,7 +111,7 @@ function Transactions() {
             height="100%"
           />
           <SoftBox component="img" src={rocketWhite} alt="rocket" width="100%" pt={3} />
-        </SoftBox>
+        </SoftBox> */}
 
         <SoftBox display="flex">
           <SoftTypography mr={2} mt={2} variant="h6" fontWeight="medium" textTransform="capitalize">
