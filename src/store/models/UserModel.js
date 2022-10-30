@@ -47,6 +47,14 @@ const UserModel = types.model({
   all: types.optional(types.array(UserDetailModel), []),
   reported: types.optional(types.array(UserDetailModel), []),
   blocked: types.optional(types.array(UserDetailModel), []),
+}).actions(self => {
+  const setBlocked = (value) => {
+    self.blocked = value
+  }
+
+  return {
+    setBlocked,
+  }
 });
 
 export default UserModel;

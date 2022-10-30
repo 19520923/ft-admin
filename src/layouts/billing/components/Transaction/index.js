@@ -29,21 +29,26 @@ function Transaction({ color, icon, name, description, value }) {
     <SoftBox key={name} component="li" py={1} pr={2} mb={1}>
       <SoftBox display="flex" justifyContent="space-between" alignItems="center">
         <SoftBox display="flex" alignItems="center">
-          <SoftBox mr={2}>
-            <SoftButton variant="outlined" color={color} size="small" iconOnly circular>
-              <Icon sx={{ fontWeight: "bold" }}>{icon}</Icon>
-            </SoftButton>
-          </SoftBox>
+          
           <SoftBox display="flex" flexDirection="column">
-            <SoftTypography variant="button" fontWeight="medium" gutterBottom>
+          <SoftBox mr={2}>
+            <SoftButton variant="outlined" color={color} size="medium" iconOnly circular>
+              {/* <Icon sx={{ fontWeight: "bold" }}>{icon}</Icon> */}
+            </SoftButton>
+            <SoftTypography ml={1} variant="button" fontWeight="medium" gutterBottom>
               {name}
             </SoftTypography>
-            <SoftTypography variant="caption" color="text">
+          </SoftBox>
+            
+            <SoftBox pl={6} width={250}>
+              <SoftTypography variant="caption" color="text">
               {description}
             </SoftTypography>
+            </SoftBox>
+            
           </SoftBox>
         </SoftBox>
-        <SoftTypography variant="button" color={color} fontWeight="medium" textGradient>
+        <SoftTypography variant="caption" color="text">
           {value}
         </SoftTypography>
       </SoftBox>

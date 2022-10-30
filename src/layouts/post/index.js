@@ -74,10 +74,10 @@ function Post() {
         </SoftBox> */}
         <SoftBox my={3}>
           <Grid container spacing={3}>
-            <Grid item xs={12} md={7}>
+            <Grid item xs={12} md={6}>
               <BillingInformation />
             </Grid>
-            <Grid item xs={12} md={5}>
+            <Grid item xs={12} md={6}>
               <Transactions />
             </Grid>
           </Grid>

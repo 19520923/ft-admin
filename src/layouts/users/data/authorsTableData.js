@@ -14,6 +14,7 @@ import { Icon, Menu, MenuItem } from "@mui/material";
 import { useState } from "react";
 import Fastfood from "@mui/icons-material/Fastfood";
 import ActionItem from "examples/Items/ActionItem";
+import { UsersData } from "constants/data";
 
 const dataUser = [
   {
@@ -208,26 +209,26 @@ const authorsTableData = {
     { name: "action", align: "center" },
   ],
 
-  rows: dataUser.map(user => ({
-    username: <Username avatar={user.avatar} fullname={user.fullname} username={user.username} />,
+  rows: UsersData.map(user => ({
+    username: <Username avatar={user.avatar_url} fullname={user.name} username={user.username} />,
     email: (
       <SoftTypography variant="caption" color="secondary" fontWeight="medium">
         {user.email}
       </SoftTypography>
     ),
     status: (
-      user.status ?
+      user.is_current ?
         <SoftBadge variant="gradient" badgeContent="online" color="success" size="xs" container />
         :
         <SoftBadge variant="gradient" badgeContent="offline" color="secondary" size="xs" container />
     ),
     created: (
       <SoftTypography variant="caption" color="secondary" fontWeight="medium">
-        {user.createdDate}
+        {user.created_at}
       </SoftTypography>
     ),
     action: (
-      <IconAction block={user.isBlock} />
+      <IconAction block={user.is_current} />
     )
   })),
 
