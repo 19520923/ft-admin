@@ -31,18 +31,24 @@ import Footer from "examples/Footer";
 // Billing page components
 import PaymentMethod from "layouts/post/components/PaymentMethod";
 import Invoices from "layouts/post/components/Invoices";
-import BillingInformation from "layouts/post/components/BillingInformation";
-import Transactions from "layouts/post/components/Transactions";
+import BillingInformation from "layouts/feedback/components/BillingInformation";
+import Transactions from "layouts/feedback/components/Transactions";
 
 function Feedback() {
     return (
-        <DashboardLayout>
-            <DashboardNavbar action='feedbacks' />
-            <SoftBox mt={4}>
-
-            </SoftBox>
-            <Footer />
-        </DashboardLayout>
+      <DashboardLayout>
+        <DashboardNavbar action="feedbacks" />
+        <SoftBox mt={4}>
+          <SoftBox my={3}>
+            <Grid container spacing={3}>
+              <Grid item xs={12} md={12}>
+                <BillingInformation />
+              </Grid>
+            </Grid>
+          </SoftBox>
+        </SoftBox>
+        <Footer />
+      </DashboardLayout>
     );
 }
 
