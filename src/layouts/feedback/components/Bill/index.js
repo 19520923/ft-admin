@@ -31,7 +31,7 @@ import wavesWhite from "assets/images/shapes/waves-white.svg";
 import rocketWhite from "assets/images/illustrations/rocket-white.png";
 import SimpleImageSlider from "react-simple-image-slider";
 
-function Bill({ fullname, username, date, checkin, caption, ratingProps, noGutter }) {
+function Bill({ fullname, username, date, checkin, caption, value, noGutter }) {
   const [openMenu, setOpenMenu] = useState(false);
   const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
   const handleCloseMenu = () => setOpenMenu(false);
@@ -42,6 +42,12 @@ function Bill({ fullname, username, date, checkin, caption, ratingProps, noGutte
     "https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?auto=compress&cs=tinysrgb&w=600",
     "https://images.pexels.com/photos/1565982/pexels-photo-1565982.jpeg?auto=compress&cs=tinysrgb&w=600",
   ];
+
+  const ratingProps = {
+    size: 30,
+    value: value,
+    edit: false,
+  };
 
   const renderMenu = () => (
     <Menu
@@ -110,12 +116,7 @@ function Bill({ fullname, username, date, checkin, caption, ratingProps, noGutte
             <SoftTypography ml={1} variant="button" fontWeight="medium" textTransform="capitalize">
               {fullname}
             </SoftTypography>
-            <SoftBox
-              mt={1}
-              ml={1.5}
-              display="flex"
-              alignItems={{ xs: "flex-start", sm: "center" }}
-            >
+            <SoftBox mt={1} ml={1.5} display="flex" alignItems={{ xs: "flex-start", sm: "center" }}>
               <ReactStars {...ratingProps} />
 
               <SoftTypography ml={2} variant="caption" fontWeight="medium">
@@ -221,7 +222,7 @@ Bill.propTypes = {
   date: PropTypes.string.isRequired,
   checkin: PropTypes.string.isRequired,
   caption: PropTypes.string.isRequired,
-  ratingProps: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
   noGutter: PropTypes.bool,
 };
 

@@ -27,13 +27,7 @@ import Bill from "layouts/feedback/components/Bill";
 
 function BillingInformation() {
   const ratingProps = [
-    {
-      size: 30,
-      value: 5,
-      edit: false,
-    },
-    { size: 30, value: 2.5, edit: false },
-    { size: 30, value: 3.5, edit: false },
+    5, 3.5, 4
   ];
   return (
     <Card id="delete-account">
@@ -50,7 +44,7 @@ function BillingInformation() {
             date="11/9/2022"
             checkin="Amazing App"
             caption="It's so cool. I do it myself ! The food is good. I love food"
-            ratingProps={ratingProps[0]}
+            value={ratingProps[0]}
             noGutter
           />
           <Bill
@@ -59,7 +53,7 @@ function BillingInformation() {
             date="10/9/2022"
             checkin="Color problem"
             caption="I don't like the colors, they make my eyes hurt"
-            ratingProps={ratingProps[1]}
+            value={ratingProps[1]}
             noGutter
           />
           <Bill
@@ -68,7 +62,7 @@ function BillingInformation() {
             date="20/11/2021"
             checkin="Good Experience"
             caption="This app is very useful, however it still need to be updated more !"
-            ratingProps={ratingProps[2]}
+            value={ratingProps[2]}
             noGutter
           />
         </SoftBox>
