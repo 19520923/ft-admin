@@ -144,7 +144,7 @@ function Bill({ fullname, username, date, checkin, caption, value, noGutter }) {
         </SoftBox>
         <SoftBox p={2}>
           <Grid container spacing={3}>
-            <Grid item xs={12} lg={6}>
+            <Grid item xs={12} lg={10}>
               <SoftBox mb={1} lineHeight={0}>
                 <SoftTypography variant="caption" color="text">
                   Username:&nbsp;&nbsp;&nbsp;
