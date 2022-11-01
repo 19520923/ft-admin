@@ -26,6 +26,7 @@ import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 import SoftInput from "components/SoftInput";
 import SoftButton from "components/SoftButton";
+import API from "services/axiosClient"
 
 // Authentication layout components
 import CoverLayout from "layouts/authentication/components/CoverLayout";
@@ -38,10 +39,22 @@ function SignIn() {
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
 
+  const _handleLogin = async () => {
+    try {
+      const data = await API.login({
+        email: "nguyennhuttan12201@gmail.com",
+        password: "123456789"
+      })
+      console.log("Data: ", data)
+    } catch (error) {
+      console.log("Error: ", error)
+    }
+  }
+
   return (
     <CoverLayout
-      top = {8}
-      bottom = {8}
+      top={8}
+      bottom={8}
       title="Welcome back"
       description="Enter your email and password to sign in with Foodtalk"
     >
@@ -74,7 +87,7 @@ function SignIn() {
           </SoftTypography>
         </SoftBox>
         <SoftBox mt={4} mb={1}>
-          <SoftButton variant="gradient" color="primary" fullWidth>
+          <SoftButton onClick={_handleLogin} variant="gradient" color="primary" fullWidth>
             sign in
           </SoftButton>
         </SoftBox>
