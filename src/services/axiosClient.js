@@ -10,6 +10,7 @@ import {
   MASTER_KEY,
   LIMIT,
 } from "constants/constants";
+import Storage from "library/mobx-persist/storage";
 
 class AxiosClient {
   /* Creating an axios object. */
@@ -53,19 +54,10 @@ class AxiosClient {
     /* An interceptor that intercepts the response from the server. */
     this.axios.interceptors.response.use(
       (response) => {
-        const success = _.get(response, "data.success");
-        if (!success) {
-          const message = _.get(response, "data.message");
-          const originalRequest = response.config;
-          if (message === UNAUTHORIZED) {
-            return this.retryCallAPIWhenTokenExpired(originalRequest);
-          } else {
-            throw new Error(`New error: ${JSON.stringify(message)}`);
-          }
-        }
         return response.data;
       },
       async (error) => {
+        console.log("error:", error)
         const originalRequest = error.config;
         const response = error.response;
         if (response.status === UNAUTHORIZED && !originalRequest._retry) {
@@ -320,4 +312,4 @@ class AxiosClient {
   }
 }
 
-export default AxiosClient();
+export default new AxiosClient();
