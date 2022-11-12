@@ -1,5 +1,5 @@
 /* Importing the types from the mobx-state-tree library. */
-import { types } from "mobx-state-tree";
+import { types, Instance, cast } from "mobx-state-tree";
 
 export const DEFAULT_STATE_PROFILE = {
   id: "",
@@ -37,24 +37,36 @@ const ProfileModel = types.model({
   ...profile_obj,
 });
 
-export const UserDetailModel = types.model({
+const UserDetailModel = types.model({
   ...profile_obj,
   following: types.optional(types.array(ProfileModel), []),
   follower: types.optional(types.array(ProfileModel), []),
 });
 
-const UserModel = types.model({
+const UserStore = types.model({
   all: types.optional(types.array(UserDetailModel), []),
   reported: types.optional(types.array(UserDetailModel), []),
   blocked: types.optional(types.array(UserDetailModel), []),
 }).actions(self => {
-  const setBlocked = (value) => {
-    self.blocked = value
+  const setAll = (allUsers: TUserDetailModel) => {
+    self.all = cast(allUsers.map(user => ({
+      id: user.id,
+      name: user.name,
+      avatar_url: user.avatar_url,
+      cover_url: user.cover_url,
+      email: user.email,
+      username: user.username,
+      about: user.about,
+      is_current: user.is_current,
+      created_at: user.created_at,
+    })))
   }
 
   return {
-    setBlocked,
+    setAll,
   }
-});
+}).create({});
 
-export default UserModel;
+export default UserStore;
+
+export type TUserDetailModel = Instance<typeof UserDetailModel>;
