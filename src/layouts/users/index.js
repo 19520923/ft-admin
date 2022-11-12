@@ -30,22 +30,28 @@ import Table from "examples/Tables/Table";
 import authorsTableData from "layouts/users/data/authorsTableData";
 import projectsTableData from "layouts/users/data/projectsTableData";
 import { useEffect } from "react";
-// import RootStore from "store/RootStore";
-// import AxiosClient from "../../services/axiosClient";
-//import {toJS} from "mobx"
+import API from "../../services/axiosClient";
+import UserStore from "store/models/UserStore";
+import {toJS} from "mobx"
 
 function Users() {
   const { columns, rows, rowsBlock } = authorsTableData;
   const { columns: prCols, rows: prRows } = projectsTableData;
 
-  //const {users: {blocked, setBlocked}} = RootStore
+  const getAllUsers = async () => {
+    try {
+      const data = await API.getAllUsers()
+      UserStore.setAll(data.rows)
+      console.log("Data all users: ", toJS(UserStore.all))
+    } catch (error) {
+      console.log("Error: ", error)
+    }
+  }
 
-  // useEffect(() => {
-  //   AxiosClient.getAllUsers(false).then(
-  //     () => console.log("data: ")
-  //   )
+  useEffect(() => {
+    getAllUsers()
     
-  // }, [])
+  }, [])
 
   return (
     <DashboardLayout>

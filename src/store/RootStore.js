@@ -3,7 +3,7 @@ import { persist } from "../library/mobx-persist";
 import AppModel, { DEFAULT_STATE_APP } from "./models/AppModel";
 import FoodModel from "./models/FoodModel";
 import PostModel from "./models/PostModel";
-import UserModel, { DEFAULT_STATE_PROFILE, UserDetailModel } from "./models/UserModel";
+import UserModel, { DEFAULT_STATE_PROFILE, UserDetailModel } from "./models/UserStore";
 
 const RootStore = types
   .model({

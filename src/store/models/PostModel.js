@@ -1,6 +1,6 @@
 import { types } from "mobx-state-tree";
 import { FoodDetailModel } from "./FoodModel";
-import { DEFAULT_STATE_PROFILE, UserDetailModel } from "./UserModel";
+import { DEFAULT_STATE_PROFILE, UserDetailModel } from "./UserStore";
 
 export const DEFAULT_STATE_POST = {
   id: "",
