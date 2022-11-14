@@ -1,5 +1,5 @@
 import { types } from "mobx-state-tree";
-import { DEFAULT_STATE_PROFILE, UserDetailModel } from "./UserModel";
+import { DEFAULT_STATE_PROFILE, UserDetailModel } from "./UserStore";
 
 export const DEFAULT_STATE_FOOD = {
   id: "",

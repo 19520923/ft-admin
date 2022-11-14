@@ -15,6 +15,7 @@ import { useState } from "react";
 import Fastfood from "@mui/icons-material/Fastfood";
 import ActionItem from "examples/Items/ActionItem";
 import { UsersData } from "constants/data";
+import UserStore from "store/models/UserStore";
 
 const dataUser = [
   {
@@ -209,7 +210,7 @@ const authorsTableData = {
     { name: "action", align: "center" },
   ],
 
-  rows: UsersData.map(user => ({
+  rows: UserStore.all.map(user => ({
     username: <Username avatar={user.avatar_url} fullname={user.name} username={user.username} />,
     email: (
       <SoftTypography variant="caption" color="secondary" fontWeight="medium">
