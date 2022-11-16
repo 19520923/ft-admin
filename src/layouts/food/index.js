@@ -31,15 +31,24 @@ import Footer from "examples/Footer";
 // Billing page components
 import PaymentMethod from "layouts/post/components/PaymentMethod";
 import Invoices from "layouts/post/components/Invoices";
-import BillingInformation from "layouts/post/components/BillingInformation";
-import Transactions from "layouts/post/components/Transactions";
+import ListFood from "layouts/food/components/ListFood";
+import Transactions from "layouts/food/components/Transactions";
 
 function Food() {
     return (
         <DashboardLayout>
             <DashboardNavbar action='foods' />
             <SoftBox mt={4}>
-
+                <SoftBox my={3}>
+                    <Grid container spacing={3}>
+                        <Grid item xs={12} md={6}>
+                            <ListFood />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <Transactions />
+                        </Grid>
+                    </Grid>
+                </SoftBox>
             </SoftBox>
             <Footer />
         </DashboardLayout>
