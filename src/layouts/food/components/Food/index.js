@@ -35,9 +35,6 @@ function Foods({ name, user, rate, time }) {
 
   const images = [
     "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "https://images.pexels.com/photos/1565982/pexels-photo-1565982.jpeg?auto=compress&cs=tinysrgb&w=600",
   ];
 
   const renderMenu = () => (
@@ -129,16 +126,16 @@ function Foods({ name, user, rate, time }) {
           <Grid container spacing={3}>
             <Grid item xs={12} lg={6}>
               <SoftBox mb={1} lineHeight={0}>
-                <SoftTypography variant="button" color="text">
-                  Food Name:&nbsp;&nbsp;&nbsp;
-                  <SoftTypography variant="button" fontWeight="medium" textTransform="capitalize">
-                    {name}
+                <SoftTypography variant="caption" color="text">
+                  Username:&nbsp;&nbsp;&nbsp;
+                  <SoftTypography variant="caption" fontWeight="medium">
+                    {user}
                   </SoftTypography>
                 </SoftTypography>
               </SoftBox>
               <SoftBox mb={1} lineHeight={0}>
                 <SoftTypography variant="caption" color="text">
-                  Username:&nbsp;&nbsp;&nbsp;
+                  Description:&nbsp;&nbsp;&nbsp;
                   <SoftTypography variant="caption" fontWeight="medium">
                     {user}
                   </SoftTypography>
@@ -167,7 +164,7 @@ function Foods({ name, user, rate, time }) {
                   width={"100%"}
                   height={"100%"}
                   images={images}
-                  showBullets={true}
+                  showBullets={false}
                   showNavs={false}
                   autoPlay={true}
                 />

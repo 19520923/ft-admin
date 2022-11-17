@@ -31,7 +31,7 @@ function ListFood() {
     <Card id="list_food">
       <SoftBox pt={3} px={2}>
         <SoftTypography variant="h6" fontWeight="medium">
-        Food Recipes
+        Recipes
         </SoftTypography>
       </SoftBox>
       <SoftBox pt={1} pb={2} px={2} >

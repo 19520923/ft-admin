@@ -31,9 +31,6 @@ import SimpleImageSlider from "react-simple-image-slider";
 
 export const images = [
   "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=600",
-  "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=600",
-  "https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?auto=compress&cs=tinysrgb&w=600",
-  "https://images.pexels.com/photos/1565982/pexels-photo-1565982.jpeg?auto=compress&cs=tinysrgb&w=600",
 ];
 
 function Transactions() {
@@ -46,28 +43,18 @@ function Transactions() {
             {/* Return image avatar */}
           </SoftButton>
         </SoftBox>
-        <SoftTypography ml={-12} variant="h6" fontWeight="medium" textTransform="capitalize">
+        <SoftTypography ml={-42} variant="h6" fontWeight="medium" textTransform="capitalize">
           Recipe
         </SoftTypography>
-
-        <SoftBox >
-          <SoftButton variant="outlined" color="success" size="medium" iconOnly circular>
-            {/* Return image avatar */}
-          </SoftButton>
-        </SoftBox>
-        <SoftTypography ml={-12} variant="h6" fontWeight="medium" textTransform="capitalize">
-          Evaluate
-        </SoftTypography>
-        
 
         <SoftBox display="flex" alignItems="flex-start">
           <SoftBox color="text" mr={0.5} lineHeight={0}>
             <Icon color="inherit" fontSize="small">
-              date_range
+              star
             </Icon>
           </SoftBox>
           <SoftTypography variant="button" color="text" fontWeight="regular">
-            11/09/2022
+            9.5
           </SoftTypography>
         </SoftBox>
       </SoftBox>
@@ -79,8 +66,8 @@ function Transactions() {
             width={"95%"}
             height={350}
             images={images}
-            showBullets={true}
-            showNavs={true}
+            showBullets={false}
+            showNavs={false}
             navMargin={10}
           />
         </SoftBox>
