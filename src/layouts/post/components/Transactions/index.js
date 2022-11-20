@@ -46,7 +46,7 @@ function Transactions() {
             {/* Return image avatar */}
           </SoftButton>
         </SoftBox>
-        <SoftTypography ml={-20} variant="h6" fontWeight="medium" textTransform="capitalize">
+        <SoftTypography ml={-15} variant="h6" fontWeight="medium" textTransform="capitalize">
           nguyentrungg&apos;s Detail Post
         </SoftTypography>
 
