@@ -13,55 +13,50 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
+// prop-types is a library for typechecking of props
+import PropTypes from "prop-types";
+
 // @mui material components
-import { Icon } from "@mui/material";
+import Icon from "@mui/material/Icon";
 import Card from "@mui/material/Card";
 
 // Soft UI Dashboard React components
 import SoftBox from "components/SoftBox";
 import SoftPagination from "components/SoftPagination";
 import SoftTypography from "components/SoftTypography";
+import Foods from "layouts/food/components/Food";
 
-// Billing page components
-import Bill from "layouts/billing/components/Bill";
-
-function BillingInformation() {
+function ListFood() {
   return (
-    <Card id="delete-account">
+    <Card id="list_food">
       <SoftBox pt={3} px={2}>
         <SoftTypography variant="h6" fontWeight="medium">
-          Food Post
+        Recipes
         </SoftTypography>
       </SoftBox>
       <SoftBox pt={1} pb={2} px={2} >
         <SoftBox component="ul" display="flex" flexDirection="column" p={0} m={0}>
-          <Bill
-            fullname="Nguyen Minh Thai"
-            username="thaivohinh123"
-            date="11/9/2022"
-            checkin="Linh Trung ward, Thu Duc district, Ho Chi Minh City"
-            caption="It's so cool. I do it myself !"
-            noGutter
+          <Foods
+            name="Cơm chiên"
+            user="thaivohinh123"
+            rate="9.0"
+            time="11/09/2022"
           />
-          <Bill
-            fullname="Nguyen Nhut Tan"
-            username="tannn01"
-            date="10/9/2022"
-            checkin="224A, Dien Bien Phu street, Vo Thi Sau Ward, district 3"
-            caption="Welcome everyone"
-            noGutter
+          <Foods
+            name="Bún bò kho"
+            user="tannn01"
+            rate="8.0"
+            time="10/09/2022"
           />
-          <Bill
-            fullname="Duong Trung Nguyen"
-            username="nguyentrungg"
-            date="20/11/2021"
-            checkin=""
-            caption="Oh so pretty !"
-            noGutter
+          <Foods
+            name="Phở Hà Nội"
+            user="nguyentrungg"
+            rate="0.0"
+            time="20/11/2021"
           />
         </SoftBox>
       </SoftBox>
-      <SoftBox pr={18} pb={5}>
+      <SoftBox px={18} pb={5}>
         <SoftPagination>
           <SoftPagination item>
             <Icon>keyboard_arrow_left</Icon>
@@ -78,4 +73,5 @@ function BillingInformation() {
   );
 }
 
-export default BillingInformation;
+
+export default ListFood;
