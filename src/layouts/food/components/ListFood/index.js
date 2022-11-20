@@ -56,7 +56,7 @@ function ListFood() {
           />
         </SoftBox>
       </SoftBox>
-      <SoftBox px={30} pb={5}>
+      <SoftBox px={18} pb={5}>
         <SoftPagination>
           <SoftPagination item>
             <Icon>keyboard_arrow_left</Icon>

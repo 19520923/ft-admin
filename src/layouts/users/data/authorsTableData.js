@@ -25,8 +25,8 @@ const dataUser = [
     username: "bang-ftAdmin",
     email: "dangbang0001@gmail.com",
     status: true,
-    createdDate: "23/08/2021",
-    isBlock: false
+    created_at: "23/08/2021",
+    is_active: false
   },
   {
     id: 1,
@@ -35,8 +35,8 @@ const dataUser = [
     username: "tan-ngnAd",
     email: "tangnguyenn@gmail.com",
     status: false,
-    createdDate: "23/08/2021",
-    isBlock: true
+    created_at: "23/08/2021",
+    is_active: true
   },
   {
     id: 2,
@@ -45,8 +45,8 @@ const dataUser = [
     username: "gv-doan2",
     email: "uyentth@uit.edu.vn",
     status: true,
-    createdDate: "23/08/2021",
-    isBlock: false
+    created_at: "23/08/2021",
+    is_active: false
   },
 ]
 
