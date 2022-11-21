@@ -30,32 +30,21 @@ import Table from "examples/Tables/Table";
 import authorsTableData from "layouts/users/data/authorsTableData";
 import projectsTableData from "layouts/users/data/projectsTableData";
 import { useEffect } from "react";
-import API from "../../services/axiosClient";
-import UserStore from "store/models/UserStore";
-import {toJS} from "mobx"
+import { RootStore } from "store/RootStore";
+import { observer } from "mobx-react-lite";
 
 function Users() {
-  const { columns, rows, rowsBlock } = authorsTableData;
+  const { getUsers, users } = RootStore;
+  const { columns, rows, rowsBlock } = authorsTableData(users);
   const { columns: prCols, rows: prRows } = projectsTableData;
 
-  const getAllUsers = async () => {
-    try {
-      const data = await API.getAllUsers()
-      UserStore.setAll(data.rows)
-      console.log("Data all users: ", toJS(UserStore.all))
-    } catch (error) {
-      console.log("Error: ", error)
-    }
-  }
-
   useEffect(() => {
-    getAllUsers()
-    
-  }, [])
+    getUsers();
+  }, []);
 
   return (
     <DashboardLayout>
-      <DashboardNavbar action = 'users'/>
+      <DashboardNavbar action="users" />
       <SoftBox py={3}>
         <SoftBox mb={3}>
           <Card>
@@ -82,4 +71,4 @@ function Users() {
   );
 }
 
-export default Users;
+export default observer(Users);

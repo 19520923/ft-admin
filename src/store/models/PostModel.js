@@ -1,59 +1,68 @@
-import { types } from "mobx-state-tree";
-import { FoodDetailModel } from "./FoodModel";
-import { DEFAULT_STATE_PROFILE, UserDetailModel } from "./UserStore";
+import { types, Instance, cast } from "mobx-state-tree";
+import FoodModel from "./FoodModel";
+import { ProfileModel } from "./ProfileModel";
+import _ from "lodash";
 
 export const DEFAULT_STATE_POST = {
-  id: "",
+  _id: "",
   foods: [],
   content: "",
   photos: [],
   reactions: [],
   num_comment: 0,
-  author: null,
+  author: {},
   location: null,
-  is_public: true,
-  is_active: true,
   created_at: "",
   comments: [],
 };
 
 const LocationModel = types.model({
-  name: types.optional(types.string, ""),
-  lat: types.optional(types.string, ""),
-  lng: types.optional(types.string, ""),
+  name: types.string,
+  lat: types.string,
+  lng: types.string,
 });
 
 const CommentModel = types.model({
-  id: types.optional(types.string, ""),
-  author: types.optional(types.maybe(UserDetailModel), DEFAULT_STATE_PROFILE),
-  content: types.optional(types.string, ""),
-  parent: types.optional(types.string, ""),
-  created_at: types.optional(types.string, ""),
+  _id: types.identifier,
+  author: ProfileModel,
+  content: types.string,
+  parent: types.maybeNull(types.string),
+  created_at: types.string,
 });
 
-const PostDetailModel = types.model({
-  id: types.optional(types.string, ""),
-  foods: types.optional(types.array(FoodDetailModel), []),
-  content: types.optional(types.string, ""),
-  photos: types.optional(types.array(types.string), []),
-  reactions: types.optional(types.array(types.string), []),
-  num_comment: types.optional(types.number, 0),
-  author: types.optional(types.maybe(UserDetailModel), DEFAULT_STATE_PROFILE),
-  location: types.optional(types.maybe(LocationModel), {
-    name: "",
-    lat: "",
-    lng: "",
+const CommnetStore = types
+  .model({
+    rows: types.optional(types.array(CommentModel), []),
+    count: types.optional(types.number, 0),
+    currentPage: types.optional(types.number, 1),
+  })
+  .actions((self) => ({
+    setComment: (comments, count) => {
+      self.rows = cast(_.unionBy(self.rows, comments, "_id"));
+      self.count = count;
+      self.currentPage = 2;
+    },
+  }));
+
+export const PostModel = types.model({
+  _id: types.identifier,
+  foods: types.array(FoodModel),
+  content: types.string,
+  photos: types.array(types.string),
+  reactions: types.array(types.string),
+  num_comment: types.number,
+  author: ProfileModel,
+  location: LocationModel,
+  created_at: types.string,
+  comments: types.optional(CommnetStore, {
+    rows: [],
+    count: 0,
+    currentPage: 1,
   }),
-  is_public: types.optional(types.boolean, true),
-  is_active: types.optional(types.boolean, true),
-  comments: types.optional(types.array(CommentModel), []),
-  created_at: types.optional(types.string, ""),
-});
-
-const PostModel = types.model({
-  all: types.optional(types.array(PostDetailModel), []),
-  reported: types.optional(types.array(PostDetailModel), []),
-  blocked: types.optional(types.array(PostDetailModel), []),
+  is_public: types.boolean,
+  is_active: types.boolean,
+  num_report: types.number,
+  created_at: types.string,
 });
 
 export default PostModel;

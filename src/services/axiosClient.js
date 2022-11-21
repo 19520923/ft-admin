@@ -57,7 +57,6 @@ class AxiosClient {
         return response.data;
       },
       async (error) => {
-        console.log("error:", error)
         const originalRequest = error.config;
         const response = error.response;
         if (response.status === UNAUTHORIZED && !originalRequest._retry) {
@@ -107,7 +106,8 @@ class AxiosClient {
       email: "nguyennhattan12201@gmail.com",
       password: "123456789",
     })
-      .then((data) => {
+      .then(async (data) => {
+        await Storage.setItem(ACCESS_TOKEN, data.token);
         /** Add token in to headers.Authorization */
         this.axios.defaults.headers.Authorization = "Bearer " + data.token;
         /** Resolve queue and try to send previous request with new token  */
@@ -144,20 +144,42 @@ class AxiosClient {
   }
 
   /**
+   * It returns a promise that resolves to an array of users
+   * @param [page=1] - The page number of the results you want to get.
+   * @param [sort=username] - The field to sort by.
+   * @param [search] - The search query.
+   * @returns An array of users
+   */
+  getUsers(page = 1, sort, search) {
+    return this.axios.get(`/users?q=${search}&sort=${sort}&page=${page}&limit=${LIMIT}`);
+  }
+
+  /**
    * If is_active is not an empty string, then return the axios.get request with the is_active parameter,
    * otherwise return the axios.get request without the is_active parameter.
-   * @param [is_active] - true or false
    * @param [page=1] - the page number
    * @param [sort=username] - the column to sort by
    * @param [search] - string
    * @returns The return value is a promise.
    */
-  getAllUsers(is_active = "", page = 1, sort = "username", search = "") {
-    return is_active !== ""
-      ? this.axios.get(
-          `/users?q=${search}&sort=${sort}&page=${page}&limit=${LIMIT}&is_active=${is_active}`
-        )
-      : this.axios.get(`/users?q=${search}&sort=${sort}&page=${page}&limit=${LIMIT}`);
+  getActiveUsers(page = 1, sort, key) {
+    return this.axios.get(
+      `/users?q=${key}&sort=${sort}&page=${page}&limit=${LIMIT}&is_active=true`
+    );
+  }
+
+  /**
+   * If is_active is not an empty string, then return the axios.get request with the is_active parameter,
+   * otherwise return the axios.get request without the is_active parameter.
+   * @param [page=1] - the page number
+   * @param [sort=username] - the column to sort by
+   * @param [search] - string
+   * @returns The return value is a promise.
+   */
+  getDeactiveUsers(page = 1, sort, key) {
+    return this.axios.get(
+      `/users?q=${key}&sort=${sort}&page=${page}&limit=${LIMIT}&is_active=false`
+    );
   }
 
   /**
@@ -170,34 +192,84 @@ class AxiosClient {
   }
 
   /**
+   * It block a user
+   * @param user_id - The user ID of the user you want to active.
+   * @returns The return value of the function is the return value of the axios.delete method.
+   */
+  blockUser(user_id) {
+    return this.axios.post(`/users/${user_id}/activate`);
+  }
+
+  /**
+   * "Get all posts from the API, sorted by the sort parameter, and return the response."
+   *
+   * The function takes two parameters: page and sort. The page parameter is the page number of the posts
+   * to get, and the sort parameter is the sort order of the posts to get
+   * @param [page=1] - The page number of the posts you want to get.
+   * @param [sort=-created_at] - The order in which you want the posts to be sorted.
+   * @returns An array of posts
+   */
+  getAllPosts(page = 1, sort = "-created_at") {
+    return this.axios.get(`/posts?sort=${sort}&page=${page}&limit=${LIMIT}`);
+  }
+
+  /**
    * If is_active is not an empty string, then return the axios.get() with the is_active parameter,
    * otherwise return the axios.get() without the is_active parameter.
-   * @param [is_active] - true or false
    * @param [page=1] - the page number
-   * @param [type=all] - all, text, image, video
    * @param [sort=-created_at] - -created_at (descending order)
    * @returns The return value is a promise.
    */
-  getAllPosts(is_active = "", page = 1, type = "all", sort = "-created_at") {
-    return is_active !== ""
-      ? this.axios.get(`/posts?sort=${sort}&page=${page}&limit=${LIMIT}&is_active=${is_active}`)
-      : this.axios.get(`/posts?sort=${sort}&page=${page}&limit=${LIMIT}`);
+  getAllActivePosts(page = 1, sort = "-created_at") {
+    return this.axios.get(`/posts?sort=${sort}&page=${page}&limit=${LIMIT}&is_active=true`);
+  }
+
+  /**
+   * If is_active is not an empty string, then return the axios.get() with the is_active parameter,
+   * otherwise return the axios.get() without the is_active parameter.
+   * @param [page=1] - the page number
+   * @param [sort=-created_at] - -created_at (descending order)
+   * @returns The return value is a promise.
+   */
+  getAllDeactivePosts(page = 1, sort = "-created_at") {
+    return this.axios.get(`/posts?sort=${sort}&page=${page}&limit=${LIMIT}&is_active=false`);
   }
 
   /**
    * It returns a promise that resolves to an array of posts.
-   * @param is_active - true or false
    * @param [page=1] - The page number of the results to fetch.
    * @param [sort=-created_at] - -created_at
    * @param [user_id] - the id of the user
    * @returns The return value is a promise.
    */
-  getUserPosts(is_active = "", page = 1, sort = "-created_at", user_id = "") {
-    return is_active !== ""
-      ? this.axios.get(
-          `/posts/${user_id}?sort=${sort}&page=${page}&limit=${LIMIT}&is_active=${is_active}`
-        )
-      : this.axios.get(`/posts?${user_id}sort=${sort}&page=${page}&limit=${LIMIT}`);
+  getUserActivePosts(user_id = "", page = 1, sort = "-created_at") {
+    return this.axios.get(
+      `/posts/${user_id}?sort=${sort}&page=${page}&limit=${LIMIT}&is_active=true`
+    );
+  }
+
+  /**
+   * It returns a promise that resolves to an array of posts
+   * @param [user_id] - The user id of the user whose posts you want to fetch.
+   * @param [page=1] - The page number of the posts you want to get.
+   * @param [sort=-created_at] - The order in which you want the posts to be sorted.
+   * @returns An array of posts
+   */
+  getUserPosts(user_id = "", page = 1, sort = "-created_at") {
+    return this.axios.get(`/posts/${user_id}?sort=${sort}&page=${page}&limit=${LIMIT}`);
+  }
+
+  /**
+   * It returns a promise that resolves to an array of posts.
+   * @param [page=1] - The page number of the results to fetch.
+   * @param [sort=-created_at] - -created_at
+   * @param [user_id] - the id of the user
+   * @returns The return value is a promise.
+   */
+  getUserDeactivePosts(user_id = "", page = 1, sort = "-created_at") {
+    return this.axios.get(
+      `/posts/${user_id}?sort=${sort}&page=${page}&limit=${LIMIT}&is_active=false`
+    );
   }
 
   /**
@@ -206,7 +278,7 @@ class AxiosClient {
    * @param post_id - the id of the post
    * @returns The return value is a promise.
    */
-  getPostComments(page = 1, post_id) {
+  getPostComments(post_id, page = 1) {
     return this.axios.get(`/comments/${post_id}?page=${page}&limit=${LIMIT}`);
   }
 
@@ -225,26 +297,67 @@ class AxiosClient {
    * @param post_id - The id of the post to be deleted
    * @returns The return value of the function is the return value of the axios.delete() function.
    */
-  blockPost(post_id) {
+  deactivePost(post_id) {
     return this.axios.delete(`/posts/${post_id}`);
+  }
+
+  /**
+   * It block a post.
+   * @param post_id - The id of the post to be activate
+   * @returns The return value of the function is the return value of the axios.post() function.
+   */
+  activePost(post_id) {
+    return this.axios.post(`/posts/${post_id}/activate`);
+  }
+
+  /**
+   * It returns a promise that will resolve to an array of food objects
+   * @param [page=1] - The page number of the results you want to get.
+   * @param [search] - The search query.
+   * @param [sort=name] - The field to sort by.
+   * @returns An array of objects.
+   */
+  getFoods(page = 1, search = "", sort = "name") {
+    return this.axios.get(`/foods?q=${search}&sort=${sort}&page=${page}&limit=${LIMIT}`);
   }
 
   /**
    * If is_active is not an empty string, then return the axios.get request with the is_active parameter,
    * otherwise return the axios.get request without the is_active parameter.
-   * @param [is_active] - true or false
    * @param [page=1] - the page number
    * @param [sort=name] - the column to sort by
    * @param [search] - search query
-   * @param [type=all] - all, veg, non-veg
    * @returns The return value is the result of the axios.get() method.
    */
-  getAllFoods(is_active = "", page = 1, sort = "name", search = "", type = "all") {
-    return is_active !== ""
-      ? this.axios.get(
-          `/foods?q=${search}&sort=${sort}&page=${page}&limit=${LIMIT}&is_active=${is_active}`
-        )
-      : this.axios.get(`/foods?q=${search}&sort=${sort}&page=${page}&limit=${LIMIT}`);
+  getActiveFoods(page = 1, search = "", sort = "name") {
+    return this.axios.get(
+      `/foods?q=${search}&sort=${sort}&page=${page}&limit=${LIMIT}&is_active=true`
+    );
+  }
+
+  /**
+   * If is_active is not an empty string, then return the axios.get request with the is_active parameter,
+   * otherwise return the axios.get request without the is_active parameter.
+   * @param [page=1] - the page number
+   * @param [sort=name] - the column to sort by
+   * @param [search] - search query
+   * @returns The return value is the result of the axios.get() method.
+   */
+  getDeactiveFoods(page = 1, search = "", sort = "name") {
+    return this.axios.get(
+      `/foods?q=${search}&sort=${sort}&page=${page}&limit=${LIMIT}&is_active=false`
+    );
+  }
+
+  /**
+   * This function gets the foods for a user
+   * @param [page=1] - The page number of the results you want to get.
+   * @param [user_id] - The user id of the user whose foods you want to get.
+   * @param [sort=-created_at] - The order in which the foods are sorted.
+   * @returns An array of objects.
+   */
+  getUserFoods(page = 1, user_id = "", sort = "-created_at") {
+    return this.axios.get(`/foods/${user_id}?sort=${sort}&page=${page}&limit=${LIMIT}`);
   }
 
   /**
@@ -256,12 +369,10 @@ class AxiosClient {
    * @param [user_id] - the id of the user
    * @returns The return value is a promise.
    */
-  getUserFoods(is_active = "", page = 1, sort = "-created_at", user_id = "") {
-    return is_active !== ""
-      ? this.axios.get(
-          `/foods/${user_id}?sort=${sort}&page=${page}&limit=${LIMIT}&is_active=${is_active}`
-        )
-      : this.axios.get(`/foods/${user_id}?sort=${sort}&page=${page}&limit=${LIMIT}`);
+  getUserActiveFoods(page = 1, user_id = "", sort = "-created_at") {
+    return this.axios.get(
+      `/foods/${user_id}?sort=${sort}&page=${page}&limit=${LIMIT}&is_active=true`
+    );
   }
 
   /**
@@ -270,7 +381,7 @@ class AxiosClient {
    * @param food_id - the id of the food
    * @returns The return value is a promise.
    */
-  getFoodRates(page = 1, food_id) {
+  getFoodRates(food_id, page = 1) {
     return this.axios.get(`/food-rates/${food_id}?page=${page}&limit=${LIMIT}`);
   }
 
@@ -289,8 +400,18 @@ class AxiosClient {
    * @param food_id - The id of the food you want to hide.
    * @returns The return value of the function is the promise returned by the axios.delete() method.
    */
-  hideFood(food_id) {
+  deactiveFood(food_id) {
     return this.axios.delete(`/foods/${food_id}`);
+  }
+
+  /**
+   * It takes a food_id as an argument and returns a promise that resolves to the response from the
+   * server
+   * @param food_id - The id of the food you want to activate.
+   * @returns A promise
+   */
+  activeFood(food_id) {
+    return this.axios.post(`/foods/${food_id}/activate`);
   }
 
   /**

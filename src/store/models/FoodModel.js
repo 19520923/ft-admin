@@ -1,46 +1,51 @@
-import { types } from "mobx-state-tree";
-import { DEFAULT_STATE_PROFILE, UserDetailModel } from "./UserStore";
+import { Instance, types } from "mobx-state-tree";
+import { ProfileModel } from "./ProfileModel";
 
 export const DEFAULT_STATE_FOOD = {
-  id: "",
+  _id: "",
   name: "",
   ingredients: [],
-  recipt: [],
+  recipe: [],
   score: 0,
-  author: null,
+  author: {},
   photo: "",
   num_rate: 0,
-  is_active: true,
   created_at: "",
   rates: [],
 };
 
 const FoodRateModel = types.model({
-  id: types.optional(types.string, ""),
-  author: types.optional(types.maybe(UserDetailModel), DEFAULT_STATE_PROFILE),
-  content: types.optional(types.string, ""),
-  score: types.optional(types.number, 0),
-  created_at: types.optional(types.string, ""),
+  _id: types.identifier,
+  author: ProfileModel,
+  content: types.string,
+  score: types.number,
+  created_at: types.string,
 });
 
-export const FoodDetailModel = types.model({
-  id: types.optional(types.string, ""),
-  name: types.optional(types.string, ""),
-  ingredients: types.optional(types.array(types.string), []),
-  recipt: types.optional(types.array(types.string), []),
-  score: types.optional(types.number, 0),
-  author: types.optional(types.maybe(UserDetailModel), DEFAULT_STATE_PROFILE),
-  photo: types.optional(types.string, ""),
-  num_rate: types.optional(types.number, 0),
-  is_active: types.optional(types.boolean, true),
-  created_at: types.optional(types.string, ""),
-  rates: types.optional(types.array(FoodRateModel), []),
+const RateStore = types.model({
+  rows: types.optional(types.array(FoodRateModel), []),
+  count: types.integer,
+  currentPage: types.integer,
 });
 
 const FoodModel = types.model({
-  all: types.optional(types.array(FoodDetailModel), []),
-  reported: types.optional(types.array(FoodDetailModel), []),
-  hinden: types.optional(types.array(FoodDetailModel), []),
+  _id: types.identifier,
+  name: types.string,
+  ingredients: types.array(types.string),
+  recipe: types.array(types.string),
+  score: types.number,
+  author: ProfileModel,
+  photo: types.string,
+  num_rate: types.number,
+  created_at: types.string,
+  rates: types.optional(RateStore, {
+    rows: [],
+    count: 0,
+    currentPage: 1,
+  }),
+  is_active: types.boolean,
+  num_report: types.number,
+  created_at: types.string,
 });
 
 export default FoodModel;
