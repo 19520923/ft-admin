@@ -77,23 +77,15 @@ const NotificationStore = types
   .actions((self) => ({
     /* Setting the notifications. */
     setNoti: flow(function* () {
-      try {
-        const { rows, count } = yield API.getAllNotifications(1);
-        self.rows = cast(rows);
-        self.count = count;
-        self.currentPage = 2;
-      } catch (error) {
-        console.log(error);
-      }
+      const { rows, count } = yield API.getAllNotifications(1);
+      self.rows = cast(rows);
+      self.count = count;
+      self.currentPage = 2;
     }),
     loadNoti: flow(function* () {
-      try {
-        const { rows } = yield API.getAllNotifications(self.currentPage);
-        self.rows.push(...rows);
-        self.currentPage++;
-      } catch (error) {
-        console.log(error);
-      }
+      const { rows } = yield API.getAllNotifications(self.currentPage);
+      self.rows.push(...rows);
+      self.currentPage++;
     }),
   }));
 
@@ -172,14 +164,14 @@ export const RootStore = types
     isLoggedIn: false,
   });
 
-// /* Persisting the root store. */
-// persist(
-//   "@rootStore",
-//   RootStore,
-//   {
-//     jsonify: true,
-//   },
-//   {
-//     fetching: true,
-//   }
-// );
+/* Persisting the root store. */
+persist(
+  "@rootStore",
+  RootStore,
+  {
+    jsonify: true,
+  },
+  {
+    fetching: true,
+  }
+);

@@ -150,7 +150,7 @@ class AxiosClient {
    * @param [search] - The search query.
    * @returns An array of users
    */
-  getUsers(page = 1, sort, search) {
+  getUsers(page, sort, search) {
     return this.axios.get(`/users?q=${search}&sort=${sort}&page=${page}&limit=${LIMIT}`);
   }
 
@@ -162,7 +162,7 @@ class AxiosClient {
    * @param [search] - string
    * @returns The return value is a promise.
    */
-  getActiveUsers(page = 1, sort, key) {
+  getActiveUsers(page, sort, key) {
     return this.axios.get(
       `/users?q=${key}&sort=${sort}&page=${page}&limit=${LIMIT}&is_active=true`
     );
@@ -176,7 +176,7 @@ class AxiosClient {
    * @param [search] - string
    * @returns The return value is a promise.
    */
-  getDeactiveUsers(page = 1, sort, key) {
+  getDeactiveUsers(page, sort, key) {
     return this.axios.get(
       `/users?q=${key}&sort=${sort}&page=${page}&limit=${LIMIT}&is_active=false`
     );
@@ -209,7 +209,7 @@ class AxiosClient {
    * @param [sort=-created_at] - The order in which you want the posts to be sorted.
    * @returns An array of posts
    */
-  getAllPosts(page = 1, sort = "-created_at") {
+  getAllPosts(page, sort) {
     return this.axios.get(`/posts?sort=${sort}&page=${page}&limit=${LIMIT}`);
   }
 
@@ -220,7 +220,7 @@ class AxiosClient {
    * @param [sort=-created_at] - -created_at (descending order)
    * @returns The return value is a promise.
    */
-  getAllActivePosts(page = 1, sort = "-created_at") {
+  getAllActivePosts(page, sort) {
     return this.axios.get(`/posts?sort=${sort}&page=${page}&limit=${LIMIT}&is_active=true`);
   }
 
@@ -231,7 +231,7 @@ class AxiosClient {
    * @param [sort=-created_at] - -created_at (descending order)
    * @returns The return value is a promise.
    */
-  getAllDeactivePosts(page = 1, sort = "-created_at") {
+  getAllDeactivePosts(page, sort) {
     return this.axios.get(`/posts?sort=${sort}&page=${page}&limit=${LIMIT}&is_active=false`);
   }
 
@@ -242,7 +242,7 @@ class AxiosClient {
    * @param [user_id] - the id of the user
    * @returns The return value is a promise.
    */
-  getUserActivePosts(user_id = "", page = 1, sort = "-created_at") {
+  getUserActivePosts(user_id, page, sort) {
     return this.axios.get(
       `/posts/${user_id}?sort=${sort}&page=${page}&limit=${LIMIT}&is_active=true`
     );
@@ -255,7 +255,7 @@ class AxiosClient {
    * @param [sort=-created_at] - The order in which you want the posts to be sorted.
    * @returns An array of posts
    */
-  getUserPosts(user_id = "", page = 1, sort = "-created_at") {
+  getUserPosts(user_id, page, sort) {
     return this.axios.get(`/posts/${user_id}?sort=${sort}&page=${page}&limit=${LIMIT}`);
   }
 
@@ -266,7 +266,7 @@ class AxiosClient {
    * @param [user_id] - the id of the user
    * @returns The return value is a promise.
    */
-  getUserDeactivePosts(user_id = "", page = 1, sort = "-created_at") {
+  getUserDeactivePosts(user_id, page, sort) {
     return this.axios.get(
       `/posts/${user_id}?sort=${sort}&page=${page}&limit=${LIMIT}&is_active=false`
     );
@@ -278,7 +278,7 @@ class AxiosClient {
    * @param post_id - the id of the post
    * @returns The return value is a promise.
    */
-  getPostComments(post_id, page = 1) {
+  getPostComments(post_id, page) {
     return this.axios.get(`/comments/${post_id}?page=${page}&limit=${LIMIT}`);
   }
 
@@ -317,7 +317,7 @@ class AxiosClient {
    * @param [sort=name] - The field to sort by.
    * @returns An array of objects.
    */
-  getFoods(page = 1, search = "", sort = "name") {
+  getFoods(page, search, sort) {
     return this.axios.get(`/foods?q=${search}&sort=${sort}&page=${page}&limit=${LIMIT}`);
   }
 
@@ -329,7 +329,7 @@ class AxiosClient {
    * @param [search] - search query
    * @returns The return value is the result of the axios.get() method.
    */
-  getActiveFoods(page = 1, search = "", sort = "name") {
+  getActiveFoods(page, search, sort) {
     return this.axios.get(
       `/foods?q=${search}&sort=${sort}&page=${page}&limit=${LIMIT}&is_active=true`
     );
@@ -343,7 +343,7 @@ class AxiosClient {
    * @param [search] - search query
    * @returns The return value is the result of the axios.get() method.
    */
-  getDeactiveFoods(page = 1, search = "", sort = "name") {
+  getDeactiveFoods(page, search, sort) {
     return this.axios.get(
       `/foods?q=${search}&sort=${sort}&page=${page}&limit=${LIMIT}&is_active=false`
     );
@@ -356,7 +356,7 @@ class AxiosClient {
    * @param [sort=-created_at] - The order in which the foods are sorted.
    * @returns An array of objects.
    */
-  getUserFoods(page = 1, user_id = "", sort = "-created_at") {
+  getUserFoods(page, user_id, sort) {
     return this.axios.get(`/foods/${user_id}?sort=${sort}&page=${page}&limit=${LIMIT}`);
   }
 
@@ -369,7 +369,7 @@ class AxiosClient {
    * @param [user_id] - the id of the user
    * @returns The return value is a promise.
    */
-  getUserActiveFoods(page = 1, user_id = "", sort = "-created_at") {
+  getUserActiveFoods(page, user_id, sort) {
     return this.axios.get(
       `/foods/${user_id}?sort=${sort}&page=${page}&limit=${LIMIT}&is_active=true`
     );
@@ -381,7 +381,7 @@ class AxiosClient {
    * @param food_id - the id of the food
    * @returns The return value is a promise.
    */
-  getFoodRates(food_id, page = 1) {
+  getFoodRates(food_id, page) {
     return this.axios.get(`/food-rates/${food_id}?page=${page}&limit=${LIMIT}`);
   }
 
@@ -419,7 +419,7 @@ class AxiosClient {
    * @param [page=1] - The page number of the notifications you want to retrieve.
    * @returns An object with a data property that contains an array of objects.
    */
-  getAllNotifications(page = 1) {
+  getAllNotifications(page) {
     return this.axios.get(`/notifications?page=${page}&limit=${LIMIT}`);
   }
 
