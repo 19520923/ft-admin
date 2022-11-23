@@ -14,8 +14,7 @@ import { Icon, Menu, MenuItem } from "@mui/material";
 import { useState } from "react";
 import Fastfood from "@mui/icons-material/Fastfood";
 import ActionItem from "examples/Items/ActionItem";
-import { UsersData } from "constants/data";
-import UserStore from "store/models/UserStore";
+import { RootStore } from "store/RootStore";
 
 const dataUser = [
   {
@@ -26,7 +25,7 @@ const dataUser = [
     email: "dangbang0001@gmail.com",
     status: true,
     created_at: "23/08/2021",
-    is_active: false
+    is_active: false,
   },
   {
     id: 1,
@@ -36,7 +35,7 @@ const dataUser = [
     email: "tangnguyenn@gmail.com",
     status: false,
     created_at: "23/08/2021",
-    is_active: true
+    is_active: true,
   },
   {
     id: 2,
@@ -46,9 +45,9 @@ const dataUser = [
     email: "uyentth@uit.edu.vn",
     status: true,
     created_at: "23/08/2021",
-    is_active: false
+    is_active: false,
   },
-]
+];
 
 const dataBlockedUser = [
   {
@@ -59,7 +58,7 @@ const dataBlockedUser = [
     email: "shikaka@konoha.com",
     status: true,
     createdDate: "23/08/2021",
-    isBlock: true
+    isBlock: true,
   },
   {
     id: 1,
@@ -69,9 +68,9 @@ const dataBlockedUser = [
     email: "uzu_naruto@konoha.com",
     status: false,
     createdDate: "23/08/2021",
-    isBlock: true
+    isBlock: true,
   },
-]
+];
 
 function Username({ avatar, fullname, username }) {
   return (
@@ -104,11 +103,11 @@ function Action({ job, org }) {
   );
 }
 
-const iconAction = 'more_horiz';
+const iconAction = "more_horiz";
 
 function IconAction({ block }) {
   const [openMenu, setOpenMenu] = useState(false);
-  const [isBlock, setIsBlock] = useState(block)
+  const [isBlock, setIsBlock] = useState(block);
 
   const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
   const handleCloseMenu = () => setOpenMenu(false);
@@ -119,10 +118,11 @@ function IconAction({ block }) {
     } else if (isBlock === false) {
       setIsBlock(true);
     }
-  }
+  };
 
   const renderMenu = () => (
-    <Menu Menu
+    <Menu
+      Menu
       anchorEl={openMenu}
       anchorReference={null}
       anchorOrigin={{
@@ -147,24 +147,23 @@ function IconAction({ block }) {
         date="Send messages to this user."
         onClick={handleCloseMenu}
       />
-      {
-        isBlock ?
-          <ActionItem
-            icon="no_accounts"
-            color="error"
-            title={["Unblock"]}
-            date="Unblock this user account."
-            onClick={eventBlock}
-          />
-          :
-          <ActionItem
-            icon="block"
-            color="error"
-            title={["Block"]}
-            date="Block this user account."
-            onClick={eventBlock}
-          />
-      }
+      {isBlock ? (
+        <ActionItem
+          icon="no_accounts"
+          color="error"
+          title={["Unblock"]}
+          date="Unblock this user account."
+          onClick={eventBlock}
+        />
+      ) : (
+        <ActionItem
+          icon="block"
+          color="error"
+          title={["Block"]}
+          date="Block this user account."
+          onClick={eventBlock}
+        />
+      )}
 
       {/* <SoftBox display="flex" flexDirection="column">
         <SoftButton variant="caption" fontWeight="medium" color='secondary'>
@@ -195,13 +194,20 @@ function IconAction({ block }) {
 
   return (
     <SoftBox display={{ xs: "none", lg: "inline-block" }}>
-      <Icon sx={{ fontWeight: "bold" }} color={'secondary'} fontSize={'medium'} onClick={handleOpenMenu}>{iconAction}</Icon>
+      <Icon
+        sx={{ fontWeight: "bold" }}
+        color={"secondary"}
+        fontSize={"medium"}
+        onClick={handleOpenMenu}
+      >
+        {iconAction}
+      </Icon>
       {renderMenu()}
     </SoftBox>
   );
 }
 
-const authorsTableData = {
+const authorsTableData = (users) => ({
   columns: [
     { name: "username", align: "left" },
     { name: "email", align: "left" },
@@ -210,51 +216,45 @@ const authorsTableData = {
     { name: "action", align: "center" },
   ],
 
-  rows: UserStore.all.map(user => ({
+  rows: users.all.rows.map((user) => ({
     username: <Username avatar={user.avatar_url} fullname={user.name} username={user.username} />,
     email: (
       <SoftTypography variant="caption" color="secondary" fontWeight="medium">
         {user.email}
       </SoftTypography>
     ),
-    status: (
-      user.is_current ?
-        <SoftBadge variant="gradient" badgeContent="online" color="success" size="xs" container />
-        :
-        <SoftBadge variant="gradient" badgeContent="offline" color="secondary" size="xs" container />
+    status: user.is_current ? (
+      <SoftBadge variant="gradient" badgeContent="online" color="success" size="xs" container />
+    ) : (
+      <SoftBadge variant="gradient" badgeContent="offline" color="secondary" size="xs" container />
     ),
     created: (
       <SoftTypography variant="caption" color="secondary" fontWeight="medium">
         {user.created_at}
       </SoftTypography>
     ),
-    action: (
-      <IconAction block={user.is_current} />
-    )
+    action: <IconAction block={user.is_current} />,
   })),
 
-  rowsBlock: dataBlockedUser.map(user => ({
+  rowsBlock: dataBlockedUser.map((user) => ({
     username: <Username avatar={user.avatar} fullname={user.fullname} username={user.username} />,
     email: (
       <SoftTypography variant="caption" color="secondary" fontWeight="medium">
         {user.email}
       </SoftTypography>
     ),
-    status: (
-      user.status ?
-        <SoftBadge variant="gradient" badgeContent="online" color="success" size="xs" container />
-        :
-        <SoftBadge variant="gradient" badgeContent="offline" color="secondary" size="xs" container />
+    status: user.status ? (
+      <SoftBadge variant="gradient" badgeContent="online" color="success" size="xs" container />
+    ) : (
+      <SoftBadge variant="gradient" badgeContent="offline" color="secondary" size="xs" container />
     ),
     created: (
       <SoftTypography variant="caption" color="secondary" fontWeight="medium">
         {user.createdDate}
       </SoftTypography>
     ),
-    action: (
-      <IconAction block={user.isBlock} />
-    )
-  }))
+    action: <IconAction block={user.isBlock} />,
+  })),
 
   // rows: [
   //   {
@@ -372,6 +372,6 @@ const authorsTableData = {
   //     ),
   //   },
   // ],
-};
+});
 
 export default authorsTableData;
