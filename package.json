@@ -13,6 +13,8 @@
     "npm": ">=6"
   },
   "dependencies": {
+    "@chatscope/chat-ui-kit-react": "^1.9.8",
+    "@chatscope/chat-ui-kit-styles": "^1.4.0",
     "@emotion/cache": "11.9.3",
     "@emotion/react": "11.9.3",
     "@emotion/styled": "11.9.3",
