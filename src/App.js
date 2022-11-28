@@ -32,7 +32,7 @@ import { useSoftUIController, setMiniSidenav, setOpenConfigurator } from "contex
 
 // Images
 import logo from "assets/images/logos/logoApp.png";
-import SignIn from "layouts/authentication/sign-in";
+import {SignInPage} from "./pages";
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -165,7 +165,7 @@ export default function App() {
       <Routes>
         {getRoutes(routes)}
         <Route path="*" element={<Navigate to="/dashboard" />} />
-        <Route path="/authentication/sign-in" elements={<SignIn />} />
+        <Route path="/authentication/sign-in" elements={<SignInPage />} />
       </Routes>
     </ThemeProvider>
   );

@@ -37,35 +37,23 @@ Coded by www.creative-tim.com
 
 // Soft UI Dashboard React layouts
 import Dashboard from "layouts/dashboard";
-import Users from "layouts/users";
-import VirtualReality from "layouts/virtual-reality";
-import RTL from "layouts/rtl";
-import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
-import SignUp from "layouts/authentication/sign-up";
-
-//avatar
-import SoftAvatar from "components/SoftAvatar";
-import burceMars from "assets/images/bruce-mars.jpg";
 
 // Soft UI Dashboard React icons
 import ShowChartIcon from "@mui/icons-material/ShowChart";
 import PeopleIcon from "@mui/icons-material/People";
 import NewspaperIcon from "@mui/icons-material/Newspaper";
 import FastfoodIcon from '@mui/icons-material/Fastfood';
-import Settings from "examples/Icons/Settings";
 import Document from "examples/Icons/Document";
-import SpaceShip from "examples/Icons/SpaceShip";
-import Cube from "examples/Icons/Cube";
-import Post from "layouts/post";
-import food from "layouts/food";
-import Food from "layouts/food";
-import Feedback from "layouts/feedback";
-import Setting from "layouts/setting";
 import Chat from "layouts/chat";
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
+import { UsersOverviewPage, UsersReportedPage, UsersBlockedPage } from "pages";
+import { PostOverviewPage, PostReportedPage, PostBlockedPage } from "pages";
+import { FoodOverviewPage, FoodReportedPage, FoodBlockedPage } from "pages";
+import { SettingsPage } from "pages";
+import { FeedbackPage } from "pages";
 
 const routes = [
   /* 
@@ -89,26 +77,26 @@ const routes = [
     key: "users",
     route: "/users/overview",
     icon: <PeopleIcon />,
-    component: <Users />,
+    component: <UsersOverviewPage />,
     noCollapse: true,
     collapse: [
       {
         name: "Overview",
         key: "users-overview",
         route: "/users/overview",
-        component: <Users />,
+        component: <UsersOverviewPage />,
       },
       {
         name: "Reported",
         key: "users-reported",
         route: "/users/reported",
-        component: <Users />,
+        component: <UsersReportedPage />,
       },
       {
         name: "Blocked",
         key: "users-blocked",
         route: "/users/blocked",
-        component: <Users />,
+        component: <UsersBlockedPage />,
       },
     ],
   },
@@ -121,26 +109,26 @@ const routes = [
     key: "posts",
     route: "/posts/overview",
     icon: <NewspaperIcon />,
-    component: <Post />,
+    component: <PostOverviewPage />,
     noCollapse: true,
     collapse: [
       {
         name: "Overview",
         key: "posts-overview",
         route: "/posts/overview",
-        component: <Post />,
+        component: <PostOverviewPage />,
       },
       {
         name: "Reported",
         key: "posts-reported",
         route: "/posts/reported",
-        component: <Post />,
+        component: <PostReportedPage />,
       },
       {
         name: "Blocked",
         key: "posts-blocked",
         route: "/posts/blocked",
-        component: <Post />,
+        component: <PostBlockedPage />,
       },
     ],
   },
@@ -153,26 +141,26 @@ const routes = [
     key: "foods",
     route: "/foods/overview",
     icon: <FastfoodIcon />,
-    component: <Food />,
+    component: <FoodOverviewPage />,
     noCollapse: true,
     collapse: [
       {
         name: "Overview",
         key: "foods-overview",
         route: "/foods/overview",
-        component: <Food />,
+        component: <FoodOverviewPage />,
       },
       {
         name: "Reported",
         key: "foods-reported",
         route: "/foods/reported",
-        component: <Food />,
+        component: <FoodReportedPage />,
       },
       {
         name: "Blocked",
         key: "foods-blocked",
         route: "/foods/blocked",
-        component: <Food />,
+        component: <FoodBlockedPage />,
       },
     ],
   },
@@ -197,7 +185,7 @@ const routes = [
     key: "feedbacks",
     route: "/feedbacks",
     icon: <Document size="16px" />,
-    component: <Feedback />,
+    component: <FeedbackPage />,
     noCollapse: true,
   },
 
@@ -241,7 +229,7 @@ const routes = [
     key: "settings",
     route: "/settings",
     icon: <SettingsIcon />,
-    component: <Setting />,
+    component: <SettingsPage />,
     noCollapse: true,
   },
   /* 
