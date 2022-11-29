@@ -2,8 +2,8 @@
 export {default as SignInPage} from '../pages/sign-in-page'
 // users
 export {default as UsersOverviewPage} from '../pages/users-overview-page'
-export {default as UsersReportedPage} from '../pages/users-overview-page'
-export {default as UsersBlockedPage} from '../pages/users-overview-page'
+export {default as UsersReportedPage} from '../pages/users-reported-page'
+export {default as UsersBlockedPage} from '../pages/users-blocked-page'
 
 // post
 export {default as PostOverviewPage} from '../pages/post-overview-page'
