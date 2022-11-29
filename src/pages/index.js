@@ -1,22 +1,22 @@
 // authen
-export {default as SignInPage} from '../pages/sign-in-page'
+export {default as SignInPage} from './sign-in-page'
 // users
-export {default as UsersOverviewPage} from '../pages/users-overview-page'
-export {default as UsersReportedPage} from '../pages/users-overview-page'
-export {default as UsersBlockedPage} from '../pages/users-overview-page'
+export {default as UsersOverviewPage} from './users-overview-page'
+export {default as UsersReportedPage} from './users-reported-page'
+export {default as UsersBlockedPage} from './users-blocked-page'
 
 // post
-export {default as PostOverviewPage} from '../pages/post-overview-page'
-export {default as PostReportedPage} from '../pages/post-reported-page'
-export {default as PostBlockedPage} from '../pages/post-blocked-page'
+export {default as PostOverviewPage} from './post-overview-page'
+export {default as PostReportedPage} from './post-reported-page'
+export {default as PostBlockedPage} from './post-blocked-page'
 
 // food
-export {default as FoodOverviewPage} from '../pages/food-overview-page'
-export {default as FoodReportedPage} from '../pages/food-overview-page'
-export {default as FoodBlockedPage} from '../pages/food-overview-page'
+export {default as FoodOverviewPage} from './food-overview-page'
+export {default as FoodReportedPage} from './food-reported-page'
+export {default as FoodBlockedPage} from './food-blocked-page'
 
 // setting
-export {default as SettingsPage} from '../pages/settings-page'
+export {default as SettingsPage} from './settings-page'
 
 // feedback
-export {default as FeedbackPage} from '../pages/feedback-page'
+export {default as FeedbackPage} from './feedback-page'

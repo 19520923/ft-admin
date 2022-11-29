@@ -17,12 +17,6 @@ import Configurator from "examples/Configurator";
 
 // Soft UI Dashboard React themes
 import theme from "assets/theme";
-import themeRTL from "assets/theme/theme-rtl";
-
-// RTL plugins
-import rtlPlugin from "stylis-plugin-rtl";
-import { CacheProvider } from "@emotion/react";
-import createCache from "@emotion/cache";
 
 // Soft UI Dashboard React routes
 import routes from "routes";
@@ -32,24 +26,13 @@ import { useSoftUIController, setMiniSidenav, setOpenConfigurator } from "contex
 
 // Images
 import logo from "assets/images/logos/logoApp.png";
-import {SignInPage} from "./pages";
+import { SignInPage } from "./pages";
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
   const { miniSidenav, direction, layout, openConfigurator, sidenavColor } = controller;
   const [onMouseEnter, setOnMouseEnter] = useState(false);
-  const [rtlCache, setRtlCache] = useState(null);
   const { pathname } = useLocation();
-
-  // Cache for the rtl
-  useMemo(() => {
-    const cacheRtl = createCache({
-      key: "rtl",
-      stylisPlugins: [rtlPlugin],
-    });
-
-    setRtlCache(cacheRtl);
-  }, []);
 
   // Open sidenav when mouse enter on mini sidenav
   const handleOnMouseEnter = () => {
@@ -80,6 +63,11 @@ export default function App() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
   }, [pathname]);
+
+  const getDrawerRoutes = useMemo(
+    () => _.filter(routes, (r) => !r.noShowDrawer),
+    [routes]
+  );
 
   const getRoutes = (allRoutes) =>
     allRoutes.map((route) => {
@@ -118,32 +106,7 @@ export default function App() {
     </SoftBox>
   );
 
-  return direction === "rtl" ? (
-    <CacheProvider value={rtlCache}>
-      <ThemeProvider theme={themeRTL}>
-        <CssBaseline />
-        {layout === "dashboard" && (
-          <>
-            <Sidenav
-              color={sidenavColor}
-              brand={logo}
-              brandName="FOODTALK ADMIN"
-              routes={routes}
-              onMouseEnter={handleOnMouseEnter}
-              onMouseLeave={handleOnMouseLeave}
-            />
-            {/* <Configurator />*/}
-            {chatButton}
-          </>
-        )}
-        {layout === "vr" && <Configurator />}
-        <Routes>
-          {getRoutes(routes)}
-          <Route path="*" element={<Navigate to="/dashboard" />} />
-        </Routes>
-      </ThemeProvider>
-    </CacheProvider>
-  ) : (
+  return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       {layout === "dashboard" && (
@@ -152,7 +115,7 @@ export default function App() {
             color={sidenavColor}
             brand={logo}
             brandName="FOODTALK ADMIN"
-            routes={routes}
+            routes={getDrawerRoutes}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
           />
