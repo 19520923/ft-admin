@@ -45,15 +45,23 @@ import PeopleIcon from "@mui/icons-material/People";
 import NewspaperIcon from "@mui/icons-material/Newspaper";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
 import Document from "examples/Icons/Document";
-import Chat from "layouts/chat";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SettingsIcon from "@mui/icons-material/Settings";
-import { UsersOverviewPage, UsersReportedPage, UsersBlockedPage } from "pages";
-import { PostOverviewPage, PostReportedPage, PostBlockedPage } from "pages";
-import { FoodOverviewPage, FoodReportedPage, FoodBlockedPage } from "pages";
-import { SettingsPage } from "pages";
-import { FeedbackPage } from "pages";
+import {
+  UsersOverviewPage,
+  UsersReportedPage,
+  UsersBlockedPage,
+  PostOverviewPage,
+  PostReportedPage,
+  PostBlockedPage,
+  FoodOverviewPage,
+  FoodReportedPage,
+  FoodBlockedPage,
+  ChatPage,
+  SettingsPage,
+  FeedbackPage
+} from "pages";
 
 const routes = [
   /* 
@@ -173,7 +181,7 @@ const routes = [
     key: "chats",
     route: "/chats",
     icon: <QuestionAnswerIcon />,
-    component: <Chat />,
+    component: <ChatPage />,
     noCollapse: true,
   },
   /* 

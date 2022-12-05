@@ -15,6 +15,10 @@ export {default as FoodOverviewPage} from './food-overview-page'
 export {default as FoodReportedPage} from './food-reported-page'
 export {default as FoodBlockedPage} from './food-blocked-page'
 
+// chat
+export {default as ChatPage} from './chat-page'
+
+
 // setting
 export {default as SettingsPage} from './settings-page'
 
