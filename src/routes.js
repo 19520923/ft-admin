@@ -42,7 +42,7 @@ import VirtualReality from "layouts/virtual-reality";
 import RTL from "layouts/rtl";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
-import SignUp from "layouts/authentication/sign-up";
+import UserProfile from "layouts/userprofile";
 
 //avatar
 import SoftAvatar from "components/SoftAvatar";
@@ -102,13 +102,13 @@ const routes = [
         name: "Reported",
         key: "users-reported",
         route: "/users/reported",
-        component: <Users />,
+        component: <UserProfile />,
       },
       {
         name: "Blocked",
         key: "users-blocked",
         route: "/users/blocked",
-        component: <Users />,
+        component: <Profile />,
       },
     ],
   },
