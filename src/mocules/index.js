@@ -1,3 +1,8 @@
+// dashboard
+export {default as ShortStatistic} from './dashboard/short-statistic'
+export {default as TableTopUsers} from './dashboard/table-top-users'
+export {default as TopUsersData} from './dashboard/top-users-data'
+
 // users
 export {default as UsersOverviewData} from './users/users-overview-data'
 export {default as UsersReportedData} from './users/users-reported-data'

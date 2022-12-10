@@ -1,5 +1,9 @@
 // authen
 export {default as SignInPage} from './sign-in-page'
+
+// dashboard
+export {default as DashboardPage} from './dashboard-page'
+
 // users
 export {default as UsersOverviewPage} from './users-overview-page'
 export {default as UsersReportedPage} from './users-reported-page'
