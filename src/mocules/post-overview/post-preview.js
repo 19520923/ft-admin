@@ -12,7 +12,7 @@ import { Grid, Menu } from "@mui/material";
 import { useState } from "react";
 import SimpleImageSlider from "react-simple-image-slider";
 
-function PostPreview({ fullname, username, date, checkin, caption, noGutter }) {
+function PostPreview({ fullname, username, date, checkin, caption, noGutter, photos }) {
 
   const [openMenu, setOpenMenu] = useState(false);
   const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
@@ -152,7 +152,7 @@ function PostPreview({ fullname, username, date, checkin, caption, noGutter }) {
                 <SimpleImageSlider
                   width={"100%"}
                   height={"100%"}
-                  images={images}
+                  images={photos}
                   showBullets={true}
                   showNavs={false}
                   autoPlay={true}
@@ -179,6 +179,7 @@ PostPreview.propTypes = {
   checkin: PropTypes.string.isRequired,
   caption: PropTypes.string.isRequired,
   noGutter: PropTypes.bool,
+  photos: PropTypes.arrayOf(PropTypes.string)
 };
 
 export default PostPreview;

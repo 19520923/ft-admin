@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Soft UI Dashboard React - v4.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 // @mui material components
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
@@ -96,7 +81,7 @@ function BuildByDevelopers() {
                 width="100%"
                 height="100%"
               />
-              <SoftBox component="img" src={rocketWhite} alt="rocket" width="100%" pt={3}/>
+              <SoftBox component="img" src={rocketWhite} alt="rocket" width="100%" pt={3} />
             </SoftBox>
           </Grid>
         </Grid>

@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Soft UI Dashboard React - v4.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 // prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
 
@@ -31,7 +16,6 @@ import rocketWhite from "assets/images/illustrations/rocket-white.png";
 import SimpleImageSlider from "react-simple-image-slider";
 
 function Bill({ fullname, username, date, checkin, caption, noGutter }) {
-
   const [openMenu, setOpenMenu] = useState(false);
   const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
   const handleCloseMenu = () => setOpenMenu(false);
@@ -44,7 +28,8 @@ function Bill({ fullname, username, date, checkin, caption, noGutter }) {
   ];
 
   const renderMenu = () => (
-    <Menu Menu
+    <Menu
+      Menu
       anchorEl={openMenu}
       anchorReference={null}
       anchorOrigin={{
@@ -102,7 +87,7 @@ function Bill({ fullname, username, date, checkin, caption, noGutter }) {
           flexDirection={{ xs: "column", sm: "row" }}
           mb={2}
         >
-          <SoftBox >
+          <SoftBox>
             <SoftButton variant="outlined" color="success" size="medium" iconOnly circular>
               {/* Return image avatar */}
             </SoftButton>
@@ -110,7 +95,6 @@ function Bill({ fullname, username, date, checkin, caption, noGutter }) {
               {fullname}
             </SoftTypography>
           </SoftBox>
-
 
           <SoftBox
             display="flex"

@@ -17,18 +17,11 @@ const DEFAULT_LIST_STATE = {
 rows: an array of PostModel
 count: a number
 currentPage: a number */
-const PostStore = types
-  .model({
-    rows: types.optional(types.array(PostModel), []),
-    count: types.optional(types.number, 0),
-    currentPage: types.optional(types.number, 1),
-  })
-  .views((self) => ({
-    getCommentsById(post_id) {
-      const index = _.findIndex(self.rows, (e) => e._id === post_id);
-      return self.rows[index].comments.rows;
-    },
-  }));
+const PostStore = types.model({
+  rows: types.optional(types.array(PostModel), []),
+  count: types.optional(types.number, 0),
+  currentPage: types.optional(types.number, 1),
+});
 
 /* Creating a FoodStore model with the following properties:
 rows: an array of FoodModel
@@ -40,29 +33,29 @@ const FoodStore = types.model({
   currentPage: types.optional(types.integer, 1),
 });
 
-/* Creating a UserStore model with the following properties:
-rows: an array of ProfileModel
-count: a number
-currentPage: a number */
-const UserStore = types
-  .model({
-    rows: types.optional(types.array(ProfileModel), []),
-    count: types.optional(types.number, 0),
-    currentPage: types.optional(types.number, 1),
-  })
-  .actions((self) => ({}));
-
 /* Creating a ProfileStore model with the following properties:
 profile: a ProfileModel
 foods: a FoodStore
 posts: a PostStore */
 const ProfileStore = types.model({
   profile: types.optional(ProfileModel, DEFAULT_STATE_PROFILE),
-  foods: FoodStore,
-  posts: PostStore,
-  following: UserStore,
-  follower: UserStore,
+  foods: types.optional(FoodStore, DEFAULT_LIST_STATE),
+  posts: types.optional(PostStore, DEFAULT_LIST_STATE),
+  following: types.optional(types.array(ProfileModel), []),
+  follower: types.optional(types.array(ProfileModel), []),
 });
+
+/* Creating a UserStore model with the following properties:
+rows: an array of ProfileModel
+count: a number
+currentPage: a number */
+const UserStore = types
+  .model({
+    rows: types.optional(types.array(ProfileStore), []),
+    count: types.optional(types.number, 0),
+    currentPage: types.optional(types.number, 1),
+  })
+  .actions((self) => ({}));
 
 /* Creating a NotificationStore model with the following properties:
 rows: an array of NotificationModel
@@ -94,20 +87,19 @@ export const RootStore = types
     profile: ProfileModel,
     users: types.model({
       all: UserStore,
-      active: UserStore,
-      block: UserStore,
+      reported: UserStore,
+      blocked: UserStore,
     }),
     foods: types.model({
       all: FoodStore,
-      active: FoodStore,
-      block: FoodStore,
+      reported: FoodStore,
+      blocked: FoodStore,
     }),
     posts: types.model({
       all: PostStore,
-      active: PostStore,
-      block: PostStore,
+      reported: PostStore,
+      blocked: PostStore,
     }),
-    selectedUser: ProfileStore,
     notifications: NotificationStore,
     isLoggedIn: types.optional(types.boolean, false),
   })
@@ -117,48 +109,79 @@ export const RootStore = types
       self.isLoggedIn = isLoggedIn;
     },
 
-    getUsers: flow(function* (sort = "username", key = "") {
-      const { count, rows } = yield API.getUsers(1, sort, key);
-      self.users.all.rows = cast(rows);
+    getUsers: flow(function* (page = 1, sort = "username", key = "") {
+      const { count, rows } = yield API.getUsers(page, sort, key);
+      self.users.all.rows = cast(rows.map((row) => ({ profile: row })));
       self.users.all.count = count;
-      self.users.all.currentPage = 2;
+      self.users.all.currentPage = page;
     }),
-    getActiveUsers: flow(function* (sort = "username", key = "") {
-      const { count, rows } = yield API.getActiveUsers(1, sort, key);
-      self.users.active.rows = cast(rows);
-      self.users.active.count = count;
-      self.users.active.currentPage = 2;
+    getReportedUsers: flow(function* (page = 1, sort = "username", key = "") {
+      const { count, rows } = yield API.getReportedUsers(page, sort, key);
+      self.users.reported.rows = cast(rows.map((row) => ({ profile: row })));
+      self.users.reported.count = count;
+      self.users.reported.currentPage = page;
     }),
-    getDeactiveUsers: flow(function* (sort = "username", key = "") {
-      const { count, rows } = yield API.getDeactiveUsers(1, sort, key);
-      self.users.block.rows = cast(rows);
-      self.users.block.count = count;
-      self.users.block.currentPage = 2;
+    getBlockedUsers: flow(function* (page = 1, sort = "username", key = "") {
+      const { count, rows } = yield API.getDeactiveUsers(page, sort, key);
+      self.users.blocked.rows = cast(rows.map((row) => ({ profile: row })));
+      self.users.blocked.count = count;
+      self.users.blocked.currentPage = page;
+    }),
+
+    getFoods: flow(function* (page = 1, sort = "name", key = "") {
+      const { count, rows } = yield API.getFoods(page, key, sort);
+      self.foods.all.rows = cast(rows);
+      self.foods.all.count = count;
+      self.foods.all.currentPage = page;
+    }),
+    getReportedFoods: flow(function* (page = 1, sort = "name", key = "") {
+      const { count, rows } = yield API.getReportedFoods(page, key, sort);
+      self.foods.reported.rows = cast(rows);
+      self.foods.reported.count = count;
+      self.foods.reported.currentPage = page;
+    }),
+    getBlockedFoods: flow(function* (page = 1, sort = "name", key = "") {
+      const { count, rows } = yield API.getDeactiveFoods(page, key, sort);
+      self.foods.blocked.rows = cast(rows);
+      self.foods.blocked.count = count;
+      self.foods.blocked.currentPage = page;
+    }),
+
+    getPosts: flow(function* (page = 1, sort = "-created_at") {
+      const { count, rows } = yield API.getAllPosts(page, sort);
+      self.posts.all.rows = cast(rows);
+      self.posts.all.count = count;
+      self.posts.all.currentPage = page;
+    }),
+    getReportedPosts: flow(function* (page = 1, sort = "-created_at") {
+      const { count, rows } = yield API.getAllReportedPosts(page, sort);
+      self.posts.reported.rows = cast(rows);
+      self.posts.reported.count = count;
+      self.posts.reported.currentPage = page;
+    }),
+    getBlockedPosts: flow(function* (page = 1, sort = "-created_at") {
+      const { count, rows } = yield API.getAllDeactivePosts(page, sort, key);
+      self.posts.blocked.rows = cast(rows);
+      self.posts.blocked.count = count;
+      self.posts.blocked.currentPage = page;
     }),
   }))
   .create({
     profile: DEFAULT_STATE_PROFILE,
     users: {
       all: DEFAULT_LIST_STATE,
-      active: DEFAULT_LIST_STATE,
-      block: DEFAULT_LIST_STATE,
-    },
-    selectedUser: {
-      profile: DEFAULT_STATE_PROFILE,
-      posts: DEFAULT_LIST_STATE,
-      foods: DEFAULT_LIST_STATE,
-      follower: DEFAULT_LIST_STATE,
-      following: DEFAULT_LIST_STATE,
+      reported: DEFAULT_LIST_STATE,
+      blocked: DEFAULT_LIST_STATE,
     },
     posts: {
       all: DEFAULT_LIST_STATE,
-      active: DEFAULT_LIST_STATE,
-      block: DEFAULT_LIST_STATE,
+      reported: DEFAULT_LIST_STATE,
+      blocked: DEFAULT_LIST_STATE,
     },
     foods: {
       all: DEFAULT_LIST_STATE,
-      active: DEFAULT_LIST_STATE,
-      block: DEFAULT_LIST_STATE,
+      reported: DEFAULT_LIST_STATE,
+      blocked: DEFAULT_LIST_STATE,
     },
     notifications: DEFAULT_LIST_STATE,
     isLoggedIn: false,

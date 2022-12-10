@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Soft UI Dashboard React - v4.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useState, useEffect } from "react";
 
 // react-router components
@@ -71,7 +56,7 @@ function DashboardNavbar({ absolute, light, isMini, action }) {
   const [openMenu, setOpenMenu] = useState(false);
   const route = useLocation().pathname.split("/").slice(1);
 
-  const collapse = routes.filter(e => e.key === action)[0].collapse
+  const collapse = routes.filter((e) => e.key === action)[0].collapse;
 
   useEffect(() => {
     // Setting the navbar type
@@ -235,7 +220,7 @@ DashboardNavbar.propTypes = {
   absolute: PropTypes.bool,
   light: PropTypes.bool,
   isMini: PropTypes.bool,
-  action: PropTypes.string
+  action: PropTypes.string,
 };
 
 export default DashboardNavbar;

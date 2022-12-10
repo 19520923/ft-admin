@@ -103,7 +103,7 @@ class AxiosClient {
 
     // luu account vào localStorage rồi truyền vào đây
     return this.login({
-      email: "nguyennhattan12201@gmail.com",
+      email: "19520923@gm.uit.edu.vn",
       password: "123456789",
     })
       .then(async (data) => {
@@ -168,6 +168,10 @@ class AxiosClient {
     );
   }
 
+  getReportedUsers(page, sort, key) {
+    return this.axios.get(`/users/list/reported?q=${key}&sort=${sort}&page=${page}&limit=${LIMIT}`);
+  }
+
   /**
    * If is_active is not an empty string, then return the axios.get request with the is_active parameter,
    * otherwise return the axios.get request without the is_active parameter.
@@ -196,7 +200,7 @@ class AxiosClient {
    * @param user_id - The user ID of the user you want to active.
    * @returns The return value of the function is the return value of the axios.delete method.
    */
-  blockUser(user_id) {
+  activeUser(user_id) {
     return this.axios.post(`/users/${user_id}/activate`);
   }
 
@@ -222,6 +226,10 @@ class AxiosClient {
    */
   getAllActivePosts(page, sort) {
     return this.axios.get(`/posts?sort=${sort}&page=${page}&limit=${LIMIT}&is_active=true`);
+  }
+
+  getAllReportedPosts(page, sort) {
+    return this.axios.get(`/posts/list/reported?sort=${sort}&page=${page}&limit=${LIMIT}`);
   }
 
   /**
@@ -332,6 +340,12 @@ class AxiosClient {
   getActiveFoods(page, search, sort) {
     return this.axios.get(
       `/foods?q=${search}&sort=${sort}&page=${page}&limit=${LIMIT}&is_active=true`
+    );
+  }
+
+  getReportedFoods(page, search, sort) {
+    return this.axios.get(
+      `/foods/list/reported?q=${search}&sort=${sort}&page=${page}&limit=${LIMIT}`
     );
   }
 
