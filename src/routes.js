@@ -49,6 +49,7 @@ import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SettingsIcon from "@mui/icons-material/Settings";
 import {
+  DashboardPage,
   UsersOverviewPage,
   UsersReportedPage,
   UsersBlockedPage,
@@ -73,7 +74,7 @@ const routes = [
     key: "dashboard",
     route: "/dashboard",
     icon: <ShowChartIcon />,
-    component: <Dashboard />,
+    component: <DashboardPage />,
     noCollapse: true,
   },
   /* 
