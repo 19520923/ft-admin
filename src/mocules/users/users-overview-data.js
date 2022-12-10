@@ -8,39 +8,6 @@ import { Icon, Menu } from "@mui/material";
 import { useState } from "react";
 import ActionItem from "examples/Items/ActionItem";
 
-const dataUser = [
-  {
-    id: 0,
-    avatar: "https://i.pinimg.com/564x/62/23/7a/62237a0e77af85429217d5d5d0bb429f.jpg",
-    fullname: "Dang Duy Bang",
-    username: "bang-ftAdmin",
-    email: "dangbang0001@gmail.com",
-    status: true,
-    created_at: "23/08/2021",
-    is_active: false,
-  },
-  {
-    id: 1,
-    avatar: "https://i.pinimg.com/564x/67/6d/84/676d849e498d5fb2e9810c9a35daf20b.jpg",
-    fullname: "Nguyen Nhut Tan",
-    username: "tan-ngnAd",
-    email: "tangnguyenn@gmail.com",
-    status: false,
-    created_at: "23/08/2021",
-    is_active: true,
-  },
-  {
-    id: 2,
-    avatar: "https://i.pinimg.com/564x/7a/e4/d5/7ae4d5d54ae076e3525fd1868b36207d.jpg",
-    fullname: "Thai Thuy Han Uyen",
-    username: "gv-doan2",
-    email: "uyentth@uit.edu.vn",
-    status: true,
-    created_at: "23/08/2021",
-    is_active: false,
-  },
-];
-
 function Username({ avatar, fullname, username }) {
   return (
     <SoftBox display="flex" alignItems="center" px={1} py={0.5}>
@@ -138,7 +105,7 @@ function IconAction({ block }) {
   );
 }
 
-const UsersOverviewData = (users) => ({
+const UsersOverviewData = (data) => ({
   columns: [
     { name: "username", align: "left" },
     { name: "email", align: "left" },
@@ -147,24 +114,24 @@ const UsersOverviewData = (users) => ({
     { name: "action", align: "center" },
   ],
 
-  rows: users.all.rows.map((user) => ({
-    username: <Username avatar={user.avatar_url} fullname={user.name} username={user.username} />,
+  rows: data.rows.map((user) => ({
+    username: <Username avatar={user.profile.avatar_url} fullname={user.profile.name} username={user.profile.username} />,
     email: (
       <SoftTypography variant="caption" color="secondary" fontWeight="medium">
-        {user.email}
+        {user.profile.email}
       </SoftTypography>
     ),
-    status: user.is_current ? (
+    status: user.profile.is_current ? (
       <SoftBadge variant="gradient" badgeContent="online" color="success" size="xs" container />
     ) : (
       <SoftBadge variant="gradient" badgeContent="offline" color="secondary" size="xs" container />
     ),
     created: (
       <SoftTypography variant="caption" color="secondary" fontWeight="medium">
-        {user.created_at}
+        {user.profile.created_at}
       </SoftTypography>
     ),
-    action: <IconAction block={user.is_current} />,
+    action: <IconAction block={user.profile.is_current} />,
   })),
 });
 

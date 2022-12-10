@@ -17,7 +17,7 @@ export const DEFAULT_STATE_PROFILE = {
   updated_at: "",
 };
 
-const profile_obj = {
+export const ProfileModel = types.model({
   _id: types.identifier,
   name: types.string,
   username: types.string,
@@ -29,10 +29,6 @@ const profile_obj = {
   is_active: types.boolean,
   num_report: types.number,
   created_at: types.string,
-};
-
-export const ProfileModel = types.model({
-  ...profile_obj,
   following: types.array(types.string),
   follower: types.array(types.string),
 });

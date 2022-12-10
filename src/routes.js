@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Soft UI Dashboard React - v4.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 /** 
   All of the routes for the Soft UI Dashboard React are added here,
   You can add a new route, customize the routes and delete the routes here.
@@ -60,7 +45,7 @@ import {
   FoodBlockedPage,
   ChatPage,
   SettingsPage,
-  FeedbackPage
+  FeedbackPage,
 } from "pages";
 
 const routes = [
@@ -243,6 +228,7 @@ const routes = [
     icon: <LogoutIcon />,
     component: <SignIn />,
     noCollapse: true,
+    noShowDrawer: true,
   },
   // {
   //   type: "collapse",

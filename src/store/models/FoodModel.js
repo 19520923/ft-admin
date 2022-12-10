@@ -1,5 +1,6 @@
-import { Instance, types } from "mobx-state-tree";
+import { flow, Instance, types } from "mobx-state-tree";
 import { ProfileModel } from "./ProfileModel";
+import API from "../../services/axiosClient";
 
 export const DEFAULT_STATE_FOOD = {
   _id: "",
