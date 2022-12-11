@@ -22,16 +22,15 @@ function FoodOverviewPage() {
   return (
     <DashboardLayout>
       <DashboardNavbar action="foods" />
-      <SoftBox mt={4}>
-        <SoftBox my={3}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={6}>
-              <FoodList foods={all.rows} />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <FoodDetail />
-            </Grid>
-          </Grid>
+      <SoftBox height='100%' mt={4}>
+        <SoftBox display='flex'>
+          <SoftBox width='49%' mr='2%'>
+            <FoodList foods={all.rows} />
+          </SoftBox>
+
+          <SoftBox height={2000} width='49%'>
+            <FoodDetail />
+          </SoftBox>
         </SoftBox>
       </SoftBox>
       <Footer />

@@ -22,6 +22,7 @@ const PostList = ({ posts }) => {
           {posts.map((post) => (
             <PostPreview
               key={post._id}
+              avatar={post.author.avatar_url}
               fullname={post.author.name}
               username={post.author.username}
               date={post.created_at}

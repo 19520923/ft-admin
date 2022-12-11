@@ -6,7 +6,12 @@ import Icon from "@mui/material/Icon";
 // Soft UI Dashboard React components
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
-import SoftButton from "components/SoftButton";
+import IconButton from "@mui/material/IconButton";
+import SoftAvatar from "components/SoftAvatar";
+
+export const images = [
+    "https://i.pinimg.com/564x/85/9f/52/859f5219ba0b8d67f399c0db5a648694.jpg",
+];
 
 function FoodComment({ color, icon, name, description, value, star }) {
     return (
@@ -24,8 +29,19 @@ function FoodComment({ color, icon, name, description, value, star }) {
 
                         <SoftBox display="flex" flexDirection="column">
                             <SoftBox alignItems={'center'} display="flex" mr={2}  >
-                                <SoftButton variant="outlined" color={color} size="medium" iconOnly circular>
-                                </SoftButton>
+                                <IconButton
+                                    size="small"
+                                    color="inherit"
+                                //onClick={handleConfiguratorOpen}
+                                >
+                                    <SoftAvatar
+                                        src={images[0]}
+                                        alt="profile-image"
+                                        variant="rounded"
+                                        size="m"
+                                        shadow="sm"
+                                    />
+                                </IconButton>
                                 <SoftTypography ml={1} mr={2} variant="button" fontWeight="medium" gutterBottom>
                                     {name}
                                 </SoftTypography>
