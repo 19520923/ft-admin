@@ -28,16 +28,14 @@ function Post() {
   return (
     <DashboardLayout>
       <DashboardNavbar action="posts" />
-      <SoftBox mt={4}>
-        <SoftBox my={3}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={6}>
-              <PostList posts={all.rows} />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              {selected && <PostDetail post={selected} />}
-            </Grid>
-          </Grid>
+      <SoftBox height='100%' mt={4}>
+        <SoftBox display='flex'>
+          <SoftBox width='49%' mr='2%'>
+            <PostList posts={all.rows} />
+          </SoftBox>
+          <SoftBox height={2000} width='49%' >
+            {!selected && <PostDetail post={all.rows} />}
+          </SoftBox>
         </SoftBox>
       </SoftBox>
       <Footer />

@@ -11,8 +11,11 @@ import ActionItem from "examples/Items/ActionItem";
 import { Grid, Menu } from "@mui/material";
 import { useState } from "react";
 import SimpleImageSlider from "react-simple-image-slider";
+import SoftAvatar from "components/SoftAvatar";
+import IconButton from "@mui/material/IconButton";
+import noimage from "../../assets/images/no-image.png";
 
-function PostPreview({ fullname, username, date, checkin, caption, noGutter, photos }) {
+function PostPreview({ avatar, fullname, username, date, checkin, caption, noGutter, photos }) {
 
   const [openMenu, setOpenMenu] = useState(false);
   const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
@@ -85,9 +88,19 @@ function PostPreview({ fullname, username, date, checkin, caption, noGutter, pho
           mb={2}
         >
           <SoftBox >
-            <SoftButton variant="outlined" color="success" size="medium" iconOnly circular>
-              {/* Return image avatar */}
-            </SoftButton>
+            <IconButton
+              size="small"
+              color="inherit"
+            //onClick={handleConfiguratorOpen}
+            >
+              <SoftAvatar
+                src={avatar}
+                alt="profile-image"
+                variant="rounded"
+                size="m"
+                shadow="sm"
+              />
+            </IconButton>
             <SoftTypography ml={1} variant="button" fontWeight="medium" textTransform="capitalize">
               {fullname}
             </SoftTypography>
@@ -149,14 +162,27 @@ function PostPreview({ fullname, username, date, checkin, caption, noGutter, pho
             </Grid>
             <Grid item xs={12} lg={4} sx={{ position: "relative", ml: "auto" }}>
               <SoftBox>
-                <SimpleImageSlider
-                  width={"100%"}
-                  height={"100%"}
-                  images={photos}
-                  showBullets={true}
-                  showNavs={false}
-                  autoPlay={true}
-                />
+                {
+                  photos.length > 0 ?
+                    <SimpleImageSlider
+                      width={"100%"}
+                      height={"100%"}
+                      images={photos}
+                      showBullets={true}
+                      showNavs={false}
+                      autoPlay={true}
+                    />
+                    :
+                    <SimpleImageSlider
+                      width={"100%"}
+                      height={"100%"}
+                      images={[noimage]}
+                      showBullets={false}
+                      showNavs={false}
+                      autoPlay={true}
+                    />
+                }
+
               </SoftBox>
             </Grid>
           </Grid>
@@ -173,6 +199,7 @@ PostPreview.defaultProps = {
 
 // Typechecking props for the Bill
 PostPreview.propTypes = {
+  avatar: PropTypes.string.isRequired,
   fullname: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,

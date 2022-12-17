@@ -7,22 +7,34 @@ import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";;
 import SoftButton from "components/SoftButton";
 import SimpleImageSlider from "react-simple-image-slider";
+import SoftAvatar from "components/SoftAvatar";
+import IconButton from "@mui/material/IconButton";
 
 export const images = [
     "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=600",
 ];
 
-function FoodContent() {
+const FoodContent = () => {
+    const avartarDoraemon = 'https://i.pinimg.com/564x/85/9f/52/859f5219ba0b8d67f399c0db5a648694.jpg'
+    
     return (
         <SoftBox>
             <SoftBox display="flex" justifyContent="space-between" alignItems="center" pt={3} px={2}>
-                <SoftBox >
-                    <SoftButton variant="outlined" color="error" size="medium" iconOnly circular>
-                        {/* Return image avatar */}
-                    </SoftButton>
-                </SoftBox>
-                <SoftTypography ml={-42} variant="h6" fontWeight="medium" textTransform="capitalize">
-                    Recipe
+                <IconButton
+                    size="small"
+                    color="inherit"
+                    //onClick={handleConfiguratorOpen}
+                >
+                    <SoftAvatar
+                        src={avartarDoraemon}
+                        alt="profile-image"
+                        variant="rounded"
+                        size="m"
+                        shadow="sm"
+                    />
+                </IconButton>
+                <SoftTypography ml={-35} variant="h6" fontWeight="medium" textTransform="capitalize">
+                    Username
                 </SoftTypography>
 
                 <SoftBox display="flex" alignItems="flex-start">

@@ -1,27 +1,41 @@
-import { Icon } from "@mui/material";
 import Card from "@mui/material/Card";
+import { useState } from "react";
 
 // Soft UI Dashboard React components
 import SoftBox from "components/SoftBox";
-import SoftPagination from "components/SoftPagination";
 import SoftTypography from "components/SoftTypography";
 import PostPreview from "./post-preview";
 import PropTypes from "prop-types";
 import { observer } from "mobx-react-lite";
+import Pagination from "react-custom-pagination";
 
 const PostList = ({ posts }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(2);
+
+  //get current Posts
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+
+  // when user clicks on number this function will execute
+  const paginate = (number) => {
+    setCurrentPage(number);
+  };
+
   return (
-    <Card id="delete-account">
+    <Card>
       <SoftBox pt={3} px={2}>
-        <SoftTypography variant="h6" fontWeight="medium">
-          Food Post
+        <SoftTypography variant="h6" fontWeight="bold">
+          LIST OF POST
         </SoftTypography>
       </SoftBox>
       <SoftBox pt={1} pb={2} px={2}>
         <SoftBox component="ul" display="flex" flexDirection="column" p={0} m={0}>
-          {posts.map((post) => (
+          {currentPosts.map((post) => (
             <PostPreview
               key={post._id}
+              avatar={post.author.avatar_url}
               fullname={post.author.name}
               username={post.author.username}
               date={post.created_at}
@@ -33,20 +47,20 @@ const PostList = ({ posts }) => {
           ))}
         </SoftBox>
       </SoftBox>
-      <SoftBox pr={18} pb={5}>
-        <SoftPagination>
-          <SoftPagination item>
-            <Icon>keyboard_arrow_left</Icon>
-          </SoftPagination>
-          <SoftPagination item active>
-            1
-          </SoftPagination>
-          <SoftPagination item>2</SoftPagination>
-          <SoftPagination item>3</SoftPagination>
-          <SoftPagination item>
-            <Icon>keyboard_arrow_right</Icon>
-          </SoftPagination>
-        </SoftPagination>
+      <SoftBox px={25} pb={5} alignItems="center" >
+        <Pagination
+          totalPosts={posts.length}
+          postsPerPage={postsPerPage}
+          paginate={paginate}
+          view={5}
+          //showLast={true}
+          //showFirst={true}
+          //showIndex={true}
+          selectColor={"#24A5FE"}
+          bgColor={"#a3acbc"}
+          indexbgColor={"#82d616"}
+          indexBorderRadius={"3%"}
+        />
       </SoftBox>
     </Card>
   );

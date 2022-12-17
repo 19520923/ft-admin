@@ -47,6 +47,7 @@ import {
   ChatPage,
   SettingsPage,
   FeedbackPage,
+  ProfileUserPage
 } from "pages";
 
 const routes = [
@@ -228,6 +229,17 @@ const routes = [
     route: "/authentication/sign-in",
     icon: <LogoutIcon />,
     component: <SignIn />,
+    noCollapse: true,
+    noShowDrawer: false,
+  },
+
+  {
+    type: "collapse",
+    name: "Profile",
+    key: "profile-user",
+    route: "/users/profile-user",
+    icon: <LogoutIcon />,
+    component: <ProfileUserPage />,
     noCollapse: true,
     noShowDrawer: true,
   },
