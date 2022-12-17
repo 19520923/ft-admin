@@ -7,6 +7,7 @@ import SoftBadge from "components/SoftBadge";
 import { Icon, Menu } from "@mui/material";
 import { useState } from "react";
 import ActionItem from "examples/Items/ActionItem";
+import { Link } from "react-router-dom";
 
 function Username({ avatar, fullname, username }) {
   return (
@@ -56,13 +57,15 @@ function IconAction({ block }) {
       onClose={handleCloseMenu}
       sx={{ mt: 2 }}
     >
-      <ActionItem
-        icon="person"
-        color="secondary"
-        title={["View"]}
-        date="View profile of this user."
-        onClick={handleCloseMenu}
-      />
+      <Link to={"/users/profile-user"}>
+        <ActionItem
+          icon="person"
+          color="secondary"
+          title={["View"]}
+          date="View profile of this user."
+          onClick={handleCloseMenu}
+        />
+      </Link>
       <ActionItem
         icon="chat"
         color="secondary"

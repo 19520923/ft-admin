@@ -102,6 +102,7 @@ export const RootStore = types
     }),
     notifications: NotificationStore,
     isLoggedIn: types.optional(types.boolean, false),
+    numTabOnProfile: types.enumeration(['posts', 'foods', 'followers', 'followings'])
   })
   .actions((self) => ({
     /* Setting the isLoggedIn to the isLoggedIn that is passed in. */
@@ -165,6 +166,25 @@ export const RootStore = types
       self.posts.blocked.count = count;
       self.posts.blocked.currentPage = page;
     }),
+    setNumTabOnProfile: (num) => {
+      switch (num) {
+        case 0:
+          self.numTabOnProfile = 'posts';
+          break;
+        case 1:
+          self.numTabOnProfile = 'foods';
+          break;
+        case 2:
+          self.numTabOnProfile = 'followers';
+          break;
+        case 3:
+          self.numTabOnProfile = 'followings';
+          break;
+        default:
+          self.numTabOnProfile = 'posts';
+          break;
+      }
+    }
   }))
   .create({
     profile: DEFAULT_STATE_PROFILE,
@@ -185,6 +205,7 @@ export const RootStore = types
     },
     notifications: DEFAULT_LIST_STATE,
     isLoggedIn: false,
+    numTabOnProfile: 'posts'
   });
 
 /* Persisting the root store. */

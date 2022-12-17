@@ -26,8 +26,8 @@ const PostList = ({ posts }) => {
   return (
     <Card>
       <SoftBox pt={3} px={2}>
-        <SoftTypography variant="h6" fontWeight="medium">
-          Food Post
+        <SoftTypography variant="h6" fontWeight="bold">
+          LIST OF POST
         </SoftTypography>
       </SoftBox>
       <SoftBox pt={1} pb={2} px={2}>

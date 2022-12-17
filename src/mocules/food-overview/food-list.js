@@ -27,8 +27,8 @@ function FoodList({ foods }) {
   return (
     <Card>
       <SoftBox pt={3} px={2}>
-        <SoftTypography variant="h6" fontWeight="medium">
-          Recipes
+        <SoftTypography variant="h6" fontWeight="bold">
+           LIST OF FOOD
         </SoftTypography>
       </SoftBox>
       <SoftBox pt={1} pb={2} px={2}>

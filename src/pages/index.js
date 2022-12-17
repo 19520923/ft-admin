@@ -9,6 +9,9 @@ export {default as UsersOverviewPage} from './users-overview-page'
 export {default as UsersReportedPage} from './users-reported-page'
 export {default as UsersBlockedPage} from './users-blocked-page'
 
+// profile user
+export {default as ProfileUserPage} from './profile-user-page'
+
 // post
 export {default as PostOverviewPage} from './post-overview-page'
 export {default as PostReportedPage} from './post-reported-page'
