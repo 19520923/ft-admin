@@ -13,6 +13,7 @@ import { useState } from "react";
 import SimpleImageSlider from "react-simple-image-slider";
 import SoftAvatar from "components/SoftAvatar";
 import IconButton from "@mui/material/IconButton";
+import noimage from "../../assets/images/no-image.png";
 
 function PostPreview({ avatar, fullname, username, date, checkin, caption, noGutter, photos }) {
 
@@ -161,14 +162,27 @@ function PostPreview({ avatar, fullname, username, date, checkin, caption, noGut
             </Grid>
             <Grid item xs={12} lg={4} sx={{ position: "relative", ml: "auto" }}>
               <SoftBox>
-                <SimpleImageSlider
-                  width={"100%"}
-                  height={"100%"}
-                  images={photos}
-                  showBullets={true}
-                  showNavs={false}
-                  autoPlay={true}
-                />
+                {
+                  photos.length > 0 ?
+                    <SimpleImageSlider
+                      width={"100%"}
+                      height={"100%"}
+                      images={photos}
+                      showBullets={true}
+                      showNavs={false}
+                      autoPlay={true}
+                    />
+                    :
+                    <SimpleImageSlider
+                      width={"100%"}
+                      height={"100%"}
+                      images={[noimage]}
+                      showBullets={false}
+                      showNavs={false}
+                      autoPlay={true}
+                    />
+                }
+
               </SoftBox>
             </Grid>
           </Grid>

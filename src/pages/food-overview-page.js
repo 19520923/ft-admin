@@ -15,6 +15,7 @@ function FoodOverviewPage() {
     foods: { all },
     getFoods,
   } = RootStore;
+  
   useEffect(() => {
     getFoods(page);
   }, [page]);
