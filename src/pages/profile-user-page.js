@@ -39,12 +39,19 @@ import { useState, useEffect } from "react";
 import { RootStore } from "store/RootStore";
 import { PostList, PostDetail, FoodDetail, FoodList } from "mocules";
 import { observer } from 'mobx-react-lite'
+import { useLocation } from "react-router-dom";
 
 function ProfileUserPage() {
     const {
         numTabOnProfile
     } = RootStore;
 
+    const location  = useLocation()
+    const user = location.state
+
+    useEffect(() => {
+        console.log("user", user);
+    }, [])
     /*
      handle fetch api table user's profile (include 
      posts, foods, followers, followings, profile info) 
@@ -69,7 +76,7 @@ function ProfileUserPage() {
                     <PostList posts={all.rows} />
                 </SoftBox>
                 <SoftBox height={2000} width='49%' >
-                    {!selected && <PostDetail post={all.rows} />}
+                    {!selected && <PostDetail post={all.rows[1]} />}
                 </SoftBox>
             </SoftBox>
         )
@@ -92,7 +99,7 @@ function ProfileUserPage() {
                     <FoodList foods={all.rows} />
                 </SoftBox>
                 <SoftBox height={2000} width='49%'>
-                    <FoodDetail />
+                    <FoodDetail food={all.rows[0]} />
                 </SoftBox>
             </SoftBox>
         )
@@ -108,7 +115,7 @@ function ProfileUserPage() {
 
     return (
         <DashboardLayout>
-            <ProfileHeader />
+            <ProfileHeader user={user} />
             <SoftBox>
                 {/* Handle logic tap tabs to change components */}
                 {/* When user tap Posts */}

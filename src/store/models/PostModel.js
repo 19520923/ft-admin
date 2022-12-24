@@ -62,7 +62,6 @@ export const PostModel = types.model({
   is_public: types.boolean,
   is_active: types.boolean,
   num_report: types.number,
-  created_at: types.string,
 });
 
 export default PostModel;

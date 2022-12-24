@@ -12,9 +12,12 @@ import Transaction from "layouts/billing/components/Transaction";
 import SoftButton from "components/SoftButton";
 import SimpleImageSlider from "react-simple-image-slider";
 import PostComment from "./post-comment";
-import PropTypes from "prop-types";
+import PropTypes, { string } from "prop-types";
 import SoftAvatar from "components/SoftAvatar";
 import IconButton from "@mui/material/IconButton";
+import noimage from "../../assets/images/no-image.png";
+import { RootStore } from "store/RootStore";
+import { observer } from "mobx-react-lite";
 
 export const images = [
   "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=600",
@@ -23,28 +26,31 @@ export const images = [
   "https://images.pexels.com/photos/1565982/pexels-photo-1565982.jpeg?auto=compress&cs=tinysrgb&w=600",
 ];
 
-function PostDetail({ post }) {
-  const avartarDoraemon = 'https://i.pinimg.com/564x/85/9f/52/859f5219ba0b8d67f399c0db5a648694.jpg'
-  
+function PostDetail() {
+  const { selectedPost } = RootStore;
+  const post = selectedPost.toJSON()
+
   return (
     <Card sx={{ height: "100%" }}>
       <SoftBox display="flex" justifyContent="space-between" alignItems="center" pt={3} px={2}>
-        <IconButton
-          size="small"
-          color="inherit"
-        //onClick={handleConfiguratorOpen}
-        >
-          <SoftAvatar
-            src={avartarDoraemon}
-            alt="profile-image"
-            variant="rounded"
-            size="m"
-            shadow="sm"
-          />
-        </IconButton>
-        <SoftTypography ml={-10} variant="h6" fontWeight="medium" textTransform="capitalize">
-          {'post.author.name'}&apos;s Detail Post
-        </SoftTypography>
+        <SoftBox display="flex" alignItems="center">
+          <IconButton
+            size="small"
+            color="inherit"
+          //onClick={handleConfiguratorOpen}
+          >
+            <SoftAvatar
+              src={post.author.avatar_url}
+              alt="profile-image"
+              //variant="rounded"
+              size="m"
+              shadow="sm"
+            />
+          </IconButton>
+          <SoftTypography variant="h6" fontWeight="medium" textTransform="capitalize">
+            {post.author.name}
+          </SoftTypography>
+        </SoftBox>
 
         <SoftBox display="flex" alignItems="flex-start">
           <SoftBox color="text" mr={0.5} lineHeight={0}>
@@ -53,7 +59,7 @@ function PostDetail({ post }) {
             </Icon>
           </SoftBox>
           <SoftTypography variant="button" color="text" fontWeight="regular">
-            22/10/2022
+            {post.created_at.substring(0, 10)}
           </SoftTypography>
         </SoftBox>
       </SoftBox>
@@ -63,7 +69,7 @@ function PostDetail({ post }) {
           <SoftTypography variant="caption" fontWeight="medium" textTransform="uppercase">
             caption:&nbsp;&nbsp;&nbsp;
             <SoftTypography variant="caption" color="text">
-              Oh so pretty !
+              {post.content}
             </SoftTypography>
           </SoftTypography>
         </SoftBox>
@@ -71,27 +77,40 @@ function PostDetail({ post }) {
           <SoftTypography variant="caption" fontWeight="medium" textTransform="uppercase">
             check-in:&nbsp;&nbsp;&nbsp;
             <SoftTypography variant="caption" color="text">
-              310 Huynh Tan Phat, Tan Thuan Tay, District 7, HCM City
+              {post.location.name + ' ' + post.location.lat + ' ' + post.location.lng}
             </SoftTypography>
           </SoftTypography>
         </SoftBox>
 
         <SoftBox>
-          <SimpleImageSlider
-            width={"95%"}
-            height={350}
-            images={images}
-            showBullets={true}
-            showNavs={true}
-            navMargin={10}
-          />
+          {
+            post.photos.length > 0 ?
+              <SimpleImageSlider
+                width={"95%"}
+                height={350}
+                images={post.photos}
+                showBullets={true}
+                showNavs={true}
+                navMargin={10}
+              />
+              :
+              <SimpleImageSlider
+                width={"95%"}
+                height={350}
+                images={[noimage]}
+                showBullets={false}
+                showNavs={false}
+                navMargin={10}
+              />
+          }
+
         </SoftBox>
         <SoftBox display="flex">
           <SoftTypography mr={2} mt={2} variant="h6" fontWeight="medium" textTransform="capitalize">
-            Likes (25)
+            Likes ({post.reactions.length})
           </SoftTypography>
           <SoftTypography mt={2} variant="h6" fontWeight="medium" textTransform="capitalize">
-            comments (2)
+            comments ({post.num_comment})
           </SoftTypography>
         </SoftBox>
 
@@ -114,12 +133,23 @@ function PostDetail({ post }) {
   );
 }
 
-export default PostDetail;
+export default observer(PostDetail);
 
 PostDetail.propTypes = {
   post: PropTypes.shape({
     author: PropTypes.shape({
       name: PropTypes.string,
+      avatar_url: PropTypes.string
     }),
+    created_at: PropTypes.string,
+    content: PropTypes.string,
+    location: PropTypes.shape({
+      name: PropTypes.string,
+      lat: PropTypes.string,
+      lng: PropTypes.string,
+    }),
+    photos: PropTypes.arrayOf(PropTypes.string),
+    num_comment: PropTypes.number,
+    reactions: PropTypes.arrayOf(PropTypes.string)
   }),
 };

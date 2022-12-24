@@ -29,7 +29,7 @@ function Username({ avatar, fullname, username }) {
 
 const iconAction = "more_horiz";
 
-function IconAction({ block }) {
+function IconAction({ param, block }) {
   const [openMenu, setOpenMenu] = useState(false);
   const [isBlock, setIsBlock] = useState(block);
 
@@ -57,7 +57,10 @@ function IconAction({ block }) {
       onClose={handleCloseMenu}
       sx={{ mt: 2 }}
     >
-      <Link to={"/users/profile-user"}>
+      <Link 
+        to={"/users/profile-user/"} 
+        state={param.toJSON()} 
+      >
         <ActionItem
           icon="person"
           color="secondary"
@@ -131,10 +134,10 @@ const UsersOverviewData = (data) => ({
     ),
     created: (
       <SoftTypography variant="caption" color="secondary" fontWeight="medium">
-        {user.profile.created_at}
+        {user.profile.created_at.substring(0, 10)}
       </SoftTypography>
     ),
-    action: <IconAction block={user.profile.is_current} />,
+    action: <IconAction param={user} block={user.profile.is_active} />,
   })),
 });
 

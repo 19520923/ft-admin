@@ -102,7 +102,8 @@ export const RootStore = types
     }),
     notifications: NotificationStore,
     isLoggedIn: types.optional(types.boolean, false),
-    numTabOnProfile: types.enumeration(['posts', 'foods', 'followers', 'followings'])
+    numTabOnProfile: types.enumeration(['posts', 'foods', 'followers', 'followings']),
+    selectedPost: types.maybeNull(PostModel)
   })
   .actions((self) => ({
     /* Setting the isLoggedIn to the isLoggedIn that is passed in. */
@@ -184,6 +185,9 @@ export const RootStore = types
           self.numTabOnProfile = 'posts';
           break;
       }
+    },
+    setSelectedPost: (post) => {
+      self.selectedPost = cast(post);
     }
   }))
   .create({
@@ -205,7 +209,8 @@ export const RootStore = types
     },
     notifications: DEFAULT_LIST_STATE,
     isLoggedIn: false,
-    numTabOnProfile: 'posts'
+    numTabOnProfile: 'posts',
+    selectedPost: null
   });
 
 /* Persisting the root store. */

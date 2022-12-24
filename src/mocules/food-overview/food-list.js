@@ -36,6 +36,7 @@ function FoodList({ foods }) {
           {currentFoods.map((food) => (
             <FoodPreview
               key={food._id}
+              avatar_url={food.author.avatar_url}
               name={food.name}
               user={food.author.name}
               rate={food.score}

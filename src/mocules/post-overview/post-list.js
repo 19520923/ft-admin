@@ -35,6 +35,7 @@ const PostList = ({ posts }) => {
           {currentPosts.map((post) => (
             <PostPreview
               key={post._id}
+              detailPost={post}
               avatar={post.author.avatar_url}
               fullname={post.author.name}
               username={post.author.username}

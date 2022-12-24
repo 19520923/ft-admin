@@ -14,12 +14,20 @@ import SimpleImageSlider from "react-simple-image-slider";
 import SoftAvatar from "components/SoftAvatar";
 import IconButton from "@mui/material/IconButton";
 import noimage from "../../assets/images/no-image.png";
+import { RootStore } from "store/RootStore";
+import { observer } from "mobx-react-lite";
 
-function PostPreview({ avatar, fullname, username, date, checkin, caption, noGutter, photos }) {
-
+function PostPreview({ detailPost, avatar, fullname, username, date, checkin, caption, noGutter, photos }) {
+  const { selectedPost, setSelectedPost } = RootStore;
   const [openMenu, setOpenMenu] = useState(false);
   const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
   const handleCloseMenu = () => setOpenMenu(false);
+  const handleViewPost = () => {
+
+    console.log("view Post: ", detailPost.toJSON())
+    setSelectedPost(detailPost.toJSON())
+    console.log("view Post in store: ", selectedPost.toJSON())
+  }
 
   const images = [
     "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=600",
@@ -45,7 +53,7 @@ function PostPreview({ avatar, fullname, username, date, checkin, caption, noGut
         color="View"
         title={["View"]}
         date="View detail post."
-        onClick={handleCloseMenu}
+        onClick={handleViewPost}
       />
       <ActionItem
         icon="hide_image"
@@ -139,7 +147,7 @@ function PostPreview({ avatar, fullname, username, date, checkin, caption, noGut
                 <SoftTypography variant="caption" color="text">
                   Date:&nbsp;&nbsp;&nbsp;
                   <SoftTypography variant="caption" fontWeight="medium">
-                    {date}
+                    {date.substring(0, 10)}
                   </SoftTypography>
                 </SoftTypography>
               </SoftBox>
@@ -199,6 +207,7 @@ PostPreview.defaultProps = {
 
 // Typechecking props for the Bill
 PostPreview.propTypes = {
+  detailPost: PropTypes.object,
   avatar: PropTypes.string.isRequired,
   fullname: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
@@ -209,4 +218,4 @@ PostPreview.propTypes = {
   photos: PropTypes.arrayOf(PropTypes.string)
 };
 
-export default PostPreview;
+export default observer(PostPreview);
