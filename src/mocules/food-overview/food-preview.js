@@ -11,8 +11,10 @@ import ActionItem from "examples/Items/ActionItem";
 import { Grid, Menu } from "@mui/material";
 import { useState } from "react";
 import SimpleImageSlider from "react-simple-image-slider";
+import IconButton from "@mui/material/IconButton";
+import SoftAvatar from "components/SoftAvatar";
 
-function FoodPreview({ name, user, rate, time }) {
+function FoodPreview({ avatar_url, name, user, rate, time }) {
     const [openMenu, setOpenMenu] = useState(false);
     const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
     const handleCloseMenu = () => setOpenMenu(false);
@@ -81,9 +83,21 @@ function FoodPreview({ name, user, rate, time }) {
                     mb={2}
                 >
                     <SoftBox >
-
+                        <IconButton
+                            size="small"
+                            color="inherit"
+                        //onClick={handleConfiguratorOpen}
+                        >
+                            <SoftAvatar
+                                src={avatar_url}
+                                alt="profile-image"
+                                variant="rounded"
+                                size="m"
+                                shadow="sm"
+                            />
+                        </IconButton>
                         <SoftTypography ml={1} variant="button" fontWeight="medium" textTransform="capitalize">
-                            {name}
+                            {user}
                         </SoftTypography>
                     </SoftBox>
 
@@ -105,15 +119,13 @@ function FoodPreview({ name, user, rate, time }) {
                         </SoftButton>
                     </SoftBox>
                 </SoftBox>
-
                 <SoftBox p={2}>
                     <Grid container spacing={3}>
                         <Grid item xs={12} lg={6}>
                             <SoftBox mb={1} lineHeight={0}>
                                 <SoftTypography variant="caption" color="text">
-                                    Username:&nbsp;&nbsp;&nbsp;
-                                    <SoftTypography variant="caption" fontWeight="medium">
-                                        {user}
+                                    <SoftTypography variant="subtitle2" fontWeight="medium" textTransform="uppercase">
+                                        {name}
                                     </SoftTypography>
                                 </SoftTypography>
                             </SoftBox>
@@ -137,7 +149,7 @@ function FoodPreview({ name, user, rate, time }) {
                                 <SoftTypography variant="caption" color="text">
                                     Date:&nbsp;&nbsp;&nbsp;
                                     <SoftTypography variant="caption" fontWeight="medium">
-                                        {time}
+                                        {time.substring(0, 10)}
                                     </SoftTypography>
                                 </SoftTypography>
                             </SoftBox>
@@ -167,6 +179,8 @@ FoodPreview.defaultProps = {
 
 // Typechecking props for the Bill
 FoodPreview.propTypes = {
+    avatar_url: PropTypes.string.isRequired,
+    user: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     user: PropTypes.string.isRequired,
     rate: PropTypes.string.isRequired,

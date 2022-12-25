@@ -21,8 +21,9 @@ import NewspaperIcon from '@mui/icons-material/Newspaper';
 import PeopleIcon from '@mui/icons-material/People';
 import GroupsIcon from '@mui/icons-material/Groups';
 import { RootStore } from "store/RootStore";
+import PropTypes from "prop-types";
 
-function ProfileHeader() {
+function ProfileHeader({ user }) {
     const [tabsOrientation, setTabsOrientation] = useState("horizontal");
     const [tabValue, setTabValue] = useState(0);
     const {
@@ -67,7 +68,7 @@ function ProfileHeader() {
                         `${linearGradient(
                             rgba(gradients.info.main, 0.6),
                             rgba(gradients.info.state, 0.6)
-                        )}, url(${curved0})`,
+                        )}, url(${user.profile.cover_url})`,
                     backgroundSize: "cover",
                     backgroundPosition: "50%",
                     overflow: "hidden",
@@ -88,7 +89,7 @@ function ProfileHeader() {
                 <Grid container spacing={3} alignItems="center">
                     <Grid item>
                         <SoftAvatar
-                            src={'https://www.planetsport.com/image-library/square/500/b/brazil-neymar-celebrates-extra-time-goal-croatia-world-cup-dec22.jpg'}
+                            src={user.profile.avatar_url}
                             alt="profile-image"
                             variant="rounded"
                             size="xl"
@@ -98,10 +99,10 @@ function ProfileHeader() {
                     <Grid item>
                         <SoftBox height="100%" mt={0.5} lineHeight={1}>
                             <SoftTypography variant="h5" fontWeight="medium">
-                                Dang Duy Bang
+                                {user.profile.name}
                             </SoftTypography>
                             <SoftTypography variant="button" color="text" fontWeight="medium">
-                                bangdd-119
+                                {user.profile.username}
                             </SoftTypography>
                         </SoftBox>
                     </Grid>
@@ -127,3 +128,7 @@ function ProfileHeader() {
 }
 
 export default ProfileHeader;
+
+ProfileHeader.propTypes = {
+    user: PropTypes.object,
+};

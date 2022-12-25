@@ -5,13 +5,13 @@ import SoftBox from "components/SoftBox";
 import CoolTabs from "react-cool-tabs";
 import FoodContent from "./food-content";
 import FoodEvaluation from "./food-evaluation";
+import PropTypes from "prop-types";
 
 export const images = [
   "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=600",
 ];
 
-function Transactions() {
-
+function FoodDetail({food}) {
   return (
     <Card sx={{ height: "100%" }}>
       <CoolTabs
@@ -27,12 +27,17 @@ function Transactions() {
         leftTabTitle={"Recipe"}
         rightTabTitle={"Evaluation"}
         contentTransitionStyle={'transform 0.2s ease-in'}
-        borderTransitionStyle={'all 0.2s ease-in'} 
-        leftContent={<FoodContent />}
+        borderTransitionStyle={'all 0.2s ease-in'}
+        leftContent={<FoodContent food={food} />}
         rightContent={<FoodEvaluation />}
       />
     </Card>
   );
 }
 
-export default Transactions;
+FoodDetail.propTypes = {
+  food: PropTypes.object,
+};
+
+export default FoodDetail;
+

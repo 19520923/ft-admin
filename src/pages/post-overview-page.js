@@ -12,14 +12,15 @@ import { PostList } from "mocules";
 import { PostDetail } from "mocules";
 import { useEffect, useState } from "react";
 import { RootStore } from "store/RootStore";
+import { observer } from "mobx-react-lite";
 
 function Post() {
   const [page, setPage] = useState(1);
   const {
     posts: { all },
     getPosts,
+    selectedPost
   } = RootStore;
-  const [selected, setSelected] = useState();
 
   useEffect(() => {
     getPosts(page);
@@ -34,7 +35,7 @@ function Post() {
             <PostList posts={all.rows} />
           </SoftBox>
           <SoftBox height={2000} width='49%' >
-            {!selected && <PostDetail post={all.rows} />}
+            {selectedPost !== null && <PostDetail post={all.rows[1]} />}
           </SoftBox>
         </SoftBox>
       </SoftBox>
@@ -43,4 +44,4 @@ function Post() {
   );
 }
 
-export default Post;
+export default observer(Post);

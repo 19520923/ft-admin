@@ -30,7 +30,7 @@ function FoodOverviewPage() {
           </SoftBox>
 
           <SoftBox height={2000} width='49%'>
-            <FoodDetail />
+            <FoodDetail food={all.rows[0]} />
           </SoftBox>
         </SoftBox>
       </SoftBox>
