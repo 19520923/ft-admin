@@ -54,7 +54,12 @@ const UserStore = types
     rows: types.optional(types.array(ProfileStore), []),
     count: types.optional(types.number, 0),
     currentPage: types.optional(types.number, 1),
-  })
+  }).views(self => ({
+    getUserById: (user_id) => {
+      const index = _.findIndex(self.rows, e => e.profile._id === user_id)
+      return self.rows[index].profile
+    }
+  }))
   .actions((self) => ({}));
 
 /* Creating a NotificationStore model with the following properties:
@@ -188,7 +193,8 @@ export const RootStore = types
     },
     setSelectedPost: (post) => {
       self.selectedPost = cast(post);
-    }
+    },
+
   }))
   .create({
     profile: DEFAULT_STATE_PROFILE,
@@ -214,13 +220,13 @@ export const RootStore = types
   });
 
 /* Persisting the root store. */
-persist(
-  "@rootStore",
-  RootStore,
-  {
-    jsonify: true,
-  },
-  {
-    fetching: true,
-  }
-);
+// persist(
+//   "@rootStore",
+//   RootStore,
+//   {
+//     jsonify: true,
+//   },
+//   {
+//     fetching: true,
+//   }
+// );

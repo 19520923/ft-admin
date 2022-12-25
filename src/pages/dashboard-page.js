@@ -91,6 +91,7 @@ function DashboardPage() {
                 <SoftBox mb={5}>
                     <CChart
                         type="line"
+                        customTooltips={false}
                         data={{
                             labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
                             datasets: [
@@ -122,6 +123,7 @@ function DashboardPage() {
                 </SoftBox>
                 <CChart
                     type="doughnut"
+                    customTooltips={false}
                     data={{
                         labels: ['Users Online', 'Users Offline'],
                         datasets: [
@@ -158,6 +160,7 @@ function DashboardPage() {
                 </SoftBox>
                 <CChart
                     type="bar"
+                    customTooltips={false}
                     data={{
                         labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
                         datasets: [
