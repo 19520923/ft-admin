@@ -120,10 +120,10 @@ function ProfileUserPage() {
                 {/* Handle logic tap tabs to change components */}
                 {/* When user tap Posts */}
                 {
-                    numTabOnProfile === 'posts' ?
-                        <ProfilePosts />
-                        : numTabOnProfile === 'foods' ?
-                            <ProfileFoods /> : <ProfilePosts />
+                    // numTabOnProfile === 'posts' ?
+                    //     <ProfilePosts />
+                    //     : numTabOnProfile === 'foods' ?
+                    //         <ProfileFoods /> : <ProfilePosts />
 
                 }
 

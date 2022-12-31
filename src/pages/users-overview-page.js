@@ -13,14 +13,14 @@ import Table from "examples/Tables/Table";
 import { useEffect, useState } from "react";
 import { RootStore } from "store/RootStore";
 import { observer } from "mobx-react-lite";
-import { UsersOverviewData } from "mocules";
+import { UsersData } from "mocules";
 
 function UsersOverviewPage() {
   const {
     users: { all },
     getUsers,
   } = RootStore;
-  const { columns, rows } = UsersOverviewData(all);
+  const { columns, rows } = UsersData(all);
   const [page, setPage] = useState(1);
 
   useEffect(() => {

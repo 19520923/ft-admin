@@ -114,7 +114,7 @@ function IconAction({ param, block }) {
   );
 }
 
-const UsersOverviewData = (data) => ({
+const UsersData = (data) => ({
   columns: [
     { name: "username", align: "left" },
     { name: "email", align: "left" },
@@ -144,4 +144,4 @@ const UsersOverviewData = (data) => ({
   })),
 });
 
-export default UsersOverviewData;
+export default UsersData;
