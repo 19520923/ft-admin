@@ -6,12 +6,17 @@ import CoolTabs from "react-cool-tabs";
 import FoodContent from "./food-content";
 import FoodEvaluation from "./food-evaluation";
 import PropTypes from "prop-types";
+import { RootStore } from "store/RootStore";
+import { observer } from "mobx-react-lite";
 
 export const images = [
   "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=600",
 ];
 
-function FoodDetail({food}) {
+function FoodDetail() {
+  const { selectedFood } = RootStore;
+  const food = selectedFood.toJSON()
+
   return (
     <Card sx={{ height: "100%" }}>
       <CoolTabs

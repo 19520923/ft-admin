@@ -108,7 +108,8 @@ export const RootStore = types
     notifications: NotificationStore,
     isLoggedIn: types.optional(types.boolean, false),
     numTabOnProfile: types.enumeration(['posts', 'foods', 'followers', 'followings']),
-    selectedPost: types.maybeNull(PostModel)
+    selectedPost: types.maybeNull(PostModel),
+    selectedFood: types.maybeNull(FoodModel)
   })
   .actions((self) => ({
     /* Setting the isLoggedIn to the isLoggedIn that is passed in. */
@@ -194,6 +195,9 @@ export const RootStore = types
     setSelectedPost: (post) => {
       self.selectedPost = cast(post);
     },
+    setSelectedFood: (post) => {
+      self.selectedFood = cast(post);
+    },
 
   }))
   .create({
@@ -216,7 +220,8 @@ export const RootStore = types
     notifications: DEFAULT_LIST_STATE,
     isLoggedIn: false,
     numTabOnProfile: 'posts',
-    selectedPost: null
+    selectedPost: null,
+    selectedFood: null
   });
 
 /* Persisting the root store. */

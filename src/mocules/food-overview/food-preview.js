@@ -13,11 +13,20 @@ import { useState } from "react";
 import SimpleImageSlider from "react-simple-image-slider";
 import IconButton from "@mui/material/IconButton";
 import SoftAvatar from "components/SoftAvatar";
+import { RootStore } from "store/RootStore";
+import { observer } from "mobx-react-lite";
 
-function FoodPreview({ avatar_url, name, user, rate, time }) {
+function FoodPreview({ detailFood, avatar_url, name, user, rate, time }) {
     const [openMenu, setOpenMenu] = useState(false);
     const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
     const handleCloseMenu = () => setOpenMenu(false);
+    const { selectedFood, setSelectedFood } = RootStore;
+
+    const handleViewPost = () => {
+        //console.log("view Food: ", detailFood.toJSON())
+        setSelectedFood(detailFood.toJSON())
+        //console.log("view Post in store: ", selectedFood.toJSON())
+      }
 
     const images = [
         "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=600",
@@ -40,7 +49,7 @@ function FoodPreview({ avatar_url, name, user, rate, time }) {
                 color="View"
                 title={["View"]}
                 date="View detail post."
-                onClick={handleCloseMenu}
+                onClick={handleViewPost}
             />
             <ActionItem
                 icon="hide_image"
@@ -179,6 +188,7 @@ FoodPreview.defaultProps = {
 
 // Typechecking props for the Bill
 FoodPreview.propTypes = {
+    detailFood: PropTypes.object,
     avatar_url: PropTypes.string.isRequired,
     user: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
@@ -187,4 +197,4 @@ FoodPreview.propTypes = {
     time: PropTypes.string.isRequired,
 };
 
-export default FoodPreview;
+export default observer(FoodPreview);

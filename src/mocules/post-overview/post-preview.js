@@ -23,10 +23,9 @@ function PostPreview({ detailPost, avatar, fullname, username, date, checkin, ca
   const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
   const handleCloseMenu = () => setOpenMenu(false);
   const handleViewPost = () => {
-
-    console.log("view Post: ", detailPost.toJSON())
+    //console.log("view Post: ", detailPost.toJSON())
     setSelectedPost(detailPost.toJSON())
-    console.log("view Post in store: ", selectedPost.toJSON())
+    //console.log("view Post in store: ", selectedPost.toJSON())
   }
 
   const images = [

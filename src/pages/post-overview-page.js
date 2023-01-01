@@ -35,7 +35,7 @@ function Post() {
             <PostList posts={all.rows} />
           </SoftBox>
           <SoftBox height={2000} width='49%' >
-            {selectedPost !== null && <PostDetail post={all.rows[1]} />}
+            {selectedPost !== null && <PostDetail />}
           </SoftBox>
         </SoftBox>
       </SoftBox>

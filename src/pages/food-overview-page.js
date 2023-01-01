@@ -14,6 +14,7 @@ function FoodOverviewPage() {
   const {
     foods: { all },
     getFoods,
+    selectedFood
   } = RootStore;
   
   useEffect(() => {
@@ -30,7 +31,7 @@ function FoodOverviewPage() {
           </SoftBox>
 
           <SoftBox height={2000} width='49%'>
-            <FoodDetail food={all.rows[0]} />
+          {selectedFood !== null && <FoodDetail />}
           </SoftBox>
         </SoftBox>
       </SoftBox>
