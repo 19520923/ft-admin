@@ -49,19 +49,24 @@ const PostList = ({ posts }) => {
         </SoftBox>
       </SoftBox>
       <SoftBox px={25} pb={5} alignItems="center" >
-        <Pagination
-          totalPosts={posts.length}
-          postsPerPage={postsPerPage}
-          paginate={paginate}
-          view={5}
-          //showLast={true}
-          //showFirst={true}
-          //showIndex={true}
-          selectColor={"#24A5FE"}
-          bgColor={"#a3acbc"}
-          indexbgColor={"#82d616"}
-          indexBorderRadius={"3%"}
-        />
+        {
+          posts.length > 1 ?
+            <Pagination
+              totalPosts={posts.length}
+              postsPerPage={postsPerPage}
+              paginate={paginate}
+              view={5}
+              //showLast={true}
+              //showFirst={true}
+              //showIndex={true}
+              selectColor={"#24A5FE"}
+              bgColor={"#a3acbc"}
+              indexbgColor={"#82d616"}
+              indexBorderRadius={"3%"}
+            />
+            :
+            null
+        }
       </SoftBox>
     </Card>
   );

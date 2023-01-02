@@ -8,6 +8,7 @@ import Footer from "examples/Footer";
 import { FoodList, FoodDetail } from "mocules";
 import { RootStore } from "store/RootStore";
 import { useEffect, useState } from "react";
+import { observer } from "mobx-react-lite";
 
 function FoodOverviewPage() {
   const [page, setPage] = useState(1);
@@ -16,9 +17,10 @@ function FoodOverviewPage() {
     getFoods,
     selectedFood
   } = RootStore;
-  
+
   useEffect(() => {
     getFoods(page);
+    console.log("food all: ", all.toJSON());
   }, [page]);
 
   return (
@@ -31,7 +33,7 @@ function FoodOverviewPage() {
           </SoftBox>
 
           <SoftBox height={2000} width='49%'>
-          {selectedFood !== null && <FoodDetail />}
+            {selectedFood !== null && <FoodDetail />}
           </SoftBox>
         </SoftBox>
       </SoftBox>
@@ -40,4 +42,4 @@ function FoodOverviewPage() {
   );
 }
 
-export default FoodOverviewPage;
+export default observer(FoodOverviewPage);

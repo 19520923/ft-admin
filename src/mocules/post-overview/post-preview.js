@@ -112,8 +112,6 @@ function PostPreview({ detailPost, avatar, fullname, username, date, checkin, ca
               {fullname}
             </SoftTypography>
           </SoftBox>
-
-
           <SoftBox
             display="flex"
             alignItems="center"
@@ -131,68 +129,63 @@ function PostPreview({ detailPost, avatar, fullname, username, date, checkin, ca
             </SoftButton>
           </SoftBox>
         </SoftBox>
-        <SoftBox p={2}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} lg={6}>
-              <SoftBox mb={1} lineHeight={0}>
-                <SoftTypography variant="caption" color="text">
-                  Username:&nbsp;&nbsp;&nbsp;
-                  <SoftTypography variant="caption" fontWeight="medium" textTransform="capitalize">
-                    {username}
-                  </SoftTypography>
+        <SoftBox display='flex' p={2}>
+          <SoftBox width={250}>
+            <SoftBox mb={1} lineHeight={0}>
+              <SoftTypography variant="caption" color="text">
+                Username:&nbsp;&nbsp;&nbsp;
+                <SoftTypography variant="caption" fontWeight="medium" textTransform="capitalize">
+                  {username}
                 </SoftTypography>
-              </SoftBox>
-              <SoftBox mb={1} lineHeight={0}>
-                <SoftTypography variant="caption" color="text">
-                  Date:&nbsp;&nbsp;&nbsp;
-                  <SoftTypography variant="caption" fontWeight="medium">
-                    {date.substring(0, 10)}
-                  </SoftTypography>
+              </SoftTypography>
+            </SoftBox>
+            <SoftBox mb={1} lineHeight={0}>
+              <SoftTypography variant="caption" color="text">
+                Date:&nbsp;&nbsp;&nbsp;
+                <SoftTypography variant="caption" fontWeight="medium">
+                  {date.substring(0, 10)}
                 </SoftTypography>
-              </SoftBox>
-              <SoftBox mb={1} lineHeight={0}>
-                <SoftTypography variant="caption" color="text">
-                  Check-in:&nbsp;&nbsp;&nbsp;
-                  <SoftTypography variant="caption" fontWeight="medium">
-                    {checkin}
-                  </SoftTypography>
+              </SoftTypography>
+            </SoftBox>
+            <SoftBox mb={1} lineHeight={0}>
+              <SoftTypography variant="caption" color="text">
+                Check-in:&nbsp;&nbsp;&nbsp;
+                <SoftTypography variant="caption" fontWeight="medium">
+                  {checkin}
                 </SoftTypography>
-              </SoftBox>
-              <SoftBox mb={1} lineHeight={0}>
-                <SoftTypography variant="caption" color="text">
-                  Caption:&nbsp;&nbsp;&nbsp;
-                  <SoftTypography variant="caption" fontWeight="medium">
-                    {caption}
-                  </SoftTypography>
+              </SoftTypography>
+            </SoftBox>
+            <SoftBox mb={1} lineHeight={0}>
+              <SoftTypography variant="caption" color="text">
+                Caption:&nbsp;&nbsp;&nbsp;
+                <SoftTypography variant="caption" fontWeight="medium">
+                  {caption}
                 </SoftTypography>
-              </SoftBox>
-            </Grid>
-            <Grid item xs={12} lg={4} sx={{ position: "relative", ml: "auto" }}>
-              <SoftBox>
-                {
-                  photos.length > 0 ?
-                    <SimpleImageSlider
-                      width={"100%"}
-                      height={"100%"}
-                      images={photos}
-                      showBullets={true}
-                      showNavs={false}
-                      autoPlay={true}
-                    />
-                    :
-                    <SimpleImageSlider
-                      width={"100%"}
-                      height={"100%"}
-                      images={[noimage]}
-                      showBullets={false}
-                      showNavs={false}
-                      autoPlay={true}
-                    />
-                }
-
-              </SoftBox>
-            </Grid>
-          </Grid>
+              </SoftTypography>
+            </SoftBox>
+          </SoftBox>
+          <SoftBox>
+            {
+              photos.length > 0 ?
+                <SimpleImageSlider
+                  width={150}
+                  height={120}
+                  images={photos}
+                  showBullets={true}
+                  showNavs={false}
+                  autoPlay={true}
+                />
+                :
+                <SimpleImageSlider
+                  width={150}
+                  height={120}
+                  images={[noimage]}
+                  showBullets={false}
+                  showNavs={false}
+                  autoPlay={true}
+                />
+            }
+          </SoftBox>
         </SoftBox>
       </SoftBox>
     </SoftBox>

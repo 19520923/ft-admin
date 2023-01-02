@@ -25,6 +25,7 @@ function UsersBlockedPage() {
 
   useEffect(() => {
     getBlockedUsers(page);
+    //console.log("user blocked: ", blocked.toJSON());
   }, [page]);
 
   return (

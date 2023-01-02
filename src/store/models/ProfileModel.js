@@ -36,5 +36,9 @@ export const ProfileModel = types.model({
   blockUser: flow(function* () {
     self.is_active = false
     yield API.blockUser(self._id)
+  }),
+  activeUser: flow(function* () {
+    self.is_active = true
+    yield API.activeUser(self._id)
   })
 }));

@@ -210,15 +210,15 @@ const routes = [
   /* 
    Setting Drawer 
  */
-  {
-    type: "collapse",
-    name: "Settings",
-    key: "settings",
-    route: "/settings",
-    icon: <SettingsIcon />,
-    component: <SettingsPage />,
-    noCollapse: true,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Settings",
+  //   key: "settings",
+  //   route: "/settings",
+  //   icon: <SettingsIcon />,
+  //   component: <SettingsPage />,
+  //   noCollapse: true,
+  // },
   /* 
   LogOut Drawer 
 */

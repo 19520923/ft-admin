@@ -24,8 +24,8 @@ function UsersOverviewPage() {
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    getUsers(1);
-    console.log(all.toJSON());
+    getUsers(page);
+    //console.log("user List: ", all.toJSON());
   }, [page]);
 
   return (

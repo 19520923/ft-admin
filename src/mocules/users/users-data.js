@@ -9,7 +9,6 @@ import { useState } from "react";
 import ActionItem from "examples/Items/ActionItem";
 import { Link } from "react-router-dom";
 import { RootStore } from "store/RootStore";
-import { observer } from "mobx-react-lite";
 
 function Username({ avatar, fullname, username }) {
   return (
@@ -41,9 +40,11 @@ function IconAction({ param, block }) {
 
   const eventBlock = () => {
     if (!isBlock) {
+      setIsBlock(true)
       getUserById(param.profile._id).blockUser()
     } else {
-      // setIsBlock(true);
+      setIsBlock(false)
+      getUserById(param.profile._id).activeUser()
     }
   };
 
@@ -130,10 +131,12 @@ const UsersData = (data) => ({
         {user.profile.email}
       </SoftTypography>
     ),
-    status: user.profile.is_active ? (
-      <SoftBadge variant="gradient" badgeContent="online" color="success" size="xs" container />
+    status: !user.profile.is_active ? (
+      <SoftBadge variant="gradient" badgeContent="blocked" color="error" size="xs" container />
+    ) : user.profile.num_report > 0 ? (
+      <SoftBadge variant="gradient" badgeContent="reported" color="warning" size="xs" container />
     ) : (
-      <SoftBadge variant="gradient" badgeContent="offline" color="secondary" size="xs" container />
+      <SoftBadge variant="gradient" badgeContent="active" color="success" size="xs" container />
     ),
     created: (
       <SoftTypography variant="caption" color="secondary" fontWeight="medium">
