@@ -53,17 +53,10 @@ function FoodPreview({ detailFood, avatar_url, name, user, rate, time, photo }) 
                 onClick={handleViewPost}
             />
             <ActionItem
-                icon="hide_image"
-                color="disabled"
-                title={["Hide"]}
-                date="Hide this post temporarily."
-                onClick={handleCloseMenu}
-            />
-            <ActionItem
                 icon="delete"
                 color="error"
-                title={["Delete"]}
-                date="Delete this post permanently."
+                title={["Block"]}
+                date="Block this post from community."
                 onClick={handleCloseMenu}
             />
         </Menu>

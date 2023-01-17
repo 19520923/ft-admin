@@ -8,13 +8,16 @@ import Footer from "examples/Footer";
 import { FoodList, FoodDetail } from "mocules";
 import { RootStore } from "store/RootStore";
 import { useEffect, useState } from "react";
+import { observer } from "mobx-react-lite";
 
 function FoodOverviewPage() {
   const [page, setPage] = useState(1);
   const {
     foods: { blocked },
     getBlockedFoods,
+    selectedFood
   } = RootStore;
+
   useEffect(() => {
     getBlockedFoods(page);
   }, [page]);
@@ -22,16 +25,19 @@ function FoodOverviewPage() {
   return (
     <DashboardLayout>
       <DashboardNavbar action="foods" />
-      <SoftBox mt={4}>
-        <SoftBox my={3}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={6}>
-              <FoodList foods={blocked.rows} />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <FoodDetail />
-            </Grid>
-          </Grid>
+      <SoftBox height='100%' mt={4}>
+        <SoftBox display='flex'>
+          <SoftBox width='49%' mr='2%'>
+            {
+              blocked.rows.length > 0 ?
+                <FoodList foods={blocked.rows} /> :
+                null
+            }
+          </SoftBox>
+
+          <SoftBox height={2000} width='49%'>
+            {selectedFood !== null && <FoodDetail />}
+          </SoftBox>
         </SoftBox>
       </SoftBox>
       <Footer />
@@ -39,4 +45,4 @@ function FoodOverviewPage() {
   );
 }
 
-export default FoodOverviewPage;
+export default observer(FoodOverviewPage);

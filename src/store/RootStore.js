@@ -21,7 +21,13 @@ const PostStore = types.model({
   rows: types.optional(types.array(PostModel), []),
   count: types.optional(types.number, 0),
   currentPage: types.optional(types.number, 1),
-});
+}).views(self => ({
+  getPostById: (post_id) => {
+    const index = _.findIndex(self.rows, e => e._id === post_id)
+    return self.rows[index]
+  }
+}))
+  .actions((self) => ({}));
 
 /* Creating a FoodStore model with the following properties:
 rows: an array of FoodModel
@@ -168,7 +174,7 @@ export const RootStore = types
       self.posts.reported.currentPage = page;
     }),
     getBlockedPosts: flow(function* (page = 1, sort = "-created_at") {
-      const { count, rows } = yield API.getAllDeactivePosts(page, sort, key);
+      const { count, rows } = yield API.getAllDeactivePosts(page, sort);
       self.posts.blocked.rows = cast(rows);
       self.posts.blocked.count = count;
       self.posts.blocked.currentPage = page;

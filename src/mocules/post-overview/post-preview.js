@@ -8,7 +8,7 @@ import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 import SoftButton from "components/SoftButton";
 import ActionItem from "examples/Items/ActionItem";
-import { Grid, Menu } from "@mui/material";
+import { Menu } from "@mui/material";
 import { useState } from "react";
 import SimpleImageSlider from "react-simple-image-slider";
 import SoftAvatar from "components/SoftAvatar";
@@ -17,23 +17,32 @@ import noimage from "../../assets/images/no-image.png";
 import { RootStore } from "store/RootStore";
 import { observer } from "mobx-react-lite";
 
-function PostPreview({ detailPost, avatar, fullname, username, date, checkin, caption, noGutter, photos }) {
-  const { selectedPost, setSelectedPost } = RootStore;
+function PostPreview({ detailPost, avatar, fullname, username, date, checkin, caption, noGutter, photos, is_active }) {
+  const {
+    selectedPost,
+    setSelectedPost,
+    posts: { all: { getPostById } }
+  } = RootStore;
   const [openMenu, setOpenMenu] = useState(false);
   const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
   const handleCloseMenu = () => setOpenMenu(false);
   const handleViewPost = () => {
-    //console.log("view Post: ", detailPost.toJSON())
+    console.log("view Post: ", detailPost.toJSON())
     setSelectedPost(detailPost.toJSON())
-    //console.log("view Post in store: ", selectedPost.toJSON())
   }
+  const [isActive, setIsActive] = useState(is_active);
 
-  const images = [
-    "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "https://images.pexels.com/photos/1565982/pexels-photo-1565982.jpeg?auto=compress&cs=tinysrgb&w=600",
-  ];
+  const eventBlockPost = () => {
+    if (isActive === true) {
+      console.log("block")
+      setIsActive(false)
+      getPostById(detailPost._id).blockPost()
+    } else if (isActive === false) {
+      console.log("Unblock")
+      setIsActive(true)
+      getPostById(detailPost._id).activePost()
+    }
+  };
 
   const renderMenu = () => (
     <Menu Menu
@@ -54,20 +63,23 @@ function PostPreview({ detailPost, avatar, fullname, username, date, checkin, ca
         date="View detail post."
         onClick={handleViewPost}
       />
-      <ActionItem
-        icon="hide_image"
-        color="disabled"
-        title={["Hide"]}
-        date="Hide this post temporarily."
-        onClick={handleCloseMenu}
-      />
-      <ActionItem
-        icon="delete"
-        color="error"
-        title={["Delete"]}
-        date="Delete this post permanently."
-        onClick={handleCloseMenu}
-      />
+      {!isActive ? (
+        <ActionItem
+          icon="delete"
+          color="error"
+          title={["Unblock"]}
+          date="Unblock this post from block list."
+          onClick={eventBlockPost}
+        />
+      ) : (
+        <ActionItem
+          icon="delete"
+          color="error"
+          title={["Block"]}
+          date="Block this post from community."
+          onClick={eventBlockPost}
+        />
+      )}
     </Menu>
   );
 
@@ -207,7 +219,8 @@ PostPreview.propTypes = {
   checkin: PropTypes.string.isRequired,
   caption: PropTypes.string.isRequired,
   noGutter: PropTypes.bool,
-  photos: PropTypes.arrayOf(PropTypes.string)
+  photos: PropTypes.arrayOf(PropTypes.string),
+  is_active: PropTypes.bool
 };
 
 export default observer(PostPreview);

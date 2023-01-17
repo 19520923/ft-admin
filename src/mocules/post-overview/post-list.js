@@ -6,7 +6,6 @@ import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 import PostPreview from "./post-preview";
 import PropTypes from "prop-types";
-import { observer } from "mobx-react-lite";
 import Pagination from "react-custom-pagination";
 
 const PostList = ({ posts }) => {
@@ -43,6 +42,7 @@ const PostList = ({ posts }) => {
               checkin={post.location.name}
               caption={post.content}
               photos={post.photos}
+              is_active={post.is_active}
               noGutter
             />
           ))}
@@ -76,4 +76,4 @@ PostList.propTypes = {
   posts: PropTypes.array,
 };
 
-export default observer(PostList);
+export default PostList;

@@ -1,6 +1,3 @@
-// @mui material components
-import Grid from "@mui/material/Grid";
-
 // Soft UI Dashboard React components
 import SoftBox from "components/SoftBox";
 
@@ -14,7 +11,7 @@ import { useEffect, useState } from "react";
 import { RootStore } from "store/RootStore";
 import { observer } from "mobx-react-lite";
 
-function Post() {
+function PostOverviewPage() {
   const [page, setPage] = useState(1);
   const {
     posts: { all },
@@ -32,7 +29,11 @@ function Post() {
       <SoftBox height='100%' mt={4}>
         <SoftBox display='flex'>
           <SoftBox width='49%' mr='2%'>
-            <PostList posts={all.rows} />
+            {
+              all.rows.length > 0 ?
+                <PostList posts={all.rows} /> :
+                null
+            }
           </SoftBox>
           <SoftBox height={2000} width='49%' >
             {selectedPost !== null && <PostDetail />}
@@ -44,4 +45,4 @@ function Post() {
   );
 }
 
-export default observer(Post);
+export default observer(PostOverviewPage);

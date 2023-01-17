@@ -38,7 +38,7 @@ function IconAction({ param, block }) {
   const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
   const handleCloseMenu = () => setOpenMenu(false);
 
-  const eventBlock = () => {
+  const eventBlockUser = () => {
     if (!isBlock) {
       setIsBlock(true)
       getUserById(param.profile._id).blockUser()
@@ -86,7 +86,7 @@ function IconAction({ param, block }) {
           color="error"
           title={["Unblock"]}
           date="Unblock this user account."
-          onClick={eventBlock}
+          onClick={eventBlockUser}
         />
       ) : (
         <ActionItem
@@ -94,7 +94,7 @@ function IconAction({ param, block }) {
           color="error"
           title={["Block"]}
           date="Block this user account."
-          onClick={eventBlock}
+          onClick={eventBlockUser}
         />
       )}
     </Menu>

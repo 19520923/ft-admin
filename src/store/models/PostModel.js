@@ -1,7 +1,8 @@
-import { types, Instance, cast } from "mobx-state-tree";
+import { types, Instance, cast, flow } from "mobx-state-tree";
 import FoodModel from "./FoodModel";
 import { ProfileModel } from "./ProfileModel";
 import _ from "lodash";
+import API from '../../services/axiosClient'
 
 export const DEFAULT_STATE_POST = {
   _id: "",
@@ -30,7 +31,7 @@ const CommentModel = types.model({
   created_at: types.string,
 });
 
-const CommnetStore = types
+const CommentStore = types
   .model({
     rows: types.optional(types.array(CommentModel), []),
     count: types.optional(types.number, 0),
@@ -54,7 +55,7 @@ export const PostModel = types.model({
   author: ProfileModel,
   location: LocationModel,
   created_at: types.string,
-  comments: types.optional(CommnetStore, {
+  comments: types.optional(CommentStore, {
     rows: [],
     count: 0,
     currentPage: 1,
@@ -62,6 +63,15 @@ export const PostModel = types.model({
   is_public: types.boolean,
   is_active: types.boolean,
   num_report: types.number,
-});
+}).actions(self => ({
+  blockPost: flow(function* () {
+    self.is_active = false
+    yield API.deactivePost(self._id)
+  }),
+  activePost: flow(function* () {
+    self.is_active = true
+    yield API.activePost(self._id)
+  })
+}));
 
 export default PostModel;
