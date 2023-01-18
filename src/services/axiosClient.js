@@ -306,6 +306,7 @@ class AxiosClient {
    * @returns The return value of the function is the return value of the axios.delete() function.
    */
   deactivePost(post_id) {
+    console.log("calling api deactivePost");
     return this.axios.delete(`/posts/${post_id}`);
   }
 
@@ -315,6 +316,7 @@ class AxiosClient {
    * @returns The return value of the function is the return value of the axios.post() function.
    */
   activePost(post_id) {
+    console.log("calling api activePost");
     return this.axios.post(`/posts/${post_id}`);
   }
 

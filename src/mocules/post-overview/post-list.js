@@ -7,8 +7,13 @@ import SoftTypography from "components/SoftTypography";
 import PostPreview from "./post-preview";
 import PropTypes from "prop-types";
 import Pagination from "react-custom-pagination";
+import { RootStore } from "store/RootStore";
+import { observer } from "mobx-react-lite";
 
 const PostList = ({ posts }) => {
+  const {
+    posts: { all: { getPostById }, blocked: { removePostById } }
+  } = RootStore;
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(2);
 
@@ -21,6 +26,16 @@ const PostList = ({ posts }) => {
   const paginate = (number) => {
     setCurrentPage(number);
   };
+
+  const blockPost = (postId) => {
+    console.log('block: ', postId);
+    getPostById(postId).blockPost()
+  }
+
+  const unblockPost = (postId) => {
+    console.log('unblock: ', postId);
+    removePostById(postId)
+  }
 
   return (
     <Card>
@@ -44,6 +59,8 @@ const PostList = ({ posts }) => {
               photos={post.photos}
               is_active={post.is_active}
               noGutter
+              blockPost={() => blockPost(post._id)}
+              unblockPost={() => unblockPost(post._id)}
             />
           ))}
         </SoftBox>
@@ -76,4 +93,4 @@ PostList.propTypes = {
   posts: PropTypes.array,
 };
 
-export default PostList;
+export default observer(PostList);

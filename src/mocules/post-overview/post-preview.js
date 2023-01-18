@@ -17,11 +17,9 @@ import noimage from "../../assets/images/no-image.png";
 import { RootStore } from "store/RootStore";
 import { observer } from "mobx-react-lite";
 
-function PostPreview({ detailPost, avatar, fullname, username, date, checkin, caption, noGutter, photos, is_active }) {
+function PostPreview({blockPost, unblockPost, detailPost, avatar, fullname, username, date, checkin, caption, noGutter, photos, is_active }) {
   const {
-    selectedPost,
-    setSelectedPost,
-    posts: { all: { getPostById } }
+    setSelectedPost
   } = RootStore;
   const [openMenu, setOpenMenu] = useState(false);
   const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
@@ -33,15 +31,13 @@ function PostPreview({ detailPost, avatar, fullname, username, date, checkin, ca
   const [isActive, setIsActive] = useState(is_active);
 
   const eventBlockPost = () => {
-    if (isActive === true) {
-      console.log("block")
-      setIsActive(false)
-      getPostById(detailPost._id).blockPost()
-    } else if (isActive === false) {
-      console.log("Unblock")
-      setIsActive(true)
-      getPostById(detailPost._id).activePost()
-    }
+    setIsActive(false)
+    blockPost()
+  };
+
+  const eventUnblockPost = () => {
+    setIsActive(true)
+    unblockPost()
   };
 
   const renderMenu = () => (
@@ -69,7 +65,7 @@ function PostPreview({ detailPost, avatar, fullname, username, date, checkin, ca
           color="error"
           title={["Unblock"]}
           date="Unblock this post from block list."
-          onClick={eventBlockPost}
+          onClick={eventUnblockPost}
         />
       ) : (
         <ActionItem
@@ -220,7 +216,9 @@ PostPreview.propTypes = {
   caption: PropTypes.string.isRequired,
   noGutter: PropTypes.bool,
   photos: PropTypes.arrayOf(PropTypes.string),
-  is_active: PropTypes.bool
+  is_active: PropTypes.bool,
+  blockPost: PropTypes.any,
+  unblockPost: PropTypes.any,
 };
 
 export default observer(PostPreview);

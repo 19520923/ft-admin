@@ -27,7 +27,15 @@ const PostStore = types.model({
     return self.rows[index]
   }
 }))
-  .actions((self) => ({}));
+  .actions((self) => ({
+    removePostById: flow(function* (post_id) {
+      console.log('start block post');
+      yield API.activePost(post_id)
+      console.log('blocked post success');
+      const index = _.findIndex(self.rows, e => e._id === post_id)
+      self.rows.splice(index, 1)
+    })
+  }));
 
 /* Creating a FoodStore model with the following properties:
 rows: an array of FoodModel
@@ -231,13 +239,13 @@ export const RootStore = types
   });
 
 /* Persisting the root store. */
-// persist(
-//   "@rootStore",
-//   RootStore,
-//   {
-//     jsonify: true,
-//   },
-//   {
-//     fetching: true,
-//   }
-// );
+persist(
+  "@rootStore",
+  RootStore,
+  {
+    jsonify: true,
+  },
+  {
+    fetching: true,
+  }
+);
