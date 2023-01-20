@@ -16,7 +16,7 @@ function PostOverviewPage() {
   const {
     posts: { all },
     getPosts,
-    selectedPost
+    selectedPost,
   } = RootStore;
 
   useEffect(() => {
@@ -26,16 +26,12 @@ function PostOverviewPage() {
   return (
     <DashboardLayout>
       <DashboardNavbar action="posts" />
-      <SoftBox height='100%' mt={4}>
-        <SoftBox display='flex'>
-          <SoftBox width='49%' mr='2%'>
-            {
-              all.rows.length > 0 ?
-                <PostList posts={all.rows} /> :
-                null
-            }
+      <SoftBox height="100%" mt={4}>
+        <SoftBox display="flex">
+          <SoftBox width="49%" mr="2%">
+            {all.rows.length > 0 ? <PostList posts={all.rows} type="ALL" /> : null}
           </SoftBox>
-          <SoftBox height={2000} width='49%' >
+          <SoftBox height={2000} width="49%">
             {selectedPost !== null && <PostDetail />}
           </SoftBox>
         </SoftBox>

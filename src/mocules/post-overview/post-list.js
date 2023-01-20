@@ -10,9 +10,12 @@ import Pagination from "react-custom-pagination";
 import { RootStore } from "store/RootStore";
 import { observer } from "mobx-react-lite";
 
-const PostList = ({ posts }) => {
+const PostList = ({ posts, type }) => {
   const {
-    posts: { all: { getPostById }, blocked: { removePostById } }
+    posts: {
+      all: { getPostById },
+      blocked: { removePostById },
+    },
   } = RootStore;
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(2);
@@ -28,14 +31,16 @@ const PostList = ({ posts }) => {
   };
 
   const blockPost = (postId) => {
-    console.log('block: ', postId);
-    getPostById(postId).blockPost()
-  }
+    getPostById(postId).blockPost();
+  };
 
   const unblockPost = (postId) => {
-    console.log('unblock: ', postId);
-    removePostById(postId)
-  }
+    if (type === "BLOCKED") {
+      removePostById(postId);
+    } else {
+      getPostById(postId).unblockPost();
+    }
+  };
 
   return (
     <Card>
@@ -65,25 +70,22 @@ const PostList = ({ posts }) => {
           ))}
         </SoftBox>
       </SoftBox>
-      <SoftBox px={25} pb={5} alignItems="center" >
-        {
-          posts.length > 1 ?
-            <Pagination
-              totalPosts={posts.length}
-              postsPerPage={postsPerPage}
-              paginate={paginate}
-              view={5}
-              //showLast={true}
-              //showFirst={true}
-              //showIndex={true}
-              selectColor={"#24A5FE"}
-              bgColor={"#a3acbc"}
-              indexbgColor={"#82d616"}
-              indexBorderRadius={"3%"}
-            />
-            :
-            null
-        }
+      <SoftBox px={25} pb={5} alignItems="center">
+        {posts.length > 1 ? (
+          <Pagination
+            totalPosts={posts.length}
+            postsPerPage={postsPerPage}
+            paginate={paginate}
+            view={5}
+            //showLast={true}
+            //showFirst={true}
+            //showIndex={true}
+            selectColor={"#24A5FE"}
+            bgColor={"#a3acbc"}
+            indexbgColor={"#82d616"}
+            indexBorderRadius={"3%"}
+          />
+        ) : null}
       </SoftBox>
     </Card>
   );
@@ -91,6 +93,7 @@ const PostList = ({ posts }) => {
 
 PostList.propTypes = {
   posts: PropTypes.array,
+  type: PropTypes.string,
 };
 
 export default observer(PostList);

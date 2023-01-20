@@ -30,10 +30,10 @@ const PostStore = types.model({
   .actions((self) => ({
     removePostById: flow(function* (post_id) {
       console.log('start block post');
+      const index = _.findIndex(self.rows, e => e._id === post_id)
+      self.rows.splice(index, 1);
       yield API.activePost(post_id)
       console.log('blocked post success');
-      const index = _.findIndex(self.rows, e => e._id === post_id)
-      self.rows.splice(index, 1)
     })
   }));
 

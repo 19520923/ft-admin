@@ -29,7 +29,7 @@ function PostBlockedPage() {
         <SoftBox display='flex'>
           <SoftBox width='49%' mr='2%'>
             {blocked.rows.length > 0 ?
-              <PostList posts={blocked.rows} /> :
+              <PostList posts={blocked.rows} type="BLOCKED"/> :
               null
             }
           </SoftBox>

@@ -19,7 +19,7 @@ function PostReportedPage() {
   const {
     posts: { reported },
     getReportedPosts,
-    selectedPost
+    selectedPost,
   } = RootStore;
 
   useEffect(() => {
@@ -29,15 +29,12 @@ function PostReportedPage() {
   return (
     <DashboardLayout>
       <DashboardNavbar action="posts" />
-      <SoftBox height='100%' mt={4}>
-        <SoftBox display='flex'>
-          <SoftBox width='49%' mr='2%'>
-            {reported.rows.length > 0 ?
-              <PostList posts={reported.rows} /> :
-              null
-            }
+      <SoftBox height="100%" mt={4}>
+        <SoftBox display="flex">
+          <SoftBox width="49%" mr="2%">
+            {reported.rows.length > 0 ? <PostList posts={reported.rows} type="REPORTED" /> : null}
           </SoftBox>
-          <SoftBox height={2000} width='49%' >
+          <SoftBox height={2000} width="49%">
             {selectedPost !== null && <PostDetail />}
           </SoftBox>
         </SoftBox>
