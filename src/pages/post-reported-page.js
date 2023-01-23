@@ -12,31 +12,36 @@ import { PostList } from "mocules";
 import { PostDetail } from "mocules";
 import { useEffect, useState } from "react";
 import { RootStore } from "store/RootStore";
+import { observer } from "mobx-react-lite";
 
-function PostReported() {
+function PostReportedPage() {
   const [page, setPage] = useState(1);
   const {
     posts: { reported },
     getReportedPosts,
+    selectedPost,
+    setSelectedPost
   } = RootStore;
 
   useEffect(() => {
     getReportedPosts(page);
   }, [page]);
 
+  useEffect(() => {
+    setSelectedPost(null)
+  }, [])
+
   return (
     <DashboardLayout>
       <DashboardNavbar action="posts" />
-      <SoftBox mt={4}>
-        <SoftBox my={3}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={6}>
-              <PostList posts={reported.rows} />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <PostDetail />
-            </Grid>
-          </Grid>
+      <SoftBox height="100%" mt={4}>
+        <SoftBox display="flex">
+          <SoftBox width="49%" mr="2%">
+            {reported.rows.length > 0 ? <PostList posts={reported.rows} type="REPORTED" /> : null}
+          </SoftBox>
+          <SoftBox height={2000} width="49%">
+            {selectedPost !== null && <PostDetail />}
+          </SoftBox>
         </SoftBox>
       </SoftBox>
       <Footer />
@@ -44,4 +49,4 @@ function PostReported() {
   );
 }
 
-export default PostReported;
+export default observer(PostReportedPage);

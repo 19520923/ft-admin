@@ -1,4 +1,5 @@
-import { Instance, types } from "mobx-state-tree";
+import { flow, Instance, types } from "mobx-state-tree";
+import API from '../../services/axiosClient'
 
 export const DEFAULT_STATE_PROFILE = {
   _id: "",
@@ -31,4 +32,13 @@ export const ProfileModel = types.model({
   created_at: types.string,
   following: types.array(types.string),
   follower: types.array(types.string),
-});
+}).actions(self => ({
+  blockUser: flow(function* () {
+    self.is_active = false
+    yield API.blockUser(self._id)
+  }),
+  activeUser: flow(function* () {
+    self.is_active = true
+    yield API.activeUser(self._id)
+  })
+}));

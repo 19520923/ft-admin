@@ -28,7 +28,7 @@ function FoodList({ foods }) {
     <Card>
       <SoftBox pt={3} px={2}>
         <SoftTypography variant="h6" fontWeight="bold">
-           LIST OF FOOD
+          LIST OF FOOD
         </SoftTypography>
       </SoftBox>
       <SoftBox pt={1} pb={2} px={2}>
@@ -36,29 +36,36 @@ function FoodList({ foods }) {
           {currentFoods.map((food) => (
             <FoodPreview
               key={food._id}
+              detailFood={food}
               avatar_url={food.author.avatar_url}
               name={food.name}
               user={food.author.name}
               rate={food.score}
               time={food.created_at}
+              photo={[food.photo]}
             />
           ))}
         </SoftBox>
       </SoftBox>
       <SoftBox pb={5}>
-        <Pagination
-          totalPosts={foods.length}
-          foodsPerpage={foodsPerpage}
-          paginate={paginate}
-          view={5}
-          //showLast={true}
-          //showFirst={true}
-          //showIndex={true}
-          selectColor={"#24A5FE"}
-          bgColor={"#a3acbc"}
-          indexbgColor={"#82d616"}
-          indexBorderRadius={"3%"}
-        />
+        {
+          foods.length > 1 ?
+            <Pagination
+              totalPosts={foods.length}
+              foodsPerpage={foodsPerpage}
+              paginate={paginate}
+              view={5}
+              //showLast={true}
+              //showFirst={true}
+              //showIndex={true}
+              selectColor={"#24A5FE"}
+              bgColor={"#a3acbc"}
+              indexbgColor={"#82d616"}
+              indexBorderRadius={"3%"}
+            />
+            :
+            null
+        }
       </SoftBox>
     </Card>
   );

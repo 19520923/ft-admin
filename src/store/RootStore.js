@@ -21,7 +21,21 @@ const PostStore = types.model({
   rows: types.optional(types.array(PostModel), []),
   count: types.optional(types.number, 0),
   currentPage: types.optional(types.number, 1),
-});
+}).views(self => ({
+  getPostById: (post_id) => {
+    const index = _.findIndex(self.rows, e => e._id === post_id)
+    return self.rows[index]
+  }
+}))
+  .actions((self) => ({
+    removePostById: flow(function* (post_id) {
+      console.log('start block post');
+      const index = _.findIndex(self.rows, e => e._id === post_id)
+      self.rows.splice(index, 1);
+      yield API.activePost(post_id)
+      console.log('blocked post success');
+    })
+  }));
 
 /* Creating a FoodStore model with the following properties:
 rows: an array of FoodModel
@@ -54,8 +68,18 @@ const UserStore = types
     rows: types.optional(types.array(ProfileStore), []),
     count: types.optional(types.number, 0),
     currentPage: types.optional(types.number, 1),
-  })
-  .actions((self) => ({}));
+  }).views(self => ({
+    getUserById: (user_id) => {
+      const index = _.findIndex(self.rows, e => e.profile._id === user_id)
+      return self.rows[index].profile
+    }
+  }))
+  .actions((self) => ({
+    removePostById: flow(function* (user_id) {
+      const index = _.findIndex(self.rows, e => e._id === user_id)
+      self.rows.splice(index, 1);
+    })
+  }));
 
 /* Creating a NotificationStore model with the following properties:
 rows: an array of NotificationModel
@@ -103,7 +127,8 @@ export const RootStore = types
     notifications: NotificationStore,
     isLoggedIn: types.optional(types.boolean, false),
     numTabOnProfile: types.enumeration(['posts', 'foods', 'followers', 'followings']),
-    selectedPost: types.maybeNull(PostModel)
+    selectedPost: types.maybeNull(PostModel),
+    selectedFood: types.maybeNull(FoodModel)
   })
   .actions((self) => ({
     /* Setting the isLoggedIn to the isLoggedIn that is passed in. */
@@ -162,7 +187,7 @@ export const RootStore = types
       self.posts.reported.currentPage = page;
     }),
     getBlockedPosts: flow(function* (page = 1, sort = "-created_at") {
-      const { count, rows } = yield API.getAllDeactivePosts(page, sort, key);
+      const { count, rows } = yield API.getAllDeactivePosts(page, sort);
       self.posts.blocked.rows = cast(rows);
       self.posts.blocked.count = count;
       self.posts.blocked.currentPage = page;
@@ -188,7 +213,11 @@ export const RootStore = types
     },
     setSelectedPost: (post) => {
       self.selectedPost = cast(post);
-    }
+    },
+    setSelectedFood: (food) => {
+      self.selectedFood = cast(food);
+    },
+
   }))
   .create({
     profile: DEFAULT_STATE_PROFILE,
@@ -210,7 +239,8 @@ export const RootStore = types
     notifications: DEFAULT_LIST_STATE,
     isLoggedIn: false,
     numTabOnProfile: 'posts',
-    selectedPost: null
+    selectedPost: null,
+    selectedFood: null
   });
 
 /* Persisting the root store. */

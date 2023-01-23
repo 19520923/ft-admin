@@ -8,7 +8,7 @@ import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 import SoftButton from "components/SoftButton";
 import ActionItem from "examples/Items/ActionItem";
-import { Grid, Menu } from "@mui/material";
+import { Menu } from "@mui/material";
 import { useState } from "react";
 import SimpleImageSlider from "react-simple-image-slider";
 import SoftAvatar from "components/SoftAvatar";
@@ -16,25 +16,30 @@ import IconButton from "@mui/material/IconButton";
 import noimage from "../../assets/images/no-image.png";
 import { RootStore } from "store/RootStore";
 import { observer } from "mobx-react-lite";
+import SoftBadge from "components/SoftBadge";
 
-function PostPreview({ detailPost, avatar, fullname, username, date, checkin, caption, noGutter, photos }) {
-  const { selectedPost, setSelectedPost } = RootStore;
+function PostPreview({blockPost, unblockPost, detailPost, avatar, fullname, username, date, checkin, caption, noGutter, photos, is_active }) {
+  const {
+    setSelectedPost
+  } = RootStore;
   const [openMenu, setOpenMenu] = useState(false);
   const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
   const handleCloseMenu = () => setOpenMenu(false);
   const handleViewPost = () => {
-
     console.log("view Post: ", detailPost.toJSON())
     setSelectedPost(detailPost.toJSON())
-    console.log("view Post in store: ", selectedPost.toJSON())
   }
+  const [isActive, setIsActive] = useState(is_active);
 
-  const images = [
-    "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "https://images.pexels.com/photos/1565982/pexels-photo-1565982.jpeg?auto=compress&cs=tinysrgb&w=600",
-  ];
+  const eventBlockPost = () => {
+    setIsActive(false)
+    blockPost()
+  };
+
+  const eventUnblockPost = () => {
+    setIsActive(true)
+    unblockPost()
+  };
 
   const renderMenu = () => (
     <Menu Menu
@@ -55,20 +60,23 @@ function PostPreview({ detailPost, avatar, fullname, username, date, checkin, ca
         date="View detail post."
         onClick={handleViewPost}
       />
-      <ActionItem
-        icon="hide_image"
-        color="disabled"
-        title={["Hide"]}
-        date="Hide this post temporarily."
-        onClick={handleCloseMenu}
-      />
-      <ActionItem
-        icon="delete"
-        color="error"
-        title={["Delete"]}
-        date="Delete this post permanently."
-        onClick={handleCloseMenu}
-      />
+      {!isActive ? (
+        <ActionItem
+          icon="delete"
+          color="error"
+          title={["Unblock"]}
+          date="Unblock this post from block list."
+          onClick={eventUnblockPost}
+        />
+      ) : (
+        <ActionItem
+          icon="delete"
+          color="error"
+          title={["Block"]}
+          date="Block this post from community."
+          onClick={eventBlockPost}
+        />
+      )}
     </Menu>
   );
 
@@ -113,8 +121,6 @@ function PostPreview({ detailPost, avatar, fullname, username, date, checkin, ca
               {fullname}
             </SoftTypography>
           </SoftBox>
-
-
           <SoftBox
             display="flex"
             alignItems="center"
@@ -126,74 +132,78 @@ function PostPreview({ detailPost, avatar, fullname, username, date, checkin, ca
                 {/* <Icon>subtitles_off</Icon>&nbsp;hide */}
               </SoftButton>
             </SoftBox>
+            {
+              !is_active ? (
+                <SoftBadge variant="gradient" badgeContent="blocked" color="error" size="xs" container />
+              ) : detailPost.num_report > 0 ? (
+                <SoftBadge variant="gradient" badgeContent="reported" color="warning" size="xs" container />
+              ) : (
+                <SoftBadge variant="gradient" badgeContent="active" color="success" size="xs" container />
+              )
+            }
             <SoftButton variant="text" color="dark">
               <Icon onClick={handleOpenMenu}>more_vert</Icon>&nbsp;
               {renderMenu()}
             </SoftButton>
           </SoftBox>
         </SoftBox>
-        <SoftBox p={2}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} lg={6}>
-              <SoftBox mb={1} lineHeight={0}>
-                <SoftTypography variant="caption" color="text">
-                  Username:&nbsp;&nbsp;&nbsp;
-                  <SoftTypography variant="caption" fontWeight="medium" textTransform="capitalize">
-                    {username}
-                  </SoftTypography>
+        <SoftBox display='flex' p={2}>
+          <SoftBox width={250}>
+            <SoftBox mb={1} lineHeight={0}>
+              <SoftTypography variant="caption" color="text">
+                Username:&nbsp;&nbsp;&nbsp;
+                <SoftTypography variant="caption" fontWeight="medium" textTransform="capitalize">
+                  {username}
                 </SoftTypography>
-              </SoftBox>
-              <SoftBox mb={1} lineHeight={0}>
-                <SoftTypography variant="caption" color="text">
-                  Date:&nbsp;&nbsp;&nbsp;
-                  <SoftTypography variant="caption" fontWeight="medium">
-                    {date.substring(0, 10)}
-                  </SoftTypography>
+              </SoftTypography>
+            </SoftBox>
+            <SoftBox mb={1} lineHeight={0}>
+              <SoftTypography variant="caption" color="text">
+                Date:&nbsp;&nbsp;&nbsp;
+                <SoftTypography variant="caption" fontWeight="medium">
+                  {date.substring(0, 10)}
                 </SoftTypography>
-              </SoftBox>
-              <SoftBox mb={1} lineHeight={0}>
-                <SoftTypography variant="caption" color="text">
-                  Check-in:&nbsp;&nbsp;&nbsp;
-                  <SoftTypography variant="caption" fontWeight="medium">
-                    {checkin}
-                  </SoftTypography>
+              </SoftTypography>
+            </SoftBox>
+            <SoftBox mb={1} lineHeight={0}>
+              <SoftTypography variant="caption" color="text">
+                Check-in:&nbsp;&nbsp;&nbsp;
+                <SoftTypography variant="caption" fontWeight="medium">
+                  {checkin}
                 </SoftTypography>
-              </SoftBox>
-              <SoftBox mb={1} lineHeight={0}>
-                <SoftTypography variant="caption" color="text">
-                  Caption:&nbsp;&nbsp;&nbsp;
-                  <SoftTypography variant="caption" fontWeight="medium">
-                    {caption}
-                  </SoftTypography>
+              </SoftTypography>
+            </SoftBox>
+            <SoftBox mb={1} lineHeight={0}>
+              <SoftTypography variant="caption" color="text">
+                Caption:&nbsp;&nbsp;&nbsp;
+                <SoftTypography variant="caption" fontWeight="medium">
+                  {caption}
                 </SoftTypography>
-              </SoftBox>
-            </Grid>
-            <Grid item xs={12} lg={4} sx={{ position: "relative", ml: "auto" }}>
-              <SoftBox>
-                {
-                  photos.length > 0 ?
-                    <SimpleImageSlider
-                      width={"100%"}
-                      height={"100%"}
-                      images={photos}
-                      showBullets={true}
-                      showNavs={false}
-                      autoPlay={true}
-                    />
-                    :
-                    <SimpleImageSlider
-                      width={"100%"}
-                      height={"100%"}
-                      images={[noimage]}
-                      showBullets={false}
-                      showNavs={false}
-                      autoPlay={true}
-                    />
-                }
-
-              </SoftBox>
-            </Grid>
-          </Grid>
+              </SoftTypography>
+            </SoftBox>
+          </SoftBox>
+          <SoftBox>
+            {
+              photos.length > 0 ?
+                <SimpleImageSlider
+                  width={150}
+                  height={120}
+                  images={photos}
+                  showBullets={true}
+                  showNavs={false}
+                  autoPlay={true}
+                />
+                :
+                <SimpleImageSlider
+                  width={150}
+                  height={120}
+                  images={[noimage]}
+                  showBullets={false}
+                  showNavs={false}
+                  autoPlay={true}
+                />
+            }
+          </SoftBox>
         </SoftBox>
       </SoftBox>
     </SoftBox>
@@ -215,7 +225,10 @@ PostPreview.propTypes = {
   checkin: PropTypes.string.isRequired,
   caption: PropTypes.string.isRequired,
   noGutter: PropTypes.bool,
-  photos: PropTypes.arrayOf(PropTypes.string)
+  photos: PropTypes.arrayOf(PropTypes.string),
+  is_active: PropTypes.bool,
+  blockPost: PropTypes.any,
+  unblockPost: PropTypes.any,
 };
 
 export default observer(PostPreview);

@@ -12,7 +12,7 @@ import Transaction from "layouts/billing/components/Transaction";
 import SoftButton from "components/SoftButton";
 import SimpleImageSlider from "react-simple-image-slider";
 import PostComment from "./post-comment";
-import PropTypes, { string } from "prop-types";
+import PropTypes from "prop-types";
 import SoftAvatar from "components/SoftAvatar";
 import IconButton from "@mui/material/IconButton";
 import noimage from "../../assets/images/no-image.png";

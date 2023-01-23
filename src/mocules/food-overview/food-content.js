@@ -9,6 +9,7 @@ import SimpleImageSlider from "react-simple-image-slider";
 import SoftAvatar from "components/SoftAvatar";
 import IconButton from "@mui/material/IconButton";
 import PropTypes from "prop-types";
+import { observer } from 'mobx-react-lite'
 
 export const images = [
     "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=600",
@@ -116,7 +117,7 @@ const FoodContent = ({ food }) => {
     );
 }
 
-export default FoodContent;
+export default observer(FoodContent);
 
 FoodContent.propTypes = {
     food: PropTypes.shape({

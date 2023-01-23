@@ -13,11 +13,22 @@ import { useState } from "react";
 import SimpleImageSlider from "react-simple-image-slider";
 import IconButton from "@mui/material/IconButton";
 import SoftAvatar from "components/SoftAvatar";
+import { RootStore } from "store/RootStore";
+import noimage from "../../assets/images/no-image.png";
+import { observer } from "mobx-react-lite";
+import SoftBadge from "components/SoftBadge";
 
-function FoodPreview({ avatar_url, name, user, rate, time }) {
+function FoodPreview({ detailFood, avatar_url, name, user, rate, time, photo }) {
     const [openMenu, setOpenMenu] = useState(false);
     const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
     const handleCloseMenu = () => setOpenMenu(false);
+    const { selectedFood, setSelectedFood } = RootStore;
+
+    const handleViewPost = () => {
+        //console.log("view Food: ", detailFood.toJSON())
+        setSelectedFood(detailFood.toJSON())
+        //console.log("view Post in store: ", selectedFood.toJSON())
+    }
 
     const images = [
         "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=600",
@@ -40,20 +51,13 @@ function FoodPreview({ avatar_url, name, user, rate, time }) {
                 color="View"
                 title={["View"]}
                 date="View detail post."
-                onClick={handleCloseMenu}
-            />
-            <ActionItem
-                icon="hide_image"
-                color="disabled"
-                title={["Hide"]}
-                date="Hide this post temporarily."
-                onClick={handleCloseMenu}
+                onClick={handleViewPost}
             />
             <ActionItem
                 icon="delete"
                 color="error"
-                title={["Delete"]}
-                date="Delete this post permanently."
+                title={["Block"]}
+                date="Block this post from community."
                 onClick={handleCloseMenu}
             />
         </Menu>
@@ -71,7 +75,6 @@ function FoodPreview({ avatar_url, name, user, rate, time }) {
             pr={2}
             pt={2}
             pb={2}
-            mb={1}
             mt={2}
         >
             <SoftBox width="100%" display="flex" flexDirection="column">
@@ -113,60 +116,77 @@ function FoodPreview({ avatar_url, name, user, rate, time }) {
                                 {/* <Icon>subtitles_off</Icon>&nbsp;hide */}
                             </SoftButton>
                         </SoftBox>
+                        {
+                            !detailFood.is_active ? (
+                                <SoftBadge variant="gradient" badgeContent="blocked" color="error" size="xs" container />
+                            ) : detailFood.num_report > 0 ? (
+                                <SoftBadge variant="gradient" badgeContent="reported" color="warning" size="xs" container />
+                            ) : (
+                                <SoftBadge variant="gradient" badgeContent="active" color="success" size="xs" container />
+                            )
+                        }
                         <SoftButton variant="text" color="dark">
                             <Icon onClick={handleOpenMenu}>more_vert</Icon>&nbsp;
                             {renderMenu()}
                         </SoftButton>
                     </SoftBox>
                 </SoftBox>
-                <SoftBox p={2}>
-                    <Grid container spacing={3}>
-                        <Grid item xs={12} lg={6}>
-                            <SoftBox mb={1} lineHeight={0}>
-                                <SoftTypography variant="caption" color="text">
-                                    <SoftTypography variant="subtitle2" fontWeight="medium" textTransform="uppercase">
-                                        {name}
-                                    </SoftTypography>
+                <SoftBox display='flex' p={2}>
+                    <SoftBox width={250}>
+                        <SoftBox mb={1} lineHeight={0}>
+                            <SoftTypography variant="caption" color="text">
+                                <SoftTypography variant="subtitle2" fontWeight="medium" textTransform="uppercase">
+                                    {name}
                                 </SoftTypography>
-                            </SoftBox>
-                            <SoftBox mb={1} lineHeight={0}>
-                                <SoftTypography variant="caption" color="text">
-                                    Description:&nbsp;&nbsp;&nbsp;
-                                    <SoftTypography variant="caption" fontWeight="medium">
-                                        {user}
-                                    </SoftTypography>
+                            </SoftTypography>
+                        </SoftBox>
+                        <SoftBox mb={1} lineHeight={0}>
+                            <SoftTypography variant="caption" color="text">
+                                Description:&nbsp;&nbsp;&nbsp;
+                                <SoftTypography variant="caption" fontWeight="medium">
+                                    {user}
                                 </SoftTypography>
-                            </SoftBox>
-                            <SoftBox mb={1} lineHeight={0}>
-                                <SoftTypography variant="caption" color="text">
-                                    Rate:&nbsp;&nbsp;&nbsp;
-                                    <SoftTypography variant="caption" fontWeight="medium">
-                                        {rate}
-                                    </SoftTypography>
+                            </SoftTypography>
+                        </SoftBox>
+                        <SoftBox mb={1} lineHeight={0}>
+                            <SoftTypography variant="caption" color="text">
+                                Rate:&nbsp;&nbsp;&nbsp;
+                                <SoftTypography variant="caption" fontWeight="medium">
+                                    {rate}
                                 </SoftTypography>
-                            </SoftBox>
-                            <SoftBox mb={1} lineHeight={0}>
-                                <SoftTypography variant="caption" color="text">
-                                    Date:&nbsp;&nbsp;&nbsp;
-                                    <SoftTypography variant="caption" fontWeight="medium">
-                                        {time.substring(0, 10)}
-                                    </SoftTypography>
+                            </SoftTypography>
+                        </SoftBox>
+                        <SoftBox mb={1} lineHeight={0}>
+                            <SoftTypography variant="caption" color="text">
+                                Date:&nbsp;&nbsp;&nbsp;
+                                <SoftTypography variant="caption" fontWeight="medium">
+                                    {time.substring(0, 10)}
                                 </SoftTypography>
-                            </SoftBox>
-                        </Grid>
-                        <Grid item xs={12} lg={4} sx={{ position: "relative", ml: "auto" }}>
-                            <SoftBox>
+                            </SoftTypography>
+                        </SoftBox>
+                    </SoftBox>
+                    <SoftBox>
+                        {
+                            photo !== "" ?
                                 <SimpleImageSlider
-                                    width={"100%"}
-                                    height={"100%"}
-                                    images={images}
+                                    width={150}
+                                    height={120}
+                                    images={photo}
                                     showBullets={false}
                                     showNavs={false}
                                     autoPlay={true}
                                 />
-                            </SoftBox>
-                        </Grid>
-                    </Grid>
+                                :
+                                <SimpleImageSlider
+                                    width={150}
+                                    height={120}
+                                    images={[noimage]}
+                                    showBullets={false}
+                                    showNavs={false}
+                                    autoPlay={true}
+                                />
+                        }
+                    </SoftBox>
                 </SoftBox>
             </SoftBox>
         </SoftBox>
@@ -179,12 +199,14 @@ FoodPreview.defaultProps = {
 
 // Typechecking props for the Bill
 FoodPreview.propTypes = {
+    detailFood: PropTypes.object,
     avatar_url: PropTypes.string.isRequired,
     user: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     user: PropTypes.string.isRequired,
     rate: PropTypes.string.isRequired,
     time: PropTypes.string.isRequired,
+    photo: PropTypes.string.isRequired,
 };
 
-export default FoodPreview;
+export default observer(FoodPreview);

@@ -1,42 +1,46 @@
-// @mui material components
-import Grid from "@mui/material/Grid";
-
-// Soft UI Dashboard React components
 import SoftBox from "components/SoftBox";
 
 // Soft UI Dashboard React examples
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
-import { PostList } from "mocules";
-import { PostDetail } from "mocules";
+import { PostList, PostDetail } from "mocules";
 import { useEffect, useState } from "react";
 import { RootStore } from "store/RootStore";
+import { observer } from "mobx-react-lite";
 
-function PostBlocked() {
+function PostBlockedPage() {
   const [page, setPage] = useState(1);
   const {
     posts: { blocked },
     getBlockedPosts,
+    selectedPost,
+    setSelectedPost
   } = RootStore;
 
   useEffect(() => {
     getBlockedPosts(page);
-  }, [page]);
+    //console.log("block post: ", blocked.rows.length);
+  }, [page, blocked]);
+
+  useEffect(() => {
+    setSelectedPost(null)
+  }, [])
 
   return (
     <DashboardLayout>
       <DashboardNavbar action="posts" />
-      <SoftBox mt={4}>
-        <SoftBox my={3}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={6}>
-              <PostList posts={blocked.rows} />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <PostDetail />
-            </Grid>
-          </Grid>
+      <SoftBox height='100%' mt={4}>
+        <SoftBox display='flex'>
+          <SoftBox width='49%' mr='2%'>
+            {blocked.rows.length > 0 ?
+              <PostList posts={blocked.rows} type="BLOCKED"/> :
+              null
+            }
+          </SoftBox>
+          <SoftBox height={2000} width='49%' >
+            {selectedPost !== null && <PostDetail />}
+          </SoftBox>
         </SoftBox>
       </SoftBox>
       <Footer />
@@ -44,4 +48,4 @@ function PostBlocked() {
   );
 }
 
-export default PostBlocked;
+export default observer(PostBlockedPage);

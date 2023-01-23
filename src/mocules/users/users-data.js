@@ -8,6 +8,7 @@ import { Icon, Menu } from "@mui/material";
 import { useState } from "react";
 import ActionItem from "examples/Items/ActionItem";
 import { Link } from "react-router-dom";
+import { RootStore } from "store/RootStore";
 
 function Username({ avatar, fullname, username }) {
   return (
@@ -32,15 +33,19 @@ const iconAction = "more_horiz";
 function IconAction({ param, block }) {
   const [openMenu, setOpenMenu] = useState(false);
   const [isBlock, setIsBlock] = useState(block);
+  const { users: { all: { getUserById }, blocked: {removePostById} } } = RootStore
 
   const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
   const handleCloseMenu = () => setOpenMenu(false);
 
-  const eventBlock = () => {
-    if (isBlock === true) {
-      setIsBlock(false);
-    } else if (isBlock === false) {
-      setIsBlock(true);
+  const eventBlockUser = () => {
+    if (!isBlock) {
+      setIsBlock(true)
+      getUserById(param.profile._id).blockUser()
+    } else {
+      setIsBlock(false)
+      getUserById(param.profile._id).activeUser()
+      removePostById(param.profile._id)
     }
   };
 
@@ -57,9 +62,9 @@ function IconAction({ param, block }) {
       onClose={handleCloseMenu}
       sx={{ mt: 2 }}
     >
-      <Link 
-        to={"/users/profile-user/"} 
-        state={param.toJSON()} 
+      <Link
+        to={"/users/profile-user/"}
+        state={param.toJSON()}
       >
         <ActionItem
           icon="person"
@@ -82,7 +87,7 @@ function IconAction({ param, block }) {
           color="error"
           title={["Unblock"]}
           date="Unblock this user account."
-          onClick={eventBlock}
+          onClick={eventBlockUser}
         />
       ) : (
         <ActionItem
@@ -90,7 +95,7 @@ function IconAction({ param, block }) {
           color="error"
           title={["Block"]}
           date="Block this user account."
-          onClick={eventBlock}
+          onClick={eventBlockUser}
         />
       )}
     </Menu>
@@ -111,7 +116,7 @@ function IconAction({ param, block }) {
   );
 }
 
-const UsersOverviewData = (data) => ({
+const UsersData = (data) => ({
   columns: [
     { name: "username", align: "left" },
     { name: "email", align: "left" },
@@ -127,18 +132,20 @@ const UsersOverviewData = (data) => ({
         {user.profile.email}
       </SoftTypography>
     ),
-    status: user.profile.is_current ? (
-      <SoftBadge variant="gradient" badgeContent="online" color="success" size="xs" container />
+    status: !user.profile.is_active ? (
+      <SoftBadge variant="gradient" badgeContent="blocked" color="error" size="xs" container />
+    ) : user.profile.num_report > 0 ? (
+      <SoftBadge variant="gradient" badgeContent="reported" color="warning" size="xs" container />
     ) : (
-      <SoftBadge variant="gradient" badgeContent="offline" color="secondary" size="xs" container />
+      <SoftBadge variant="gradient" badgeContent="active" color="success" size="xs" container />
     ),
     created: (
       <SoftTypography variant="caption" color="secondary" fontWeight="medium">
         {user.profile.created_at.substring(0, 10)}
       </SoftTypography>
     ),
-    action: <IconAction param={user} block={user.profile.is_active} />,
+    action: <IconAction param={user} block={!user.profile.is_active} />,
   })),
 });
 
-export default UsersOverviewData;
+export default UsersData;

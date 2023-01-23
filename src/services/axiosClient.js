@@ -103,7 +103,7 @@ class AxiosClient {
 
     // luu account vào localStorage rồi truyền vào đây
     return this.login({
-      email: "19520923@gm.uit.edu.vn",
+      email: "nguyennhattan12201@gmail.com",
       password: "123456789",
     })
       .then(async (data) => {
@@ -201,7 +201,7 @@ class AxiosClient {
    * @returns The return value of the function is the return value of the axios.delete method.
    */
   activeUser(user_id) {
-    return this.axios.post(`/users/${user_id}/activate`);
+    return this.axios.post(`/users/${user_id}`);
   }
 
   /**

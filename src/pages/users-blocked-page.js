@@ -13,19 +13,20 @@ import Table from "examples/Tables/Table";
 import { useEffect, useState } from "react";
 import { RootStore } from "store/RootStore";
 import { observer } from "mobx-react-lite";
-import { UsersOverviewData } from "mocules";
+import { UsersData } from "mocules";
 
 function UsersBlockedPage() {
   const {
     users: { blocked },
     getBlockedUsers,
   } = RootStore;
-  const { columns, rows } = UsersOverviewData(blocked);
+  const { columns, rows } = UsersData(blocked);
   const [page, setPage] = useState(1)
 
   useEffect(() => {
     getBlockedUsers(page);
-  }, [page]);
+    //console.log("user blocked: ", blocked.toJSON());
+  }, [page, blocked.rows]);
 
   return (
     <DashboardLayout>
