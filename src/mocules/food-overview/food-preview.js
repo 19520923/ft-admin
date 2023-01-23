@@ -16,6 +16,7 @@ import SoftAvatar from "components/SoftAvatar";
 import { RootStore } from "store/RootStore";
 import noimage from "../../assets/images/no-image.png";
 import { observer } from "mobx-react-lite";
+import SoftBadge from "components/SoftBadge";
 
 function FoodPreview({ detailFood, avatar_url, name, user, rate, time, photo }) {
     const [openMenu, setOpenMenu] = useState(false);
@@ -115,6 +116,15 @@ function FoodPreview({ detailFood, avatar_url, name, user, rate, time, photo }) 
                                 {/* <Icon>subtitles_off</Icon>&nbsp;hide */}
                             </SoftButton>
                         </SoftBox>
+                        {
+                            !detailFood.is_active ? (
+                                <SoftBadge variant="gradient" badgeContent="blocked" color="error" size="xs" container />
+                            ) : detailFood.num_report > 0 ? (
+                                <SoftBadge variant="gradient" badgeContent="reported" color="warning" size="xs" container />
+                            ) : (
+                                <SoftBadge variant="gradient" badgeContent="active" color="success" size="xs" container />
+                            )
+                        }
                         <SoftButton variant="text" color="dark">
                             <Icon onClick={handleOpenMenu}>more_vert</Icon>&nbsp;
                             {renderMenu()}

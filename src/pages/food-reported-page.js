@@ -15,12 +15,17 @@ function FoodReportedPage() {
   const {
     foods: { reported },
     getReportedFoods,
-    selectedFood
+    selectedFood,
+    setSelectedFood
   } = RootStore;
 
   useEffect(() => {
     getReportedFoods(page);
   }, [page]);
+
+  useEffect(() => {
+    setSelectedFood(null)
+  }, [])
 
   return (
     <DashboardLayout>

@@ -214,8 +214,8 @@ export const RootStore = types
     setSelectedPost: (post) => {
       self.selectedPost = cast(post);
     },
-    setSelectedFood: (post) => {
-      self.selectedFood = cast(post);
+    setSelectedFood: (food) => {
+      self.selectedFood = cast(food);
     },
 
   }))

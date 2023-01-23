@@ -15,13 +15,18 @@ function FoodOverviewPage() {
   const {
     foods: { all },
     getFoods,
-    selectedFood
+    selectedFood,
+    setSelectedFood
   } = RootStore;
 
   useEffect(() => {
     getFoods(page);
     //console.log("food all: ", all.toJSON());
   }, [page]);
+
+  useEffect(() => {
+    setSelectedFood(null)
+  }, [])
 
   return (
     <DashboardLayout>

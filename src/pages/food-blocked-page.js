@@ -15,12 +15,17 @@ function FoodOverviewPage() {
   const {
     foods: { blocked },
     getBlockedFoods,
-    selectedFood
+    selectedFood,
+    setSelectedFood
   } = RootStore;
 
   useEffect(() => {
     getBlockedFoods(page);
   }, [page]);
+
+  useEffect(() => {
+    setSelectedFood(null)
+  }, [])
 
   return (
     <DashboardLayout>
