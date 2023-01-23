@@ -17,11 +17,16 @@ function PostOverviewPage() {
     posts: { all },
     getPosts,
     selectedPost,
+    setSelectedPost
   } = RootStore;
 
   useEffect(() => {
     getPosts(page);
   }, [page]);
+
+  useEffect(() => {
+    setSelectedPost(null)
+  }, [])
 
   return (
     <DashboardLayout>

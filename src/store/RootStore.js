@@ -74,7 +74,12 @@ const UserStore = types
       return self.rows[index].profile
     }
   }))
-  .actions((self) => ({}));
+  .actions((self) => ({
+    removePostById: flow(function* (user_id) {
+      const index = _.findIndex(self.rows, e => e._id === user_id)
+      self.rows.splice(index, 1);
+    })
+  }));
 
 /* Creating a NotificationStore model with the following properties:
 rows: an array of NotificationModel

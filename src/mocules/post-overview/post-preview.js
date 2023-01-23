@@ -16,6 +16,7 @@ import IconButton from "@mui/material/IconButton";
 import noimage from "../../assets/images/no-image.png";
 import { RootStore } from "store/RootStore";
 import { observer } from "mobx-react-lite";
+import SoftBadge from "components/SoftBadge";
 
 function PostPreview({blockPost, unblockPost, detailPost, avatar, fullname, username, date, checkin, caption, noGutter, photos, is_active }) {
   const {
@@ -131,6 +132,15 @@ function PostPreview({blockPost, unblockPost, detailPost, avatar, fullname, user
                 {/* <Icon>subtitles_off</Icon>&nbsp;hide */}
               </SoftButton>
             </SoftBox>
+            {
+              !is_active ? (
+                <SoftBadge variant="gradient" badgeContent="blocked" color="error" size="xs" container />
+              ) : detailPost.num_report > 0 ? (
+                <SoftBadge variant="gradient" badgeContent="reported" color="warning" size="xs" container />
+              ) : (
+                <SoftBadge variant="gradient" badgeContent="active" color="success" size="xs" container />
+              )
+            }
             <SoftButton variant="text" color="dark">
               <Icon onClick={handleOpenMenu}>more_vert</Icon>&nbsp;
               {renderMenu()}

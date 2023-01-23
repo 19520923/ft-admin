@@ -20,11 +20,16 @@ function PostReportedPage() {
     posts: { reported },
     getReportedPosts,
     selectedPost,
+    setSelectedPost
   } = RootStore;
 
   useEffect(() => {
     getReportedPosts(page);
   }, [page]);
+
+  useEffect(() => {
+    setSelectedPost(null)
+  }, [])
 
   return (
     <DashboardLayout>

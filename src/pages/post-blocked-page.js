@@ -14,13 +14,18 @@ function PostBlockedPage() {
   const {
     posts: { blocked },
     getBlockedPosts,
-    selectedPost
+    selectedPost,
+    setSelectedPost
   } = RootStore;
 
   useEffect(() => {
     getBlockedPosts(page);
     //console.log("block post: ", blocked.rows.length);
   }, [page, blocked]);
+
+  useEffect(() => {
+    setSelectedPost(null)
+  }, [])
 
   return (
     <DashboardLayout>
