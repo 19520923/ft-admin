@@ -29,11 +29,9 @@ const PostStore = types.model({
 }))
   .actions((self) => ({
     removePostById: flow(function* (post_id) {
-      console.log('start block post');
       const index = _.findIndex(self.rows, e => e._id === post_id)
       self.rows.splice(index, 1);
       yield API.activePost(post_id)
-      console.log('blocked post success');
     })
   }));
 
@@ -45,7 +43,18 @@ const FoodStore = types.model({
   rows: types.optional(types.array(FoodModel), []),
   count: types.optional(types.number, 0),
   currentPage: types.optional(types.integer, 1),
-});
+}).views(self => ({
+  getFoodById: (food_id) => {
+    const index = _.findIndex(self.rows, e => e._id === food_id)
+    return self.rows[index]
+  }
+})).actions((self) => ({
+  removeFoodById: flow(function* (food_id) {
+    const index = _.findIndex(self.rows, e => e._id === food_id)
+    self.rows.splice(index, 1);
+    yield API.activeFood(food_id)
+  })
+}));;
 
 /* Creating a ProfileStore model with the following properties:
 profile: a ProfileModel
@@ -75,7 +84,7 @@ const UserStore = types
     }
   }))
   .actions((self) => ({
-    removePostById: flow(function* (user_id) {
+    removeUserById: flow(function* (user_id) {
       const index = _.findIndex(self.rows, e => e._id === user_id)
       self.rows.splice(index, 1);
     })

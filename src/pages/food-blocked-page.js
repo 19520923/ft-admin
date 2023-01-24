@@ -10,7 +10,7 @@ import { RootStore } from "store/RootStore";
 import { useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
 
-function FoodOverviewPage() {
+function FoodBlockedPage() {
   const [page, setPage] = useState(1);
   const {
     foods: { blocked },
@@ -24,6 +24,7 @@ function FoodOverviewPage() {
   }, [page]);
 
   useEffect(() => {
+    // console.log('block: ', blocked.toJSON());
     setSelectedFood(null)
   }, [])
 
@@ -35,7 +36,7 @@ function FoodOverviewPage() {
           <SoftBox width='49%' mr='2%'>
             {
               blocked.rows.length > 0 ?
-                <FoodList foods={blocked.rows} /> :
+                <FoodList foods={blocked.rows} type="BLOCKED" /> :
                 null
             }
           </SoftBox>
@@ -50,4 +51,4 @@ function FoodOverviewPage() {
   );
 }
 
-export default observer(FoodOverviewPage);
+export default observer(FoodBlockedPage);

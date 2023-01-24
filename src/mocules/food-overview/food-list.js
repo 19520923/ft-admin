@@ -8,9 +8,15 @@ import SoftTypography from "components/SoftTypography";
 import FoodPreview from "./food-preview";
 import { observer } from "mobx-react-lite";
 import Pagination from "react-custom-pagination";
+import { RootStore } from "store/RootStore";
 
-function FoodList({ foods }) {
-
+function FoodList({ foods, type }) {
+  const {
+    foods: {
+      all: { getFoodById },
+      blocked: { removeFoodById },
+    },
+  } = RootStore;
   const [currentPage, setCurrentPage] = useState(1);
   const [foodsPerpage, setFoodsPerPage] = useState(5);
 
@@ -22,6 +28,18 @@ function FoodList({ foods }) {
   // when user clicks on number this function will execute
   const paginate = (number) => {
     setCurrentPage(number);
+  };
+
+  const blockFood = (foodId) => {
+    getFoodById(foodId).blockFood();
+  };
+
+  const unblockFood = (foodId) => {
+    if (type === "BLOCKED") {
+      removeFoodById(foodId);
+    } else {
+      getFoodById(foodId).unblockFood();
+    }
   };
 
   return (
@@ -43,6 +61,9 @@ function FoodList({ foods }) {
               rate={food.score}
               time={food.created_at}
               photo={[food.photo]}
+              is_active={food.is_active}
+              blockFood={() => blockFood(food._id)}
+              unblockFood={() => unblockFood(food._id)}
             />
           ))}
         </SoftBox>
@@ -73,6 +94,7 @@ function FoodList({ foods }) {
 
 FoodList.propTypes = {
   foods: PropTypes.array,
+  type: PropTypes.string,
 };
 
 export default observer(FoodList);
