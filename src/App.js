@@ -82,7 +82,7 @@ export default function App() {
       return null;
     });
 
-  const chatButton = (
+  const notifyButton = (
     <SoftBox
       display="flex"
       justifyContent="center"
@@ -101,7 +101,7 @@ export default function App() {
       onClick={handleConfiguratorOpen}
     >
       <Icon fontSize="default" color="inherit">
-        chat
+        edit_notifications
       </Icon>
     </SoftBox>
   );
@@ -119,9 +119,9 @@ export default function App() {
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
           />
-          {/* <Configurator />
-          {configsButton} */}
-          {chatButton}
+           <Configurator />
+          {/*{configsButton} */}
+          {notifyButton}
         </>
       )}
       {layout === "vr" && <Configurator />}
