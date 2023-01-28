@@ -7,6 +7,7 @@ export const AXIOS_TIMEOUT = 10000;
 export const UNAUTHORIZED = 401;
 /* Exporting a constant called ACCESS_TOKEN and setting it to the string "accessToken". */
 export const ACCESS_TOKEN = "accessToken";
+export const PROFILE = "profile";
 /* A constant that is used to set the master key for the server. */
 export const MASTER_KEY = "http://0.0.0.0:9000";
 /* Exporting a constant called LIMIT and setting it to the number 20. */
