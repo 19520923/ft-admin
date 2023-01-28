@@ -11,6 +11,7 @@ import {
   LIMIT,
 } from "constants/constants";
 import Storage from "library/mobx-persist/storage";
+import { PROFILE } from "constants/constants";
 
 class AxiosClient {
   /* Creating an axios object. */
@@ -85,7 +86,7 @@ class AxiosClient {
     this.failedQueue = [];
   }
 
-  retryCallAPIWhenTokenExpired(originalRequest) {
+  async retryCallAPIWhenTokenExpired(originalRequest) {
     if (this.isRefreshing) {
       return new Promise((resolve, reject) => {
         this.failedQueue.push({ resolve, reject });
@@ -100,12 +101,10 @@ class AxiosClient {
     }
     originalRequest._retry = true;
     this.isRefreshing = true;
+    const info = await Storage.getItem(JSON.parse(PROFILE));
 
     // luu account vào localStorage rồi truyền vào đây
-    return this.login({
-      email: "nguyennhattan12201@gmail.com",
-      password: "123456789",
-    })
+    return this.login(info)
       .then(async (data) => {
         await Storage.setItem(ACCESS_TOKEN, data.token);
         /** Add token in to headers.Authorization */
@@ -444,6 +443,10 @@ class AxiosClient {
    */
   createNotification(notiData) {
     return this.axios.post(`/notifications`, notiData);
+  }
+
+  getDashboard(year) {
+    return this.axios.get(`/dashboard/${year}`);
   }
 }
 

@@ -219,19 +219,6 @@ const routes = [
   //   component: <SettingsPage />,
   //   noCollapse: true,
   // },
-  /* 
-  LogOut Drawer 
-*/
-  {
-    type: "collapse",
-    name: "Log Out",
-    key: "log-out",
-    route: "/authentication/sign-in",
-    icon: <LogoutIcon />,
-    component: <SignIn />,
-    noCollapse: true,
-    noShowDrawer: false,
-  },
 
   {
     type: "collapse",

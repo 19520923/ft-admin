@@ -17,24 +17,26 @@ const DEFAULT_LIST_STATE = {
 rows: an array of PostModel
 count: a number
 currentPage: a number */
-const PostStore = types.model({
-  rows: types.optional(types.array(PostModel), []),
-  count: types.optional(types.number, 0),
-  currentPage: types.optional(types.number, 1),
-}).views(self => ({
-  getPostById: (post_id) => {
-    const index = _.findIndex(self.rows, e => e._id === post_id)
-    return self.rows[index]
-  }
-}))
+const PostStore = types
+  .model({
+    rows: types.optional(types.array(PostModel), []),
+    count: types.optional(types.number, 0),
+    currentPage: types.optional(types.number, 1),
+  })
+  .views((self) => ({
+    getPostById: (post_id) => {
+      const index = _.findIndex(self.rows, (e) => e._id === post_id);
+      return self.rows[index];
+    },
+  }))
   .actions((self) => ({
     removePostById: flow(function* (post_id) {
-      console.log('start block post');
-      const index = _.findIndex(self.rows, e => e._id === post_id)
+      console.log("start block post");
+      const index = _.findIndex(self.rows, (e) => e._id === post_id);
       self.rows.splice(index, 1);
-      yield API.activePost(post_id)
-      console.log('blocked post success');
-    })
+      yield API.activePost(post_id);
+      console.log("blocked post success");
+    }),
   }));
 
 /* Creating a FoodStore model with the following properties:
@@ -68,17 +70,18 @@ const UserStore = types
     rows: types.optional(types.array(ProfileStore), []),
     count: types.optional(types.number, 0),
     currentPage: types.optional(types.number, 1),
-  }).views(self => ({
+  })
+  .views((self) => ({
     getUserById: (user_id) => {
-      const index = _.findIndex(self.rows, e => e.profile._id === user_id)
-      return self.rows[index].profile
-    }
+      const index = _.findIndex(self.rows, (e) => e.profile._id === user_id);
+      return self.rows[index].profile;
+    },
   }))
   .actions((self) => ({
     removePostById: flow(function* (user_id) {
-      const index = _.findIndex(self.rows, e => e._id === user_id)
+      const index = _.findIndex(self.rows, (e) => e._id === user_id);
       self.rows.splice(index, 1);
-    })
+    }),
   }));
 
 /* Creating a NotificationStore model with the following properties:
@@ -126,9 +129,9 @@ export const RootStore = types
     }),
     notifications: NotificationStore,
     isLoggedIn: types.optional(types.boolean, false),
-    numTabOnProfile: types.enumeration(['posts', 'foods', 'followers', 'followings']),
+    numTabOnProfile: types.enumeration(["posts", "foods", "followers", "followings"]),
     selectedPost: types.maybeNull(PostModel),
-    selectedFood: types.maybeNull(FoodModel)
+    selectedFood: types.maybeNull(FoodModel),
   })
   .actions((self) => ({
     /* Setting the isLoggedIn to the isLoggedIn that is passed in. */
@@ -195,19 +198,19 @@ export const RootStore = types
     setNumTabOnProfile: (num) => {
       switch (num) {
         case 0:
-          self.numTabOnProfile = 'posts';
+          self.numTabOnProfile = "posts";
           break;
         case 1:
-          self.numTabOnProfile = 'foods';
+          self.numTabOnProfile = "foods";
           break;
         case 2:
-          self.numTabOnProfile = 'followers';
+          self.numTabOnProfile = "followers";
           break;
         case 3:
-          self.numTabOnProfile = 'followings';
+          self.numTabOnProfile = "followings";
           break;
         default:
-          self.numTabOnProfile = 'posts';
+          self.numTabOnProfile = "posts";
           break;
       }
     },
@@ -218,6 +221,9 @@ export const RootStore = types
       self.selectedFood = cast(food);
     },
 
+    setProfile: (profile) => {
+      self.profile = cast(profile);
+    },
   }))
   .create({
     profile: DEFAULT_STATE_PROFILE,
@@ -238,9 +244,9 @@ export const RootStore = types
     },
     notifications: DEFAULT_LIST_STATE,
     isLoggedIn: false,
-    numTabOnProfile: 'posts',
+    numTabOnProfile: "posts",
     selectedPost: null,
-    selectedFood: null
+    selectedFood: null,
   });
 
 /* Persisting the root store. */
