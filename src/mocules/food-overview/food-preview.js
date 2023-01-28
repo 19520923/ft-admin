@@ -18,21 +18,28 @@ import noimage from "../../assets/images/no-image.png";
 import { observer } from "mobx-react-lite";
 import SoftBadge from "components/SoftBadge";
 
-function FoodPreview({ detailFood, avatar_url, name, user, rate, time, photo }) {
+function FoodPreview({blockFood, unblockFood, detailFood, avatar_url, name, user, rate, time, photo, is_active }) {
     const [openMenu, setOpenMenu] = useState(false);
     const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
     const handleCloseMenu = () => setOpenMenu(false);
-    const { selectedFood, setSelectedFood } = RootStore;
+    const { setSelectedFood } = RootStore;
 
     const handleViewPost = () => {
-        //console.log("view Food: ", detailFood.toJSON())
         setSelectedFood(detailFood.toJSON())
-        //console.log("view Post in store: ", selectedFood.toJSON())
+        console.log("view Food in store: ", detailFood.toJSON())
     }
 
-    const images = [
-        "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=600",
-    ];
+    const [isActive, setIsActive] = useState(is_active);
+
+    const eventBlockFood = () => {
+        setIsActive(false)
+        blockFood()
+    };
+
+    const eventUnblockFood = () => {
+        setIsActive(true)
+        unblockFood()
+    };
 
     const renderMenu = () => (
         <Menu Menu
@@ -50,16 +57,26 @@ function FoodPreview({ detailFood, avatar_url, name, user, rate, time, photo }) 
                 icon="description"
                 color="View"
                 title={["View"]}
-                date="View detail post."
+                date="View detail food."
                 onClick={handleViewPost}
             />
-            <ActionItem
+            {!isActive ? (
+                <ActionItem
+                icon="restore_from_trash"
+                color="error"
+                title={["Unblock"]}
+                date="Unblock this food from block list."
+                onClick={eventUnblockFood}
+                />
+            ) : (
+                <ActionItem
                 icon="delete"
                 color="error"
                 title={["Block"]}
-                date="Block this post from community."
-                onClick={handleCloseMenu}
-            />
+                date="Block this food from community."
+                onClick={eventBlockFood}
+                />
+            )}
         </Menu>
     );
 
@@ -117,7 +134,7 @@ function FoodPreview({ detailFood, avatar_url, name, user, rate, time, photo }) 
                             </SoftButton>
                         </SoftBox>
                         {
-                            !detailFood.is_active ? (
+                            !is_active ? (
                                 <SoftBadge variant="gradient" badgeContent="blocked" color="error" size="xs" container />
                             ) : detailFood.num_report > 0 ? (
                                 <SoftBadge variant="gradient" badgeContent="reported" color="warning" size="xs" container />
@@ -207,6 +224,9 @@ FoodPreview.propTypes = {
     rate: PropTypes.string.isRequired,
     time: PropTypes.string.isRequired,
     photo: PropTypes.string.isRequired,
+    is_active: PropTypes.bool,
+    blockFood: PropTypes.any,
+    unblockFood: PropTypes.any,
 };
 
 export default observer(FoodPreview);

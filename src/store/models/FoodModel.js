@@ -47,6 +47,15 @@ const FoodModel = types.model({
   is_active: types.boolean,
   num_report: types.number,
   created_at: types.string,
-});
+}).actions(self => ({
+  blockFood: flow(function* () {
+    self.is_active = false
+    yield API.deactiveFood(self._id)
+  }),
+  unblockFood: flow(function* () {
+    self.is_active = true
+    yield API.activeFood(self._id)
+  })
+}));
 
 export default FoodModel;

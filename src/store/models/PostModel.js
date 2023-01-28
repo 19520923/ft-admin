@@ -68,7 +68,7 @@ export const PostModel = types.model({
     self.is_active = false
     yield API.deactivePost(self._id)
   }),
-  activePost: flow(function* () {
+  unblockPost: flow(function* () {
     self.is_active = true
     yield API.activePost(self._id)
   })

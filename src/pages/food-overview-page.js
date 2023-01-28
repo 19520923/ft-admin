@@ -21,7 +21,7 @@ function FoodOverviewPage() {
 
   useEffect(() => {
     getFoods(page);
-    //console.log("food all: ", all.toJSON());
+    // console.log("food all: ", all.toJSON());
   }, [page]);
 
   useEffect(() => {
@@ -36,7 +36,7 @@ function FoodOverviewPage() {
           <SoftBox width='49%' mr='2%'>
             {
               all.rows.length > 0 ?
-                <FoodList foods={all.rows} /> :
+                <FoodList foods={all.rows} type="ALL" /> :
                 null
             }
           </SoftBox>

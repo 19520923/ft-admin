@@ -33,7 +33,7 @@ const iconAction = "more_horiz";
 function IconAction({ param, block }) {
   const [openMenu, setOpenMenu] = useState(false);
   const [isBlock, setIsBlock] = useState(block);
-  const { users: { all: { getUserById }, blocked: {removePostById} } } = RootStore
+  const { users: { all: { getUserById }, blocked: {removeUserById} } } = RootStore
 
   const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
   const handleCloseMenu = () => setOpenMenu(false);
@@ -45,7 +45,7 @@ function IconAction({ param, block }) {
     } else {
       setIsBlock(false)
       getUserById(param.profile._id).activeUser()
-      removePostById(param.profile._id)
+      removeUserById(param.profile._id)
     }
   };
 

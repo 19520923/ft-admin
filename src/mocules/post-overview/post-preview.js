@@ -26,7 +26,7 @@ function PostPreview({blockPost, unblockPost, detailPost, avatar, fullname, user
   const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
   const handleCloseMenu = () => setOpenMenu(false);
   const handleViewPost = () => {
-    console.log("view Post: ", detailPost.toJSON())
+    // console.log("view Post: ", detailPost.toJSON())
     setSelectedPost(detailPost.toJSON())
   }
   const [isActive, setIsActive] = useState(is_active);
@@ -62,7 +62,7 @@ function PostPreview({blockPost, unblockPost, detailPost, avatar, fullname, user
       />
       {!isActive ? (
         <ActionItem
-          icon="delete"
+          icon="restore_from_trash"
           color="error"
           title={["Unblock"]}
           date="Unblock this post from block list."
