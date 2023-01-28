@@ -27,12 +27,15 @@ import { useSoftUIController, setMiniSidenav, setOpenConfigurator } from "contex
 // Images
 import logo from "assets/images/logos/logoApp.png";
 import { SignInPage } from "./pages";
+import { RootStore } from "store/RootStore";
+import { observer } from "mobx-react-lite";
 
-export default function App() {
+export default observer(function App() {
   const [controller, dispatch] = useSoftUIController();
   const { miniSidenav, direction, layout, openConfigurator, sidenavColor } = controller;
   const [onMouseEnter, setOnMouseEnter] = useState(false);
   const { pathname } = useLocation();
+  const { isLoggedIn } = RootStore;
 
   // Open sidenav when mouse enter on mini sidenav
   const handleOnMouseEnter = () => {
@@ -64,10 +67,7 @@ export default function App() {
     document.scrollingElement.scrollTop = 0;
   }, [pathname]);
 
-  const getDrawerRoutes = useMemo(
-    () => _.filter(routes, (r) => !r.noShowDrawer),
-    [routes]
-  );
+  const getDrawerRoutes = useMemo(() => _.filter(routes, (r) => !r.noShowDrawer), [routes]);
 
   const getRoutes = (allRoutes) =>
     allRoutes.map((route) => {
@@ -108,28 +108,36 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
-      {layout === "dashboard" && (
+      {isLoggedIn ? (
         <>
-          <Sidenav
-            color={sidenavColor}
-            brand={logo}
-            brandName="FOODTALK ADMIN"
-            routes={getDrawerRoutes}
-            onMouseEnter={handleOnMouseEnter}
-            onMouseLeave={handleOnMouseLeave}
-          />
-          {/* <Configurator />
+          <CssBaseline />
+          {layout === "dashboard" && (
+            <>
+              <Sidenav
+                color={sidenavColor}
+                brand={logo}
+                brandName="FOODTALK ADMIN"
+                routes={getDrawerRoutes}
+                onMouseEnter={handleOnMouseEnter}
+                onMouseLeave={handleOnMouseLeave}
+              />
+              {/* <Configurator />
           {configsButton} */}
-          {chatButton}
+              {chatButton}
+            </>
+          )}
+          {layout === "vr" && <Configurator />}
+          <Routes>
+            {getRoutes(routes)}
+            <Route path="*" element={<Navigate to="/dashboard" />} />
+          </Routes>
         </>
+      ) : (
+        <Routes>
+          <Route path="/authentication/sign-in" element={<SignInPage />} />
+          <Route path="*" element={<Navigate to="/authentication/sign-in" />} />
+        </Routes>
       )}
-      {layout === "vr" && <Configurator />}
-      <Routes>
-        {getRoutes(routes)}
-        <Route path="*" element={<Navigate to="/dashboard" />} />
-        <Route path="/authentication/sign-in" elements={<SignInPage />} />
-      </Routes>
     </ThemeProvider>
   );
-}
+});

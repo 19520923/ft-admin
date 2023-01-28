@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Soft UI Dashboard React - v4.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useState } from "react";
 
 // @mui material components
@@ -31,8 +16,9 @@ import Table from "examples/Tables/Table";
 // Data
 import TopUsersData from "./top-users-data";
 
-function TableTopUsers() {
-  const { columns, rows } = TopUsersData();
+// eslint-disable-next-line react/prop-types
+function TableTopUsers({ users }) {
+  const { columns, rows } = TopUsersData(users);
   const [menu, setMenu] = useState(null);
 
   const openMenu = ({ currentTarget }) => setMenu(currentTarget);
@@ -103,5 +89,6 @@ function TableTopUsers() {
     </Card>
   );
 }
+
 
 export default TableTopUsers;

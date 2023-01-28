@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 // react-router-dom components
 import { Link } from "react-router-dom";
@@ -11,30 +11,41 @@ import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 import SoftInput from "components/SoftInput";
 import SoftButton from "components/SoftButton";
-import API from "services/axiosClient"
+import API from "services/axiosClient";
 
 // Authentication layout components
 import CoverLayout from "layouts/authentication/components/CoverLayout";
 
-// Images
-import curved9 from "assets/images/curved-images/curved-6.jpg";
+import { RootStore } from "store/RootStore";
+import { ACCESS_TOKEN } from "constants/constants";
+import Storage from "library/mobx-persist/storage";
+import { PROFILE } from "constants/constants";
 
 function SignInPage() {
   const [rememberMe, setRememberMe] = useState(true);
+  const { setProfile, setIsLoggedIn } = RootStore;
+  const [info, setInfo] = useState({
+    email: "",
+    password: "",
+  });
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
 
   const _handleLogin = async () => {
     try {
-      const data = await API.login({
-        email: "nguyennhuttan12201@gmail.com",
-        password: "123456789"
-      })
-      console.log("Data: ", data)
+      const { user, token } = await API.login(info);
+      setIsLoggedIn(true);
+      setProfile(user);
+      await Storage.setItem(ACCESS_TOKEN, token);
+      await Storage.setItem(PROFILE, JSON.stringify(info));
     } catch (error) {
-      console.log("Error: ", error)
+      console.log("Error: ", error);
     }
-  }
+  };
+
+  const _handleChange = useCallback((value) => {
+    setInfo((state) => ({ ...state, ...value }));
+  }, []);
 
   return (
     <CoverLayout
@@ -50,7 +61,12 @@ function SignInPage() {
               Email
             </SoftTypography>
           </SoftBox>
-          <SoftInput type="email" placeholder="Email" />
+          <SoftInput
+            type="email"
+            placeholder="Email"
+            value={info.email}
+            onChange={(e) => _handleChange({ email: e.target.value })}
+          />
         </SoftBox>
         <SoftBox mb={2}>
           <SoftBox mb={1} ml={0.5}>
@@ -58,7 +74,12 @@ function SignInPage() {
               Password
             </SoftTypography>
           </SoftBox>
-          <SoftInput type="password" placeholder="Password" />
+          <SoftInput
+            type="password"
+            placeholder="Password"
+            value={info.password}
+            onChange={(e) => _handleChange({ password: e.target.value })}
+          />
         </SoftBox>
         <SoftBox display="flex" alignItems="center">
           <Switch checked={rememberMe} onChange={handleSetRememberMe} />
