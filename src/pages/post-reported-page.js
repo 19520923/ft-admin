@@ -13,6 +13,8 @@ import { PostDetail } from "mocules";
 import { useEffect, useState } from "react";
 import { RootStore } from "store/RootStore";
 import { observer } from "mobx-react-lite";
+import Pagination from "react-custom-pagination";
+import { LIMIT } from "constants/constants";
 
 function PostReportedPage() {
   const [page, setPage] = useState(1);
@@ -20,7 +22,7 @@ function PostReportedPage() {
     posts: { reported },
     getReportedPosts,
     selectedPost,
-    setSelectedPost
+    setSelectedPost,
   } = RootStore;
 
   useEffect(() => {
@@ -28,8 +30,10 @@ function PostReportedPage() {
   }, [page]);
 
   useEffect(() => {
-    setSelectedPost(null)
-  }, [])
+    if (reported.rows.length > 0) {
+      setSelectedPost(reported.rows[0].toJSON());
+    }
+  }, [reported.rows]);
 
   return (
     <DashboardLayout>
@@ -37,7 +41,7 @@ function PostReportedPage() {
       <SoftBox height="100%" mt={4}>
         <SoftBox display="flex">
           <SoftBox width="49%" mr="2%">
-            {reported.rows.length > 0 ? <PostList posts={reported.rows} type="REPORTED" /> : null}
+            {reported.rows.length > 0 && <PostList posts={reported.rows} type="REPORTED" />}
           </SoftBox>
           <SoftBox height={2000} width="49%">
             {selectedPost !== null && <PostDetail />}
@@ -45,6 +49,22 @@ function PostReportedPage() {
         </SoftBox>
       </SoftBox>
       <Footer />
+      <SoftBox width="38%" alignItems="center" position="fixed" bottom="2rem">
+        {reported.rows.length > 0 && (
+          <Pagination
+            totalPosts={reported.count}
+            postsPerPage={LIMIT}
+            paginate={(p) => setPage(p)}
+            //showLast={true}
+            //showFirst={true}
+            //showIndex={true}
+            selectColor={"#24A5FE"}
+            bgColor={"#a3acbc"}
+            indexbgColor={"#82d616"}
+            indexBorderRadius={"3%"}
+          />
+        )}
+      </SoftBox>
     </DashboardLayout>
   );
 }

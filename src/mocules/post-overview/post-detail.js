@@ -19,16 +19,9 @@ import noimage from "../../assets/images/no-image.png";
 import { RootStore } from "store/RootStore";
 import { observer } from "mobx-react-lite";
 
-export const images = [
-  "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=600",
-  "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=600",
-  "https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?auto=compress&cs=tinysrgb&w=600",
-  "https://images.pexels.com/photos/1565982/pexels-photo-1565982.jpeg?auto=compress&cs=tinysrgb&w=600",
-];
-
 function PostDetail() {
   const { selectedPost } = RootStore;
-  const post = selectedPost.toJSON()
+  const post = selectedPost.toJSON();
 
   return (
     <Card sx={{ height: "100%" }}>
@@ -37,7 +30,7 @@ function PostDetail() {
           <IconButton
             size="small"
             color="inherit"
-          //onClick={handleConfiguratorOpen}
+            //onClick={handleConfiguratorOpen}
           >
             <SoftAvatar
               src={post.author.avatar_url}
@@ -47,9 +40,14 @@ function PostDetail() {
               shadow="sm"
             />
           </IconButton>
-          <SoftTypography variant="h6" fontWeight="medium" textTransform="capitalize">
-            {post.author.name}
-          </SoftTypography>
+          <SoftBox display="flex" flexDirection={{ sm: "column" }}>
+            <SoftTypography ml={1} variant="button" fontWeight="medium" textTransform="capitalize">
+              {post.author.name}
+            </SoftTypography>
+            <SoftTypography ml={1} variant="caption" color="text">
+              {post.author.username}
+            </SoftTypography>
+          </SoftBox>
         </SoftBox>
 
         <SoftBox display="flex" alignItems="flex-start">
@@ -66,44 +64,39 @@ function PostDetail() {
 
       <SoftBox pt={3} pb={2} px={2}>
         <SoftBox mb={2} lineHeight={0}>
-          <SoftTypography variant="caption" fontWeight="medium" textTransform="uppercase">
-            caption:&nbsp;&nbsp;&nbsp;
-            <SoftTypography variant="caption" color="text">
-              {post.content}
-            </SoftTypography>
+          <SoftTypography variant="caption" fontWeight="medium">
+            {post.content}
           </SoftTypography>
         </SoftBox>
-        <SoftBox mb={2} lineHeight={0}>
+        {/* <SoftBox mb={2} lineHeight={0}>
           <SoftTypography variant="caption" fontWeight="medium" textTransform="uppercase">
             check-in:&nbsp;&nbsp;&nbsp;
             <SoftTypography variant="caption" color="text">
-              {post.location.name + ' ' + post.location.lat + ' ' + post.location.lng}
+              {post.location.name + " " + post.location.lat + " " + post.location.lng}
             </SoftTypography>
           </SoftTypography>
-        </SoftBox>
+        </SoftBox> */}
 
         <SoftBox>
-          {
-            post.photos.length > 0 ?
-              <SimpleImageSlider
-                width={"95%"}
-                height={350}
-                images={post.photos}
-                showBullets={true}
-                showNavs={true}
-                navMargin={10}
-              />
-              :
-              <SimpleImageSlider
-                width={"95%"}
-                height={350}
-                images={[noimage]}
-                showBullets={false}
-                showNavs={false}
-                navMargin={10}
-              />
-          }
-
+          {post.photos.length > 0 ? (
+            <SimpleImageSlider
+              width={"95%"}
+              height={350}
+              images={post.photos}
+              showBullets={true}
+              showNavs={true}
+              navMargin={10}
+            />
+          ) : (
+            <SimpleImageSlider
+              width={"95%"}
+              height={350}
+              images={[noimage]}
+              showBullets={false}
+              showNavs={false}
+              navMargin={10}
+            />
+          )}
         </SoftBox>
         <SoftBox display="flex">
           <SoftTypography mr={2} mt={2} variant="h6" fontWeight="medium" textTransform="capitalize">
@@ -139,7 +132,7 @@ PostDetail.propTypes = {
   post: PropTypes.shape({
     author: PropTypes.shape({
       name: PropTypes.string,
-      avatar_url: PropTypes.string
+      avatar_url: PropTypes.string,
     }),
     created_at: PropTypes.string,
     content: PropTypes.string,
@@ -150,6 +143,6 @@ PostDetail.propTypes = {
     }),
     photos: PropTypes.arrayOf(PropTypes.string),
     num_comment: PropTypes.number,
-    reactions: PropTypes.arrayOf(PropTypes.string)
+    reactions: PropTypes.arrayOf(PropTypes.string),
   }),
 };

@@ -17,18 +17,6 @@ const PostList = ({ posts, type }) => {
       blocked: { removePostById },
     },
   } = RootStore;
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(2);
-
-  //get current Posts
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-
-  // when user clicks on number this function will execute
-  const paginate = (number) => {
-    setCurrentPage(number);
-  };
 
   const blockPost = (postId) => {
     getPostById(postId).blockPost();
@@ -51,7 +39,7 @@ const PostList = ({ posts, type }) => {
       </SoftBox>
       <SoftBox pt={1} pb={2} px={2}>
         <SoftBox component="ul" display="flex" flexDirection="column" p={0} m={0}>
-          {currentPosts.map((post) => (
+          {posts.map((post) => (
             <PostPreview
               key={post._id}
               detailPost={post}
@@ -69,23 +57,6 @@ const PostList = ({ posts, type }) => {
             />
           ))}
         </SoftBox>
-      </SoftBox>
-      <SoftBox px={25} pb={5} alignItems="center">
-        {posts.length > 1 ? (
-          <Pagination
-            totalPosts={posts.length}
-            postsPerPage={postsPerPage}
-            paginate={paginate}
-            view={5}
-            //showLast={true}
-            //showFirst={true}
-            //showIndex={true}
-            selectColor={"#24A5FE"}
-            bgColor={"#a3acbc"}
-            indexbgColor={"#82d616"}
-            indexBorderRadius={"3%"}
-          />
-        ) : null}
       </SoftBox>
     </Card>
   );

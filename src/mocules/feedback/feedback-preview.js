@@ -17,13 +17,6 @@ function FeedbackPreview({ fullname, username, date, checkin, caption, value, no
   const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
   const handleCloseMenu = () => setOpenMenu(false);
 
-  const images = [
-    "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "https://images.pexels.com/photos/1565982/pexels-photo-1565982.jpeg?auto=compress&cs=tinysrgb&w=600",
-  ];
-
   const ratingProps = {
     size: 30,
     value: value,
@@ -75,10 +68,10 @@ function FeedbackPreview({ fullname, username, date, checkin, caption, value, no
       alignItems="flex-start"
       bgColor="grey-100"
       borderRadius="lg"
-      pl={2}
+      pt={1}
+      pb={1}
       pr={2}
-      pt={2}
-      pb={2}
+      pl={2}
       mb={noGutter ? 0 : 1}
       mt={2}
     >
@@ -90,13 +83,23 @@ function FeedbackPreview({ fullname, username, date, checkin, caption, value, no
           flexDirection={{ xs: "column", sm: "row" }}
           mb={0}
         >
-          <SoftBox>
+          <SoftBox display="flex" alignItems="center">
             <SoftButton variant="outlined" color="success" size="medium" iconOnly circular>
               {/* Return image avatar */}
             </SoftButton>
-            <SoftTypography ml={1} variant="button" fontWeight="medium" textTransform="capitalize">
-              {fullname}
-            </SoftTypography>
+            <SoftBox display="flex" flexDirection={{ sm: "column" }}>
+              <SoftTypography
+                ml={1}
+                variant="button"
+                fontWeight="medium"
+                textTransform="capitalize"
+              >
+                {fullname}
+              </SoftTypography>
+              <SoftTypography ml={1} variant="caption" color="text">
+                {username}
+              </SoftTypography>
+            </SoftBox>
             <SoftBox mt={1} ml={1.5} display="flex" alignItems={{ xs: "flex-start", sm: "center" }}>
               <ReactStars {...ratingProps} />
 
@@ -123,32 +126,16 @@ function FeedbackPreview({ fullname, username, date, checkin, caption, value, no
             </SoftButton>
           </SoftBox>
         </SoftBox>
-        <SoftBox p={2}>
+        <SoftBox>
           <Grid container spacing={3}>
             <Grid item xs={12} lg={10}>
               <SoftBox mb={1} lineHeight={0}>
-                <SoftTypography variant="caption" color="text">
-                  Username:&nbsp;&nbsp;&nbsp;
-                  <SoftTypography variant="caption" fontWeight="medium" textTransform="capitalize">
-                    {username}
-                  </SoftTypography>
+                <SoftTypography variant="h6" fontWeight="medium">
+                  {checkin}
                 </SoftTypography>
               </SoftBox>
               <SoftBox mb={1} lineHeight={0}>
-                <SoftTypography variant="caption" color="text">
-                  Review:&nbsp;&nbsp;&nbsp;
-                  <SoftTypography variant="caption" fontWeight="medium">
-                    {checkin}
-                  </SoftTypography>
-                </SoftTypography>
-              </SoftBox>
-              <SoftBox mb={1} lineHeight={0}>
-                <SoftTypography variant="caption" color="text">
-                  Detail:&nbsp;&nbsp;&nbsp;
-                  <SoftTypography variant="caption" fontWeight="medium">
-                    {caption}
-                  </SoftTypography>
-                </SoftTypography>
+                <SoftTypography variant="caption">{caption}</SoftTypography>
               </SoftBox>
             </Grid>
             {/* <Grid item xs={12} lg={4} sx={{ position: "relative", ml: "auto" }}>

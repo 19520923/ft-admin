@@ -68,26 +68,6 @@ function FoodList({ foods, type }) {
           ))}
         </SoftBox>
       </SoftBox>
-      <SoftBox pb={5}>
-        {
-          foods.length > 1 ?
-            <Pagination
-              totalPosts={foods.length}
-              foodsPerpage={foodsPerpage}
-              paginate={paginate}
-              view={5}
-              //showLast={true}
-              //showFirst={true}
-              //showIndex={true}
-              selectColor={"#24A5FE"}
-              bgColor={"#a3acbc"}
-              indexbgColor={"#82d616"}
-              indexBorderRadius={"3%"}
-            />
-            :
-            null
-        }
-      </SoftBox>
     </Card>
   );
 }
