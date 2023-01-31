@@ -22,14 +22,20 @@ import Storage from "library/mobx-persist/storage";
 import { PROFILE } from "constants/constants";
 
 function SignInPage() {
-  const [rememberMe, setRememberMe] = useState(true);
+  const [isShowedPassword, setIsShowedPassword] = useState(false);
   const { setProfile, setIsLoggedIn } = RootStore;
   const [info, setInfo] = useState({
     email: "",
     password: "",
   });
 
-  const handleSetRememberMe = () => setRememberMe(!rememberMe);
+  const handleShowPassword = () => {
+    if(isShowedPassword === false) {
+      setIsShowedPassword(true)
+    } else {
+      setIsShowedPassword(false)
+    }
+  };
 
   const _handleLogin = async () => {
     try {
@@ -75,18 +81,18 @@ function SignInPage() {
             </SoftTypography>
           </SoftBox>
           <SoftInput
-            type="password"
+            type={isShowedPassword ? "text" : "password"}
             placeholder="Password"
             value={info.password}
             onChange={(e) => _handleChange({ password: e.target.value })}
           />
         </SoftBox>
         <SoftBox display="flex" alignItems="center">
-          <Switch checked={rememberMe} onChange={handleSetRememberMe} />
+          <Switch checked={isShowedPassword} onChange={handleShowPassword} />
           <SoftTypography
             variant="button"
             fontWeight="regular"
-            onClick={handleSetRememberMe}
+            onClick={handleShowPassword}
             sx={{ cursor: "pointer", userSelect: "none" }}
           >
             &nbsp;&nbsp;Show password
@@ -96,20 +102,6 @@ function SignInPage() {
           <SoftButton onClick={_handleLogin} variant="gradient" color="primary" fullWidth>
             sign in
           </SoftButton>
-        </SoftBox>
-        <SoftBox mt={3} textAlign="center">
-          <SoftTypography variant="button" color="text" fontWeight="regular">
-            Don&apos;t have an account?{" "}
-            <SoftTypography
-              component={Link}
-              to="/authentication/sign-up"
-              variant="button"
-              color="primary"
-              fontWeight="medium"
-            >
-              Sign up
-            </SoftTypography>
-          </SoftTypography>
         </SoftBox>
       </SoftBox>
     </CoverLayout>

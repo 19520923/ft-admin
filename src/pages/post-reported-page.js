@@ -32,6 +32,8 @@ function PostReportedPage() {
   useEffect(() => {
     if (reported.rows.length > 0) {
       setSelectedPost(reported.rows[0].toJSON());
+    } else {
+      setSelectedPost(null);
     }
   }, [reported.rows]);
 

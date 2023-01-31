@@ -26,6 +26,8 @@ function FoodReportedPage() {
   useEffect(() => {
     if (reported.rows.length > 0) {
       setSelectedFood(reported.rows[0].toJSON());
+    } else {
+      setSelectedFood(null)
     }
   }, [reported.rows]);
 

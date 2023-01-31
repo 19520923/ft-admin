@@ -1,4 +1,4 @@
-import { types, Instance, cast, flow } from "mobx-state-tree";
+import { types, cast, flow } from "mobx-state-tree";
 import FoodModel from "./FoodModel";
 import { ProfileModel } from "./ProfileModel";
 import _ from "lodash";
@@ -71,7 +71,15 @@ export const PostModel = types.model({
   unblockPost: flow(function* () {
     self.is_active = true
     yield API.activePost(self._id)
-  })
+  }),
+  getComments: flow(function* () {
+    self.is_active = true
+    const {count, rows} =  yield API.getPostComments(self._id, 1)
+    self.comments.rows = cast(rows)
+    self.comments.count = cast(count)
+    self.comments.currentPage = 1
+    console.log("Cmt list: ", rows);
+  }),
 }));
 
 export default PostModel;

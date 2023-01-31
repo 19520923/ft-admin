@@ -26,6 +26,8 @@ function FoodBlockedPage() {
   useEffect(() => {
     if (blocked.rows.length > 0) {
       setSelectedFood(blocked.rows[0].toJSON());
+    } else {
+      setSelectedFood(null)
     }
   }, [blocked.rows]);
 

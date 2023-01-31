@@ -6,10 +6,6 @@ import Icon from "@mui/material/Icon";
 // Soft UI Dashboard React components
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
-
-// Billing page components
-import Transaction from "layouts/billing/components/Transaction";
-import SoftButton from "components/SoftButton";
 import SimpleImageSlider from "react-simple-image-slider";
 import PostComment from "./post-comment";
 import PropTypes from "prop-types";
