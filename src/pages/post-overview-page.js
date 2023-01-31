@@ -29,6 +29,8 @@ function PostOverviewPage() {
   useEffect(() => {
     if (all.rows.length > 0) {
       setSelectedPost(all.rows[0].toJSON());
+    } else {
+      setSelectedPost(null);
     }
   }, [all.rows]);
 

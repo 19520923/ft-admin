@@ -28,6 +28,8 @@ function PostBlockedPage() {
   useEffect(() => {
     if (blocked.rows.length > 0) {
       setSelectedPost(blocked.rows[0].toJSON());
+    } else {
+      setSelectedPost(null);
     }
   }, [blocked.rows]);
 

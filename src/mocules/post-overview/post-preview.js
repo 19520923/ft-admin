@@ -32,12 +32,18 @@ function PostPreview({
   photos,
   is_active,
 }) {
-  const { setSelectedPost } = RootStore;
+  const { 
+    posts: {
+      all: { getPostById }
+    },
+    setSelectedPost 
+  } = RootStore;
   const [openMenu, setOpenMenu] = useState(false);
   const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
   const handleCloseMenu = () => setOpenMenu(false);
   const handleViewPost = () => {
-    // console.log("view Post: ", detailPost.toJSON())
+    //console.log(detailPost.toJSON());
+    getPostById(detailPost._id).getComments()
     setSelectedPost(detailPost.toJSON());
   };
   const [isActive, setIsActive] = useState(is_active);
