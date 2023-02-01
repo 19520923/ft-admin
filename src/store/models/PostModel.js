@@ -78,7 +78,6 @@ export const PostModel = types.model({
     self.comments.rows = cast(rows)
     self.comments.count = cast(count)
     self.comments.currentPage = 1
-    console.log("Cmt list: ", rows);
   }),
 }));
 

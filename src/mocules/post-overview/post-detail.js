@@ -103,20 +103,14 @@ function PostDetail() {
           </SoftTypography>
         </SoftBox>
 
-        <PostComment
-          color="success"
-          icon="arrow_upward"
-          name="Dang Duy Bang"
-          description="Wow! Congratulation"
-          datetime="00:59 - 22/10/2022"
-        />
-        <PostComment
-          color="error"
-          icon="arrow_disward"
-          name="Nguyen Minh Thai"
-          description="Yeh, I think so. Can you give me phone number?"
-          datetime="00:59 - 22/10/2022"
-        />
+        {
+          post.comments.rows.length > 0 && 
+          post.comments.rows.map((e, index) => {
+            return(
+              <PostComment key={index} commentDetail={e} />
+            )
+          })
+        }
       </SoftBox>
     </Card>
   );

@@ -3,9 +3,10 @@ import PropTypes from "prop-types";
 // Soft UI Dashboard React components
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
-import SoftButton from "components/SoftButton";
+import SoftAvatar from "components/SoftAvatar";
+import IconButton from "@mui/material/IconButton";
 
-function PostComment({ color, name, description, datetime }) {
+function PostComment({ commentDetail }) {
     return (
         <SoftBox
             component="ul"
@@ -18,30 +19,40 @@ function PostComment({ color, name, description, datetime }) {
             <SoftBox key={name} component="li" py={1} pr={2} mb={1}>
                 <SoftBox display="flex" justifyContent="space-between" alignItems="center">
                     <SoftBox display="flex" alignItems="center">
-
-                        <SoftBox display="flex" flexDirection="column">
-                            <SoftBox mr={2}>
-                                <SoftButton variant="outlined" color={color} size="medium" iconOnly circular>
-                                    {/* <Icon sx={{ fontWeight: "bold" }}>{icon}</Icon> */}
-                                </SoftButton>
-                                <SoftTypography ml={1} variant="button" fontWeight="medium" gutterBottom>
-                                    {name}
+                        <SoftBox display="flex">
+                            <IconButton
+                            size="small"
+                            color="inherit"
+                            //onClick={handleConfiguratorOpen}
+                            >
+                                <SoftAvatar src={commentDetail ? commentDetail.author.avatar_url : ''} alt="profile-image" variant="rounded" size="m" shadow="sm" />
+                            </IconButton>
+                            <SoftBox display="flex" flexDirection={{ sm: "column" }}>
+                                <SoftTypography
+                                    ml={1}
+                                    variant="button"
+                                    fontWeight="medium"
+                                    textTransform="capitalize"
+                                >
+                                    {commentDetail ? commentDetail.author.name : ''}
+                                </SoftTypography>
+                                <SoftTypography ml={1} variant="caption" color="text">
+                                    {commentDetail ? commentDetail.author.username : ''}
                                 </SoftTypography>
                             </SoftBox>
-
-                            <SoftBox mb={1} lineHeight={0} pl={6} width={300}>
-                                <SoftTypography variant="caption" color="text">
-                                    {description}
-                                </SoftTypography>
-                            </SoftBox>
-
-                        </SoftBox>
                     </SoftBox>
+                </SoftBox>
+                <SoftTypography variant="caption" color="text">
+                    {commentDetail ? commentDetail.created_at.substring(11, 19) + ' - ' + commentDetail.created_at.substring(0, 10) : ''}
+                </SoftTypography>
+            </SoftBox>
+                <SoftBox mt={1} lineHeight={0} pl={6} width={300}>
                     <SoftTypography variant="caption" color="text">
-                        {datetime}
+                    {commentDetail ? commentDetail.content : ''}
                     </SoftTypography>
                 </SoftBox>
             </SoftBox>
+            
         </SoftBox>
     );
 }
@@ -58,10 +69,7 @@ PostComment.propTypes = {
         "light",
         "dark",
     ]).isRequired,
-    icon: PropTypes.node.isRequired,
-    name: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    datetime: PropTypes.string.isRequired,
+    commentDetail: PropTypes.any
 };
 
 export default PostComment;
