@@ -13,7 +13,7 @@ export const images = [
   "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=600",
 ];
 
-function FoodDetail() {
+const FoodDetail = () => {
   const { selectedFood } = RootStore;
   const food = selectedFood.toJSON()
 
@@ -34,7 +34,7 @@ function FoodDetail() {
         contentTransitionStyle={'transform 0.2s ease-in'}
         borderTransitionStyle={'all 0.2s ease-in'}
         leftContent={<FoodContent food={food} />}
-        rightContent={<FoodEvaluation />}
+        rightContent={<FoodEvaluation commentList={food.rates.rows} />}
       />
     </SoftBox>
   );
@@ -44,5 +44,5 @@ FoodDetail.propTypes = {
   food: PropTypes.object,
 };
 
-export default FoodDetail;
+export default observer(FoodDetail);
 

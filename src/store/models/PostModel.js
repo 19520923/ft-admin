@@ -73,7 +73,6 @@ export const PostModel = types.model({
     yield API.activePost(self._id)
   }),
   getComments: flow(function* () {
-    self.is_active = true
     const {count, rows} =  yield API.getPostComments(self._id, 1)
     self.comments.rows = cast(rows)
     self.comments.count = cast(count)

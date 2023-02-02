@@ -33,11 +33,17 @@ function FoodPreview({
   const [openMenu, setOpenMenu] = useState(false);
   const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
   const handleCloseMenu = () => setOpenMenu(false);
-  const { setSelectedFood } = RootStore;
+  const {
+    foods: {
+      all: { getFoodById },
+    },
+     setSelectedFood 
+  } = RootStore;
 
-  const handleViewPost = () => {
+  const handleViewFood = () => {
+    getFoodById(detailFood._id).getRates()
     setSelectedFood(detailFood.toJSON());
-    console.log("view Food in store: ", detailFood.toJSON());
+    //console.log("view Food in store: ", detailFood.toJSON());
   };
 
   const [isActive, setIsActive] = useState(is_active);
@@ -70,7 +76,7 @@ function FoodPreview({
         color="View"
         title={["View"]}
         date="View detail food."
-        onClick={handleViewPost}
+        onClick={handleViewFood}
       />
       {!isActive ? (
         <ActionItem
@@ -105,6 +111,7 @@ function FoodPreview({
       pt={2}
       pb={2}
       mt={2}
+      onClick={handleViewFood}
     >
       <SoftBox width="100%" display="flex" flexDirection="column">
         <SoftBox

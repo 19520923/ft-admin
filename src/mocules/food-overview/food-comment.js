@@ -1,19 +1,13 @@
 import PropTypes from "prop-types";
 
-// @mui material components
-import Icon from "@mui/material/Icon";
-
 // Soft UI Dashboard React components
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
-import IconButton from "@mui/material/IconButton";
 import SoftAvatar from "components/SoftAvatar";
+import IconButton from "@mui/material/IconButton";
+import Icon from "@mui/material/Icon";
 
-export const images = [
-    "https://i.pinimg.com/564x/85/9f/52/859f5219ba0b8d67f399c0db5a648694.jpg",
-];
-
-function FoodComment({ color, icon, name, description, value, star }) {
+function FoodComment({ commentDetail }) {
     return (
         <SoftBox
             component="ul"
@@ -26,50 +20,57 @@ function FoodComment({ color, icon, name, description, value, star }) {
             <SoftBox key={name} component="li" py={1} pr={2} mb={1}>
                 <SoftBox display="flex" justifyContent="space-between" alignItems="center">
                     <SoftBox display="flex" alignItems="center">
-
-                        <SoftBox display="flex" flexDirection="column">
-                            <SoftBox alignItems={'center'} display="flex" mr={2}  >
-                                <IconButton
-                                    size="small"
-                                    color="inherit"
-                                //onClick={handleConfiguratorOpen}
-                                >
-                                    <SoftAvatar
-                                        src={images[0]}
-                                        alt="profile-image"
-                                        variant="rounded"
-                                        size="m"
-                                        shadow="sm"
-                                    />
-                                </IconButton>
-                                <SoftTypography ml={1} mr={2} variant="button" fontWeight="medium" gutterBottom>
-                                    {name}
+                        <SoftBox display="flex">
+                            <IconButton
+                            size="small"
+                            color="inherit"
+                            //onClick={handleConfiguratorOpen}
+                            >
+                                <SoftAvatar src={commentDetail ? commentDetail.author.avatar_url : ''} alt="profile-image" variant="rounded" size="m" shadow="sm" />
+                            </IconButton>
+                            <SoftBox display="flex" flexDirection={{ sm: "column" }}>
+                                <SoftBox ml={0.5} display="flex" alignItems="center">
+                                    <SoftTypography
+                                        mr={2}
+                                        ml={1}
+                                        variant="button"
+                                        fontWeight="medium"
+                                        textTransform="capitalize"
+                                    >
+                                        {commentDetail ? commentDetail.author.name : ''}
                                 </SoftTypography>
-                                <SoftBox display="flex">
-                                    <SoftTypography variant="button" color="text" fontWeight="regular">
-                                        {star}
+                                <SoftBox ml={0.5} display="flex" alignItems="center">
+                                    <SoftTypography
+                                        ml={0.25}
+                                        mt={0.25}
+                                        variant="caption"
+                                        fontWeight="medium"
+                                        color="primary"
+                                    >
+                                        {commentDetail ? commentDetail.score : ''}
                                     </SoftTypography>
-                                    <SoftBox color="text" mr={0.5} lineHeight={0}>
-                                        <Icon color="primary" fontSize="small">
-                                            star
-                                        </Icon>
-                                    </SoftBox>
+                                    <Icon color="primary" fontSize="small">
+                                        star
+                                    </Icon>
                                 </SoftBox>
                             </SoftBox>
-
-                            <SoftBox mb={1} lineHeight={0} pl={6} width={300}>
-                                <SoftTypography variant="caption" color="text">
-                                    {description}
+                                <SoftTypography ml={1} variant="caption" color="text">
+                                    {commentDetail ? commentDetail.author.username : ''}
                                 </SoftTypography>
                             </SoftBox>
-
-                        </SoftBox>
                     </SoftBox>
+                </SoftBox>
+                <SoftTypography variant="caption" color="text">
+                    {commentDetail ? commentDetail.created_at.substring(11, 19) + ' - ' + commentDetail.created_at.substring(0, 10) : ''}
+                </SoftTypography>
+            </SoftBox>
+                <SoftBox mt={1} lineHeight={0} pl={6} width={300}>
                     <SoftTypography variant="caption" color="text">
-                        {value}
+                    {commentDetail ? commentDetail.content : ''}
                     </SoftTypography>
                 </SoftBox>
             </SoftBox>
+            
         </SoftBox>
     );
 }
@@ -86,11 +87,7 @@ FoodComment.propTypes = {
         "light",
         "dark",
     ]).isRequired,
-    icon: PropTypes.node.isRequired,
-    name: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
-    star: PropTypes.string.isRequired,
+    commentDetail: PropTypes.any
 };
 
 export default FoodComment;
