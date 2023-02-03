@@ -42,9 +42,7 @@ class AxiosClient {
     this.axios.interceptors.request.use(
       async (config) => {
         const accessToken = await Storage.getItem(ACCESS_TOKEN);
-        if (accessToken) {
-          config.headers.Authorization = `Bearer ${accessToken}`;
-        }
+        config.headers.Authorization = `Bearer ${accessToken || ""}`;
         return config;
       },
       (error) => {
@@ -92,7 +90,7 @@ class AxiosClient {
         this.failedQueue.push({ resolve, reject });
       })
         .then((token) => {
-          originalRequest.headers["Authorization"] = "Bearer " + token;
+          originalRequest.headers.Authorization = "Bearer " + token;
           return this.axios(originalRequest);
         })
         .catch((err) => {
@@ -102,13 +100,12 @@ class AxiosClient {
     originalRequest._retry = true;
     this.isRefreshing = true;
     const info = await Storage.getItem(JSON.parse(PROFILE));
-
     // luu account vào localStorage rồi truyền vào đây
     return this.login(info)
       .then(async (data) => {
         await Storage.setItem(ACCESS_TOKEN, data.token);
         /** Add token in to headers.Authorization */
-        this.axios.defaults.headers.Authorization = "Bearer " + data.token;
+        originalRequest.headers.Authorization = "Bearer " + data.token;
         /** Resolve queue and try to send previous request with new token  */
         this.processQueue(null, data.token);
         return this.axios(originalRequest);
