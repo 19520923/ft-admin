@@ -49,6 +49,7 @@ import {
   FeedbackPage,
   ProfileUserPage
 } from "pages";
+import { SignInPage } from "pages";
 
 const routes = [
   /* 
@@ -222,13 +223,13 @@ const routes = [
 
   {
     type: "collapse",
-    name: "Profile",
+    name: "Logout",
     key: "profile-user",
     route: "/users/profile-user",
     icon: <LogoutIcon />,
-    component: <ProfileUserPage />,
+    component: <SignInPage />,
     noCollapse: true,
-    noShowDrawer: true,
+    noShowDrawer: false,
   },
   // {
   //   type: "collapse",

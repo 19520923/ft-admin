@@ -16,8 +16,8 @@ import Icon from "@mui/material/Icon";
 // Soft UI Dashboard React components
 import SoftBox from "components/SoftBox";
 import SoftAvatar from "components/SoftAvatar";
-import burceMars from "assets/images/bruce-mars.jpg";
-import SoftTypography from "components/SoftTypography";
+import AdminAvatar from "assets/images/admin_avatar.png";
+
 import SoftInput from "components/SoftInput";
 import DefaultNavbarLink from "examples/Navbars/DefaultNavbar/DefaultNavbarLink";
 
@@ -103,26 +103,21 @@ function DashboardNavbar({ absolute, light, isMini, action }) {
       sx={{ mt: 2 }}
     >
       <NotificationItem
-        image={<img src={team2} alt="person" />}
-        title={["New message", "from Laur"]}
+        image={<img src={"https://gravatar.com/avatar/5385f53f675de6564706b5a854dac963?d=identicon"} alt="person" />}
+        title={["Post", "bangdd has just created a new post"]}
         date="13 minutes ago"
         onClick={handleCloseMenu}
       />
       <NotificationItem
-        image={<img src={logoSpotify} alt="person" />}
-        title={["New album", "by Travis Scott"]}
+        image={<img src={"https://gravatar.com/avatar/91397657b490585923299532f62f7392?d=identicon"} alt="person" />}
+        title={["Feedback", "tann sent feedback"]}
         date="1 day"
         onClick={handleCloseMenu}
       />
-      <NotificationItem
-        color="secondary"
-        image={
-          <Icon fontSize="small" sx={{ color: ({ palette: { white } }) => white.main }}>
-            payment
-          </Icon>
-        }
-        title={["", "Payment successfully completed"]}
-        date="2 days"
+       <NotificationItem
+        image={<img src={"	https://gravatar.com/avatar/d95cfae4adb429be65f5840d7d712a04?d=identicon"} alt="person" />}
+        title={["Chat", "You have a message from duongdd"]}
+        date="1 day"
         onClick={handleCloseMenu}
       />
     </Menu>
@@ -192,7 +187,7 @@ function DashboardNavbar({ absolute, light, isMini, action }) {
                 onClick={handleConfiguratorOpen}
               >
                 <SoftAvatar
-                  src={burceMars}
+                  src={AdminAvatar}
                   alt="profile-image"
                   variant="rounded"
                   size="xs"
