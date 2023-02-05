@@ -8,7 +8,6 @@ import SoftBox from "components/SoftBox";
 // Soft UI Dashboard React examples
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import Footer from "examples/Footer";
 
 // Soft UI Dashboard React base styles
 import typography from "assets/theme/base/typography";
@@ -20,6 +19,10 @@ import API from "services/axiosClient";
 import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
 import { CChart } from "@coreui/react-chartjs";
 import { useEffect, useState } from "react";
+import { RootStore } from "store/RootStore";
+import { observer } from "mobx-react-lite";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function DashboardPage() {
   const { size } = typography;
@@ -42,6 +45,11 @@ function DashboardPage() {
     const data = await API.getDashboard(currentYear);
     setData((state) => ({ ...state, ...data }));
   };
+  const { isLoggedIn } = RootStore;
+
+  useEffect(() => {
+    toast.success("Login Successfully ! Welcomt to Foodtalk Admin 👋");
+  }, [isLoggedIn]);
 
   useEffect(() => {
     _fetchDashboard();
@@ -238,9 +246,21 @@ function DashboardPage() {
           </Grid>
         </Grid>
       </SoftBox>
-      <Footer />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop={true}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        limit={1}
+      />
     </DashboardLayout>
   );
 }
 
-export default DashboardPage;
+export default observer(DashboardPage);

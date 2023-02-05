@@ -223,13 +223,13 @@ const routes = [
 
   {
     type: "collapse",
-    name: "Logout",
+    name: "Profile",
     key: "profile-user",
     route: "/users/profile-user",
     icon: <LogoutIcon />,
-    component: <SignInPage />,
+    component: <ProfileUserPage />,
     noCollapse: true,
-    noShowDrawer: false,
+    noShowDrawer: true,
   },
   // {
   //   type: "collapse",

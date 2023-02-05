@@ -7,14 +7,18 @@ import SoftAvatar from "components/SoftAvatar";
 import IconButton from "@mui/material/IconButton";
 
 function PostComment({ commentDetail }) {
+    console.log(commentDetail);
     return (
         <SoftBox
+            borderRadius="lg"
             component="ul"
             display="flex"
             flexDirection="column"
             p={0}
             m={0}
+            mb={1}
             sx={{ listStyle: "none" }}
+            ml={commentDetail.parent !== null ? 10 : 0}
         >
             <SoftBox key={name} component="li" py={1} pr={2} mb={1}>
                 <SoftBox display="flex" justifyContent="space-between" alignItems="center">
@@ -36,7 +40,7 @@ function PostComment({ commentDetail }) {
                                 >
                                     {commentDetail ? commentDetail.author.name : ''}
                                 </SoftTypography>
-                                <SoftTypography ml={1} variant="caption" color="text">
+                                <SoftTypography ml={1} variant="caption" color="secondary">
                                     {commentDetail ? commentDetail.author.username : ''}
                                 </SoftTypography>
                             </SoftBox>
@@ -46,13 +50,16 @@ function PostComment({ commentDetail }) {
                     {commentDetail ? commentDetail.created_at.substring(11, 19) + ' - ' + commentDetail.created_at.substring(0, 10) : ''}
                 </SoftTypography>
             </SoftBox>
-                <SoftBox mt={1} lineHeight={0} pl={6} width={300}>
+                <SoftBox mt={0} pl={8} width={300}>
                     <SoftTypography variant="caption" color="text">
                     {commentDetail ? commentDetail.content : ''}
                     </SoftTypography>
                 </SoftBox>
             </SoftBox>
-            
+            <SoftBox
+            bgColor="grey-400"
+            p={0.05}
+            ></SoftBox>
         </SoftBox>
     );
 }
