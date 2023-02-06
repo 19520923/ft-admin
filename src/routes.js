@@ -49,6 +49,7 @@ import {
   FeedbackPage,
   ProfileUserPage
 } from "pages";
+import { SignInPage } from "pages";
 
 const routes = [
   /* 

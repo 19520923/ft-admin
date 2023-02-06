@@ -1,4 +1,4 @@
-import { flow, Instance, types } from "mobx-state-tree";
+import { flow, types, cast } from "mobx-state-tree";
 import { ProfileModel } from "./ProfileModel";
 import API from "../../services/axiosClient";
 
@@ -55,7 +55,13 @@ const FoodModel = types.model({
   unblockFood: flow(function* () {
     self.is_active = true
     yield API.activeFood(self._id)
-  })
+  }),
+  getRates: flow(function* () {
+    const {count, rows} =  yield API.getFoodRates(self._id, 1)
+    self.rates.rows = cast(rows)
+    self.rates.count = cast(count)
+    self.rates.currentPage = 1
+  }),
 }));
 
 export default FoodModel;

@@ -21,6 +21,8 @@ import {
   setTransparentSidenav,
   setFixedNavbar,
 } from "context";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Configurator() {
   const [controller, dispatch] = useSoftUIController();
@@ -44,6 +46,10 @@ function Configurator() {
     // Remove event listener on cleanup
     return () => window.removeEventListener("resize", handleDisabled);
   }, []);
+
+  const handleNotifyUser = () => {
+    toast.success("Sent Notification to Users !");
+  }
 
   const handleCloseConfigurator = () => setOpenConfigurator(dispatch, false);
   const handleTransparentSidenav = () => setTransparentSidenav(dispatch, true);
@@ -116,7 +122,7 @@ function Configurator() {
 
         <SoftBox mt={3} mb={2}>
           <SoftButton
-            onClick={() => {alert("Notification sent")}}
+            onClick={handleNotifyUser}
             target="_blank"
             rel="noreferrer"
             color="dark"
@@ -127,6 +133,19 @@ function Configurator() {
           </SoftButton>
         </SoftBox>
       </SoftBox>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={1000}
+        hideProgressBar
+        newestOnTop={true}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        limit={1}
+      />
     </ConfiguratorRoot>
   );
 }
