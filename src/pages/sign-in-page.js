@@ -23,8 +23,8 @@ function SignInPage() {
   const [isShowedPassword, setIsShowedPassword] = useState(false);
   const { setProfile, setIsLoggedIn } = RootStore;
   const [info, setInfo] = useState({
-    email: "",
-    password: "",
+    email: "nguyennhattan12201@gmail.com",
+    password: "123456789",
   });
 
   const handleShowPassword = () => {
