@@ -18,7 +18,7 @@ const FoodDetail = () => {
   const food = selectedFood.toJSON()
 
   return (
-    <SoftBox sx={{ height: "100%" }}>
+    <SoftBox sx={{ height: "500%" }}>
       <CoolTabs
         tabKey={"1"}
         style={{ width: "100%", height: "100%", background: "white" }}

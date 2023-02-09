@@ -68,7 +68,7 @@ const ProfileStore = types.model({
   posts: types.optional(PostStore, DEFAULT_LIST_STATE),
   following: types.optional(types.array(ProfileModel), []),
   follower: types.optional(types.array(ProfileModel), []),
-});
+})
 
 /* Creating a UserStore model with the following properties:
 rows: an array of ProfileModel
@@ -233,6 +233,14 @@ export const RootStore = types
     setProfile: (profile) => {
       self.profile = cast(profile);
     },
+    getPostById: (userId) => {
+      const postList = _.filter(self.posts.all.rows, (e) => {return e.author._id === userId})
+      return postList
+    },
+    getFoodById: (userId) => {
+      const foodList = _.filter(self.foods.all.rows, (e) => {return e.author._id === userId})
+      return foodList
+    }
   }))
   .create({
     profile: DEFAULT_STATE_PROFILE,

@@ -56,14 +56,15 @@ const FoodContent = ({ food }) => {
 
         <SoftBox pt={3} pb={2}>
           <SoftBox>
-            <SimpleImageSlider
+            <img src={food.photo} style={{ width: "100%", height: 350}} />
+            {/* <SimpleImageSlider
               width={"100%"}
               height={350}
               images={[food.photo]}
               showBullets={false}
               showNavs={false}
               navMargin={10}
-            />
+            /> */}
           </SoftBox>
           <SoftBox px={2}>
             <SoftBox display="flex">
